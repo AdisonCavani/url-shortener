@@ -1,3 +1,5 @@
+using UrlShortener.Services;
+
 namespace UrlShortener;
 
 public class Startup
@@ -12,6 +14,10 @@ public class Startup
     // Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddSingleton<WeatherService>();
+
+        services.AddMvc();
+
         services.AddControllers();
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -22,7 +28,6 @@ public class Startup
     // Use this method to configure the HTTP request pipeline.
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
-
         // Configure the HTTP request pipeline.
         if (env.IsDevelopment())
         {
