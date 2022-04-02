@@ -8,9 +8,11 @@ namespace UrlShortener.Controllers;
 [ApiController]
 public class WeatherForecastController : ControllerBase
 {
-    public WeatherForecastController()
-    {
+    private readonly ILogger<WeatherForecastController> _logger;
 
+    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    {
+        _logger = logger;
     }
 
     [HttpGet("weather")]
@@ -22,12 +24,23 @@ public class WeatherForecastController : ControllerBase
     [HttpPost("save")]
     public async Task<IActionResult> Set([FromServices] AppDbContext context, string name, string value)
     {
-        context.Settings.Add(new SettingsDataModel
+        try
         {
-            Name = name,
-            Value = value
-        });
+            context.Settings.Add(new SettingsDataModel
+            {
+                Name = name,
+                Value = value
+            });
 
-        return Ok(await context.SaveChangesAsync());
+            await context.SaveChangesAsync();
+
+            return Ok();
+        }
+
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, ex.Message);
+            return new StatusCodeResult(500);
+        }
     }
 }
