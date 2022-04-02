@@ -19,8 +19,8 @@ public class WeatherForecastController : ControllerBase
         return weatherService.GetWeatherForecast();
     }
 
-    [HttpPost("save/{name}/{value}")]
-    public async Task<ActionResult> Set([FromServices] AppDbContext context, string name, string value)
+    [HttpPost("save")]
+    public async Task<IActionResult> Set([FromServices] AppDbContext context, string name, string value)
     {
         context.Settings.Add(new SettingsDataModel
         {
