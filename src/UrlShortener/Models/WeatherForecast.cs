@@ -1,4 +1,4 @@
-namespace UrlShortener;
+﻿namespace UrlShortener.Models;
 
 public class WeatherForecast
 {
