@@ -31,7 +31,7 @@ public class Startup
     }
 
     // Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, AppDbContext context)
     {
         // Configure the HTTP request pipeline.
         if (env.IsDevelopment())
@@ -39,6 +39,8 @@ public class Startup
             app.UseSwagger();
             app.UseSwaggerUI();
         }
+
+        context.Database.Migrate();
 
         app.UseHttpsRedirection();
 

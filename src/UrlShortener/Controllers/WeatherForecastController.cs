@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using UrlShortener.Data;
 using UrlShortener.Models;
 using UrlShortener.Services;
 
@@ -13,8 +14,20 @@ public class WeatherForecastController : ControllerBase
     }
 
     [HttpGet("weather")]
-    public IEnumerable<WeatherForecast> Get([FromServices]WeatherService weatherService)
+    public IEnumerable<WeatherForecast> Get([FromServices] WeatherService weatherService)
     {
         return weatherService.GetWeatherForecast();
+    }
+
+    [HttpPost("save/{name}/{value}")]
+    public async Task<ActionResult> Set([FromServices] AppDbContext context, string name, string value)
+    {
+        context.Settings.Add(new SettingsDataModel
+        {
+            Name = name,
+            Value = value
+        });
+
+        return Ok(await context.SaveChangesAsync());
     }
 }
