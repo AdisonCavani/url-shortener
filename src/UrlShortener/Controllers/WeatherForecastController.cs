@@ -7,16 +7,14 @@ namespace UrlShortener.Controllers;
 [ApiController]
 public class WeatherForecastController : ControllerBase
 {
-    private readonly WeatherService _weatherService;
-
-    public WeatherForecastController(WeatherService weatherService)
+    public WeatherForecastController()
     {
-        _weatherService = weatherService;
+
     }
 
     [HttpGet("weather")]
-    public IEnumerable<WeatherForecast> Get()
+    public IEnumerable<WeatherForecast> Get([FromServices]WeatherService weatherService)
     {
-        return _weatherService.GetWeatherForecast();
+        return weatherService.GetWeatherForecast();
     }
 }
