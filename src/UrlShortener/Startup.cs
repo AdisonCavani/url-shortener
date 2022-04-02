@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using UrlShortener.Data;
 using UrlShortener.Services;
 
 namespace UrlShortener;
@@ -14,6 +16,9 @@ public class Startup
     // Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.AddDbContext<AppDbContext>(options =>
+            options.UseSqlServer(Configuration["ConnectionString"]));
+
         services.AddSingleton<WeatherService>();
 
         services.AddMvc();
