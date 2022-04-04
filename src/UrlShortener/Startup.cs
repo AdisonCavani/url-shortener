@@ -27,7 +27,10 @@ public class Startup
 
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddEndpointsApiExplorer();
-        services.AddSwaggerGen();
+        services.AddSwaggerGen(options =>
+        {
+            // TODO: configure swagger
+        });
     }
 
     // Use this method to configure the HTTP request pipeline.
