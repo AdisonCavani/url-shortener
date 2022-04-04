@@ -31,11 +31,13 @@ public static class SerilogExtensions
                     NumberOfReplicas = 1,
 
                     // Handling errors
+                    /*
                     FailureCallback = e => Log.Error("ES was unable to submit event " + e.MessageTemplate),
                     EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
                                        EmitEventFailureHandling.WriteToFailureSink |
                                        EmitEventFailureHandling.RaiseCallback,
                     FailureSink = new FileSink(Path.Combine(AppContext.BaseDirectory, "logs", "ESfailures.txt"), new JsonFormatter(), null)
+                    */
 
                 })
                 .Enrich.WithProperty("Environment", context.HostingEnvironment.EnvironmentName)
