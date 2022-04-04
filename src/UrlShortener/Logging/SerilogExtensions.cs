@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Serilog;
-using Serilog.Formatting.Json;
+﻿using Serilog;
 using Serilog.Sinks.Elasticsearch;
-using Serilog.Sinks.File;
 
 namespace UrlShortener;
 

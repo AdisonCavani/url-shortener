@@ -16,7 +16,7 @@ public class AppDbContext : DbContext
     /// Default constructor, expecting database options passed in
     /// </summary>
     /// <param name="options">The database context options</param>
-    public AppDbContext(DbContextOptions<AppDbContext> options): base(options)
+    public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
 
     }
