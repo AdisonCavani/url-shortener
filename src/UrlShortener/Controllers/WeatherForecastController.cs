@@ -34,7 +34,7 @@ public class WeatherForecastController : ControllerBase
 
             await context.SaveChangesAsync();
 
-            return Ok();
+            return new StatusCodeResult(201);
         }
 
         catch (Exception ex)
