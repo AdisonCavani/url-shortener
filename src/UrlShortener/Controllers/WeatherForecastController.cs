@@ -6,21 +6,17 @@ using UrlShortener.Services;
 namespace UrlShortener.Controllers;
 
 [ApiController]
+[Route("weather")]
 public class WeatherForecastController : ControllerBase
 {
-    public WeatherForecastController()
-    {
-
-    }
-
-    [HttpGet("weather")]
+    [HttpGet("get")]
     public IEnumerable<WeatherForecast> Get([FromServices] WeatherService weatherService)
     {
         return weatherService.GetWeatherForecast();
     }
 
     [HttpPost("save")]
-    public async Task<IActionResult> Set([FromServices] AppDbContext context, string name, string value)
+    public async Task<IActionResult> Save([FromServices] AppDbContext context, string name, string value)
     {
         context.Settings.Add(new SettingsDataModel
         {
