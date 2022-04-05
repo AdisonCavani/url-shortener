@@ -24,23 +24,14 @@ public class WeatherForecastController : ControllerBase
     [HttpPost("save")]
     public async Task<IActionResult> Set([FromServices] AppDbContext context, string name, string value)
     {
-        try
+        context.Settings.Add(new SettingsDataModel
         {
-            context.Settings.Add(new SettingsDataModel
-            {
-                Name = name,
-                Value = value
-            });
+            Name = name,
+            Value = value
+        });
 
-            await context.SaveChangesAsync();
+        await context.SaveChangesAsync();
 
-            return new StatusCodeResult(201);
-        }
-
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new StatusCodeResult(500);
-        }
+        return new StatusCodeResult(201);
     }
 }
