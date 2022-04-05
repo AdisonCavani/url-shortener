@@ -19,7 +19,7 @@ public class Startup
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration["ConnectionString"]));
 
-        services.AddSingleton<WeatherService>();
+        services.AddDependencyInjectionServices();
 
         services.AddMvc();
 
