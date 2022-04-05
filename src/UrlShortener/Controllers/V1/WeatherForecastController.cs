@@ -3,10 +3,11 @@ using UrlShortener.Data;
 using UrlShortener.Models;
 using UrlShortener.Services;
 
-namespace UrlShortener.Controllers;
+namespace UrlShortener.Controllers.V1;
 
 [ApiController]
-[Route("weather")]
+[ApiVersion("1")]
+[Route("api/v{version:apiVersion}/weather")]
 public class WeatherForecastController : ControllerBase
 {
     [HttpGet("get")]
