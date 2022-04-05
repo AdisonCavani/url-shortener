@@ -1,3 +1,5 @@
+using UrlShortener.Logging;
+
 namespace UrlShortener;
 
 public class Program
