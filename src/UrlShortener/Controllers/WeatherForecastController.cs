@@ -8,11 +8,9 @@ namespace UrlShortener.Controllers;
 [ApiController]
 public class WeatherForecastController : ControllerBase
 {
-    private readonly ILogger<WeatherForecastController> _logger;
-
-    public WeatherForecastController(ILogger<WeatherForecastController> logger)
+    public WeatherForecastController()
     {
-        _logger = logger;
+
     }
 
     [HttpGet("weather")]
