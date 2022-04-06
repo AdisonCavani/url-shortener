@@ -24,8 +24,6 @@ public class Startup
 
         services.AddDependencyInjectionServices();
 
-        services.AddMvc();
-
         services.AddControllers();
 
         services.AddApiVersioning(options =>
