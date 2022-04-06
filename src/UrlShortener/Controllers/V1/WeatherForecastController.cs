@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 using UrlShortener.Models;
 using UrlShortener.Services;
@@ -7,16 +8,15 @@ namespace UrlShortener.Controllers.V1;
 
 [ApiController]
 [ApiVersion("1")]
-[Route("api/v{version:apiVersion}/weather")]
 public class WeatherForecastController : ControllerBase
 {
-    [HttpGet("get")]
+    [HttpGet(ApiRoutes.Weather.Get)]
     public IEnumerable<WeatherForecast> Get([FromServices] WeatherService weatherService)
     {
         return weatherService.GetWeatherForecast();
     }
 
-    [HttpPost("save")]
+    [HttpPost(ApiRoutes.Weather.Save)]
     public async Task<IActionResult> Save([FromServices] AppDbContext context, string name, string value)
     {
         context.Settings.Add(new SettingsDataModel
