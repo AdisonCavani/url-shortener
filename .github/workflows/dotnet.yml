@@ -2,9 +2,15 @@ name: .NET
 
 on:
   push:
-    branches: [ master ]
+    paths:
+    - src/**.cs
+    - src/**.csproj
+    - src/**.json
   pull_request:
-    branches: [ master ]
+    paths:
+    - src/**.cs
+    - src/**.csproj
+    - src/**.json
 
 jobs:
   build:
