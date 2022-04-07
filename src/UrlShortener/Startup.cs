@@ -39,11 +39,7 @@ public class Startup
             setup.SubstituteApiVersionInUrl = true;
         });
 
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-        services.AddSwaggerGen(options =>
-        {
-            // TODO: configure swagger
-        });
+        services.AddSwagger();
 
         services.ConfigureOptions<ConfigureSwaggerOptions>();
     }
