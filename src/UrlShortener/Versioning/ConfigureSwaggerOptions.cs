@@ -34,7 +34,7 @@ public class ConfigureSwaggerOptions : IConfigureNamedOptions<SwaggerGenOptions>
     {
         var info = new OpenApiInfo()
         {
-            Title = "Heroes API",
+            Title = "UrlShortener API",
             Version = description.ApiVersion.ToString()
         };
 

@@ -1,7 +1,7 @@
 ﻿using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
 
-namespace UrlShortener.Services;
+namespace UrlShortener.Versioning;
 
 public static class SwaggerService
 {
