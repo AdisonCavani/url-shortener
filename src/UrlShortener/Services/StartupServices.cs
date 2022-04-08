@@ -1,4 +1,4 @@
-﻿using StackExchange.Redis;
+﻿using Microsoft.Extensions.Caching.Distributed;
 
 namespace UrlShortener.Services;
 
@@ -7,9 +7,13 @@ public static class StartupServices
     public static IServiceCollection AddDependencyInjectionServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<WeatherService>();
-        services.AddSingleton<IConnectionMultiplexer>(x =>
-            ConnectionMultiplexer.Connect(configuration.GetValue<string>("ConnectionStrings:RedisConnection")));
-        services.AddSingleton<ICacheService, RedisCacheService>();
+
+        // Redis cache
+        services.AddStackExchangeRedisCache(options =>
+        {
+            options.Configuration = configuration.GetValue<string>("ConnectionStrings:RedisConnection");
+        });
+        services.AddDistributedMemoryCache();
 
         return services;
     }

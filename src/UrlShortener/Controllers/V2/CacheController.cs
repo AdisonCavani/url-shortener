@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using UrlShortener.Contracts.V2;
-using UrlShortener.Models;
-using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V2;
 
@@ -9,24 +8,24 @@ namespace UrlShortener.Controllers.V2;
 [ApiVersion("2")]
 public class CacheController : ControllerBase
 {
-    private readonly ICacheService _cacheService;
+    private readonly IDistributedCache _cache;
 
-    public CacheController(ICacheService cacheService)
+    public CacheController(IDistributedCache cache)
     {
-        _cacheService = cacheService;
+        _cache = cache;
     }
 
     [HttpPost(ApiRoutes.Cache.SetCacheValue)]
     public async Task<IActionResult> SetCacheValue(string key, string value)
     {
-        await _cacheService.SetCacheValueAsync(key, value);
+        await _cache.SetValueAsync(key, value, unusedExpireTime: TimeSpan.FromMinutes(5));
         return Ok();
     }
 
     [HttpGet(ApiRoutes.Cache.GetCacheValue)]
     public async Task<IActionResult> GetCacheValue(string key)
     {
-        var value = await _cacheService.GetCacheValueAsync(key);
+        var value = await _cache.GetValueAsync<string>(key);
         return string.IsNullOrEmpty(value) ? NotFound() : Ok(value);
     }
 }
