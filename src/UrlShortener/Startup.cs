@@ -22,7 +22,7 @@ public class Startup
         services.AddDbContextPool<AppDbContext>(options =>
             options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 
-        services.AddDependencyInjectionServices();
+        services.AddDependencyInjectionServices(Configuration);
 
         services.AddControllers();
 
