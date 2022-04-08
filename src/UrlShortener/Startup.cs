@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Data;
 using UrlShortener.Services;
-using UrlShortener.Versioning;
+using UrlShortener.Swagger;
 
 namespace UrlShortener;
 
