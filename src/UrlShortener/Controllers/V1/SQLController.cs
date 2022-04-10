@@ -8,18 +8,18 @@ namespace UrlShortener.Controllers.V1;
 
 [ApiController]
 [ApiVersion("1")]
-public class SQLController : ControllerBase
+public class SqlController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly IDistributedCache _cache;
 
-    public SQLController(AppDbContext context, IDistributedCache cache)
+    public SqlController(AppDbContext context, IDistributedCache cache)
     {
         _context = context;
         _cache = cache;
     }
 
-    [HttpGet(ApiRoutes.SQL.Get)]
+    [HttpGet(ApiRoutes.Sql.Get)]
     public async Task<IActionResult> Get(string key)
     {
         var cacheHit = await _cache.GetValueAsync<string?>(key);
@@ -36,7 +36,7 @@ public class SQLController : ControllerBase
         return Ok(dbHit.Name);
     }
 
-    [HttpPost(ApiRoutes.SQL.Save)]
+    [HttpPost(ApiRoutes.Sql.Save)]
     [ProducesResponseType(201)]
     public async Task<IActionResult> Save(string key, string value)
     {

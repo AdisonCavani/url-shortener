@@ -16,10 +16,7 @@ public static class DistributedCacheExtensions
     {
         var jsonData = await cache.GetStringAsync(key);
 
-        if (jsonData is null)
-            return default;
-
-        return JsonSerializer.Deserialize<T>(jsonData);
+        return jsonData is null ? default : JsonSerializer.Deserialize<T>(jsonData);
     }
 
     /// <summary>
