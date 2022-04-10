@@ -419,6 +419,7 @@ FodyWeavers.xsd
 **/.idea/**/*.iml
 **/.idea/**/contentModel.xml
 **/.idea/**/modules.xml
+**/.idea
 
 Thumbs.db
 Desktop.ini
