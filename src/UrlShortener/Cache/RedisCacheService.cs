@@ -12,7 +12,7 @@ public static class DistributedCacheExtensions
     /// <param name="cache"></param>
     /// <param name="key"></param>
     /// <returns></returns>
-    public static async Task<T> GetValueAsync<T>(this IDistributedCache cache, string key)
+    public static async Task<T?> GetValueAsync<T>(this IDistributedCache cache, string key)
     {
         var jsonData = await cache.GetStringAsync(key);
 
