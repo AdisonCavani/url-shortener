@@ -1,9 +1,7 @@
 ﻿using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.Extensions.Caching.Distributed;
-using System.Net;
 using UrlShortener.Contracts.V2;
 using UrlShortener.Data;
 
@@ -35,11 +33,16 @@ public class UrlController : ControllerBase
         if (rawId.Length == 0)
             return NotFound();
 
+        var cacheHit = await _cache.GetValueAsync<string>(rawId[0].ToString());
+        if (!string.IsNullOrEmpty(cacheHit))
+            return Ok(cacheHit);
+
         var dbHit = await _context.Url.FirstOrDefaultAsync(a => a.Id == rawId[0]);
 
         if (dbHit is null)
             return NotFound();
 
+        await _cache.SetValueAsync(dbHit.Id.ToString(), dbHit.FullUrl);
         return Ok(dbHit.FullUrl);
     }
 
@@ -52,10 +55,10 @@ public class UrlController : ControllerBase
             FullUrl = url
         };
 
-        var test = await _context.AddAsync(obj);
+        var savedObj = await _context.AddAsync(obj);
         await _context.SaveChangesAsync();
 
-        var encodedId = _hashids.EncodeLong(test.Entity.Id);
+        var encodedId = _hashids.EncodeLong(savedObj.Entity.Id);
 
         return new ObjectResult(encodedId)
         {
