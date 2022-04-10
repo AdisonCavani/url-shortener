@@ -15,6 +15,15 @@ public static class ApiRoutes
         public const string GetCacheValue = Endpoint + "/get";
     }
 
+    public static class SQL
+    {
+        private const string Endpoint = Base + "sql";
+
+        public const string Get = Endpoint + "/get";
+
+        public const string Save = Endpoint + "/save";
+    }
+
     public static class Weather
     {
         private const string Endpoint = Base + "weather";
