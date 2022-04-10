@@ -51,7 +51,6 @@ public class SQLController : ControllerBase
 
         await _context.Settings.AddAsync(obj);
         await _context.SaveChangesAsync();
-        await _cache.SetValueAsync(key, value, absoluteExpireTime: TimeSpan.FromMinutes(5));
 
         return new StatusCodeResult(201);
     }
