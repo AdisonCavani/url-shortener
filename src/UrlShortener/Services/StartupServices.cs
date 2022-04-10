@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
-
-namespace UrlShortener.Services;
+﻿namespace UrlShortener.Services;
 
 public static class StartupServices
 {
