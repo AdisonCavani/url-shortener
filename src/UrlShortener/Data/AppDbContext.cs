@@ -8,6 +8,11 @@ namespace UrlShortener.Data;
 public class AppDbContext : DbContext
 {
     /// <summary>
+    /// 
+    /// </summary>
+    public DbSet<UrlDataModel> Url { get; set; }
+
+    /// <summary>
     /// The settings for the app
     /// </summary>
     public DbSet<SettingsDataModel> Settings { get; set; }
