@@ -22,12 +22,12 @@ public class SQLController : ControllerBase
     [HttpGet(ApiRoutes.SQL.Get)]
     public async Task<IActionResult> Get(string key)
     {
-        string? cacheHit = await _cache.GetValueAsync<string?>(key);
+        var cacheHit = await _cache.GetValueAsync<string?>(key);
 
         if (!string.IsNullOrEmpty(cacheHit))
             return Ok(cacheHit);
 
-        var dbHit = _context.Settings.FirstOrDefaultAsync(a => a.Name == key).Result;
+        var dbHit = await _context.Settings.FirstOrDefaultAsync(a => a.Name == key);
 
         if (dbHit is null)
             return NotFound();
