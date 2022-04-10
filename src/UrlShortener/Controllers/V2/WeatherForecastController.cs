@@ -31,7 +31,7 @@ public class WeatherForecastController : ControllerBase
     [ProducesResponseType(201)]
     public async Task<IActionResult> Save([FromServices] AppDbContext context, string name, string value)
     {
-        context.Settings.Add(new SettingsDataModel
+        await context.Settings.AddAsync(new SettingsDataModel
         {
             Name = name,
             Value = value
