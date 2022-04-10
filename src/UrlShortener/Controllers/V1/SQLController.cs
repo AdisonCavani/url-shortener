@@ -1,19 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using UrlShortener.Contracts.V2;
+using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 
-namespace UrlShortener.Controllers.V2;
+namespace UrlShortener.Controllers.V1;
 
 [ApiController]
-[ApiVersion("2")]
+[ApiVersion("1")]
 public class SQLController : ControllerBase
 {
     private readonly AppDbContext _context;
     private readonly IDistributedCache _cache;
 
-    public SQLController([FromServices] AppDbContext context, [FromServices] IDistributedCache cache)
+    public SQLController(AppDbContext context, IDistributedCache cache)
     {
         _context = context;
         _cache = cache;
