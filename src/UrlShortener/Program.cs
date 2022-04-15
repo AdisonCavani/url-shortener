@@ -1,4 +1,4 @@
-using UrlShortener.Logging;
+using UrlShortener.Extensions;
 
 namespace UrlShortener;
 

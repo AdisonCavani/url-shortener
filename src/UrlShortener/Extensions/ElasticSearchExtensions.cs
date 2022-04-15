@@ -1,7 +1,7 @@
 ﻿using Serilog;
 using Serilog.Sinks.Elasticsearch;
 
-namespace UrlShortener.Logging;
+namespace UrlShortener.Extensions;
 
 public static class ElasticSearchExtensions
 {

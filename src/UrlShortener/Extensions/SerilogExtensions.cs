@@ -1,6 +1,6 @@
 ﻿using Serilog;
 
-namespace UrlShortener.Logging;
+namespace UrlShortener.Extensions;
 
 public static class SerilogExtensions
 {

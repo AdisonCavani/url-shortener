@@ -1,6 +1,7 @@
 ﻿using HashidsNet;
+using UrlShortener.Services;
 
-namespace UrlShortener.Services;
+namespace UrlShortener.Extensions;
 
 public static class StartupServices
 {
