@@ -7,9 +7,9 @@ public class UrlDataModel
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public long Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
-    [MaxLength(256)]
+    [MaxLength(255)]
     public string FullUrl { get; set; }
 }
