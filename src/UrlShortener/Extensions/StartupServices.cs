@@ -9,12 +9,12 @@ public static class StartupServices
     {
         services.AddSingleton<WeatherService>();
 
-        services.AddSingleton<IHashids>(_ => new Hashids(configuration.GetValue<string>("Hashids:Salt"), configuration.GetValue<int>("Hashids:MinHashLenght")));
+        services.AddSingleton<IHashids>(_ => new Hashids(configuration["AppSettings:HashidsSalt"], 7));
 
         // Redis cache
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = configuration.GetValue<string>("ConnectionStrings:RedisConnection");
+            options.Configuration = configuration["AppSettings:RedisConnection"];
         });
         services.AddDistributedMemoryCache();
 

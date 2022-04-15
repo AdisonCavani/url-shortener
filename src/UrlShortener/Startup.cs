@@ -9,18 +9,20 @@ namespace UrlShortener;
 
 public class Startup
 {
+    public IConfiguration Configuration { get; }
+
     public Startup(IConfiguration configuration)
     {
         Configuration = configuration;
     }
 
-    public IConfiguration Configuration { get; }
-
     // Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
+        services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+
         services.AddDbContextPool<AppDbContext>(options =>
-            options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
+            options.UseSqlServer(Configuration["AppSettings:SqlConnection"]));
 
         services.AddDependencyInjectionServices(Configuration);
 
@@ -69,7 +71,6 @@ public class Startup
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
 
         app.UseAuthentication();
 

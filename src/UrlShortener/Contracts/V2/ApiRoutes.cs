@@ -6,6 +6,13 @@ public static class ApiRoutes
     private const string Version = "v{version:apiVersion}";
     private const string Base = Root + "/" + Version + "/";
 
+    public static class Config
+    {
+        private const string Endpoint = Base + "config";
+
+        public const string Get = Endpoint + "/get";
+    }
+
     public static class Url
     {
         private const string Endpoint = Base + "url";
