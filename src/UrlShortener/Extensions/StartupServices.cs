@@ -8,6 +8,7 @@ public static class StartupServices
     public static IServiceCollection AddDependencyInjectionServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddSingleton<WeatherService>();
+        services.AddScoped<IAccountService, AccountService>();
 
         services.AddSingleton<IHashids>(_ => new Hashids(configuration["AppSettings:HashidsSalt"], 7));
 
