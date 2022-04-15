@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using UrlShortener.Contracts.V2;
 using UrlShortener.Data;
+using UrlShortener.Entities;
 
 namespace UrlShortener.Controllers.V2;
 

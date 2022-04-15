@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using UrlShortener.Entities;
 
 namespace UrlShortener.Data;
 
@@ -7,15 +8,7 @@ namespace UrlShortener.Data;
 /// </summary>
 public class AppDbContext : DbContext
 {
-    /// <summary>
-    /// 
-    /// </summary>
     public DbSet<UrlDataModel> Url { get; set; }
-
-    /// <summary>
-    /// The settings for the app
-    /// </summary>
-    public DbSet<SettingsDataModel> Settings { get; set; }
 
     /// <summary>
     /// Default constructor, expecting database options passed in

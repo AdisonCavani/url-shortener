@@ -20,25 +20,4 @@ public class WeatherForecastController : ControllerBase
     {
         return weatherService.GetWeatherForecast();
     }
-
-    /// <summary>
-    /// Saves a new <see cref="SettingsDataModel"/> to SQL database
-    /// </summary>
-    /// <param name="name" example="Background">The settings name</param>
-    /// <param name="value" example="Red">The settings value</param>
-    /// <response code="201">Successfully saved</response>
-    [HttpPut(ApiRoutes.Weather.Save)]
-    [ProducesResponseType(201)]
-    public async Task<IActionResult> Save([FromServices] AppDbContext context, string name, string value)
-    {
-        await context.Settings.AddAsync(new SettingsDataModel
-        {
-            Name = name,
-            Value = value
-        });
-
-        await context.SaveChangesAsync();
-
-        return new StatusCodeResult(201);
-    }
 }
