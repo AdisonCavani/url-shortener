@@ -4,10 +4,14 @@ using UrlShortener.Entities;
 namespace UrlShortener.Data;
 
 /// <summary>
-/// Database representaion model for app
+/// Database representation model for app
 /// </summary>
 public class AppDbContext : DbContext
 {
+    public DbSet<User> Users { get; set; }
+    
+    public DbSet<Role> Roles { get; set; }
+
     public DbSet<UrlDataModel> Url { get; set; }
 
     /// <summary>
