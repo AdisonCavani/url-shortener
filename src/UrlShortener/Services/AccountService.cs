@@ -46,6 +46,7 @@ public class AccountService : IAccountService
         if (result == PasswordVerificationResult.Failed)
             return null;
 
+        // Add JWT claims
         var claims = new List<Claim>()
         {
             new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
@@ -53,18 +54,17 @@ public class AccountService : IAccountService
         };
 
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.Value.JwtKey));
-        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-        var expires = DateTime.Now.AddDays(_authSettings.Value.JwtExpireDays);
+        var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
         var token = new JwtSecurityToken(
             _authSettings.Value.JwtIssuer,
             _authSettings.Value.JwtIssuer,
             claims,
-            expires: expires,
-            signingCredentials: cred);
+            DateTime.UtcNow,
+            DateTime.Now.AddMinutes(_authSettings.Value.JwtExpireMinutes),
+            credentials);
 
-        var tokenHandler = new JwtSecurityTokenHandler();
-        return tokenHandler.WriteToken(token);
+        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
     public async Task RegisterUser(RegisterUserDto dto)
