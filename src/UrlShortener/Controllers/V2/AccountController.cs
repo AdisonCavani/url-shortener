@@ -10,16 +10,16 @@ namespace UrlShortener.Controllers.V2;
 public class AccountController : ControllerBase
 {
     private readonly IAccountService _accountService;
-    
+
     public AccountController(IAccountService accountService)
     {
         _accountService = accountService;
     }
-    
+
     [HttpPost(ApiRoutes.Account.Register)]
-    public IActionResult RegisterUser([FromBody] RegisterUserDto dto)
+    public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto dto)
     {
-        _accountService.RegisterUser(dto);
+        await _accountService.RegisterUser(dto);
         return Ok();
     }
 }
