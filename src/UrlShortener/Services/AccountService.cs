@@ -1,4 +1,10 @@
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 using UrlShortener.Data;
 using UrlShortener.Entities;
 using UrlShortener.Models;
@@ -7,6 +13,7 @@ namespace UrlShortener.Services;
 
 public interface IAccountService
 {
+    Task<string?> GenerateJwt(LoginDto dto);
     Task RegisterUser(RegisterUserDto dto);
 }
 
@@ -14,11 +21,50 @@ public class AccountService : IAccountService
 {
     private readonly AppDbContext _context;
     private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly IOptionsSnapshot<AuthSettings> _authSettings;
 
-    public AccountService(AppDbContext context, IPasswordHasher<User> passwordHasher)
+    public AccountService(AppDbContext context, IPasswordHasher<User> passwordHasher, IOptionsSnapshot<AuthSettings> authSettings)
     {
         _context = context;
+        _authSettings = authSettings;
         _passwordHasher = passwordHasher;
+    }
+
+    public async Task<string?> GenerateJwt(LoginDto dto)
+    {
+        // Try to find user
+        var user = await _context.Users
+            .Include(u => u.Role)
+            .FirstOrDefaultAsync(u => u.Email == dto.Email);
+
+        if (user is null)
+            return null;
+
+        // Verify password
+        var result = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, dto.Password);
+
+        if (result == PasswordVerificationResult.Failed)
+            return null;
+
+        var claims = new List<Claim>()
+        {
+            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+            new Claim(ClaimTypes.Role, user.Role.Name)
+        };
+
+        var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_authSettings.Value.JwtKey));
+        var cred = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+        var expires = DateTime.Now.AddDays(_authSettings.Value.JwtExpireDays);
+
+        var token = new JwtSecurityToken(
+            _authSettings.Value.JwtIssuer,
+            _authSettings.Value.JwtIssuer,
+            claims,
+            expires: expires,
+            signingCredentials: cred);
+
+        var tokenHandler = new JwtSecurityTokenHandler();
+        return tokenHandler.WriteToken(token);
     }
 
     public async Task RegisterUser(RegisterUserDto dto)

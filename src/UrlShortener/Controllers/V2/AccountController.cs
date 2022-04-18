@@ -22,4 +22,15 @@ public class AccountController : ControllerBase
         await _accountService.RegisterUser(dto);
         return Ok();
     }
+
+    [HttpPost(ApiRoutes.Account.Login)]
+    public async Task<IActionResult> Login([FromBody] LoginDto dto)
+    {
+        var token = await _accountService.GenerateJwt(dto);
+
+        if (token is null)
+            return BadRequest("Invalid username or password");
+
+        return Ok(token);
+    }
 }

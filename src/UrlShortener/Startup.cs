@@ -2,6 +2,8 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 using UrlShortener.Data;
 using UrlShortener.Extensions;
 using UrlShortener.Services;
@@ -21,11 +23,30 @@ public class Startup
     public void ConfigureServices(IServiceCollection services)
     {
         services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
+        services.Configure<AuthSettings>(Configuration.GetSection("AuthSettings"));
 
         services.AddDbContextPool<AppDbContext>(options =>
             options.UseSqlServer(Configuration["AppSettings:SqlConnection"]));
 
         services.AddDependencyInjectionServices(Configuration);
+
+        services.AddAuthentication(options =>
+        {
+            options.DefaultScheme = "Bearer";
+            options.DefaultChallengeScheme = "Bearer";
+            options.DefaultAuthenticateScheme = "Bearer";
+
+        }).AddJwtBearer(options =>
+        {
+            options.RequireHttpsMetadata = true;
+            options.SaveToken = true;
+            options.TokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidIssuer = Configuration["AuthSettings:JwtIssuer"],
+                ValidAudience = Configuration["AuthSettings:JwtIssuer"],
+                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:JwtKey"]))
+            };
+        });
 
         services.AddControllers().AddFluentValidation();
 

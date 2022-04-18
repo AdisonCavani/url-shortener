@@ -10,6 +10,8 @@ public static class ApiRoutes
     {
         private const string Endpoint = Base + "account";
 
+        public const string Login = Endpoint + "/login";
+
         public const string Register = Endpoint + "/register";
     }
 
