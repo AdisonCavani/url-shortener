@@ -1,8 +1,10 @@
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Data;
 using UrlShortener.Extensions;
+using UrlShortener.Services;
 
 namespace UrlShortener;
 
@@ -25,7 +27,7 @@ public class Startup
 
         services.AddDependencyInjectionServices(Configuration);
 
-        services.AddControllers();
+        services.AddControllers().AddFluentValidation();
 
         services.AddApiVersioning(options =>
         {
@@ -46,7 +48,7 @@ public class Startup
     }
 
     // Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context, AccountSeeder seeder)
     {
         // Configure the HTTP request pipeline.
         if (env.IsDevelopment())
@@ -62,6 +64,7 @@ public class Startup
         }
 
         context.Database.Migrate();
+        seeder.Seed(); // Order is important!
 
         // Client side
         app.UseHsts();
