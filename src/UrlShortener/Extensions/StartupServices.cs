@@ -12,7 +12,6 @@ public static class StartupServices
 {
     public static IServiceCollection AddDependencyInjectionServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<WeatherService>();
         services.AddScoped<AccountSeeder>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
