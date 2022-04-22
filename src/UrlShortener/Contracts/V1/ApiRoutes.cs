@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Contracts.V2;
+﻿namespace UrlShortener.Contracts.V1;
 
 public static class ApiRoutes
 {
