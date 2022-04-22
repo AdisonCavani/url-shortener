@@ -38,10 +38,15 @@ public class Startup
 
         }).AddJwtBearer(options =>
         {
-            options.RequireHttpsMetadata = true;
             options.SaveToken = true;
+            options.RequireHttpsMetadata = true;
             options.TokenValidationParameters = new TokenValidationParameters()
             {
+                ValidateLifetime = true,
+                ValidateAudience = true,
+                ValidateIssuer = true,
+                ValidateIssuerSigningKey = true,
+                ClockSkew = TimeSpan.Zero, // FIX: might cause issues, if auth is out of sync
                 ValidIssuer = Configuration["AuthSettings:JwtIssuer"],
                 ValidAudience = Configuration["AuthSettings:JwtIssuer"],
                 IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:JwtKey"]))
