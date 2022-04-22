@@ -10,7 +10,7 @@ using UrlShortener.Services;
 namespace UrlShortener.Controllers.V1;
 
 [ApiController]
-[ApiVersion("2")]
+[ApiVersion("1")]
 public class AccountController : ControllerBase
 {
     private readonly AppDbContext _context;
