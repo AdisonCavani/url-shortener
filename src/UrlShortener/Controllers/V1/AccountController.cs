@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using UrlShortener.Contracts.V2;
+using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 using UrlShortener.Entities;
 using UrlShortener.Models;
 using UrlShortener.Services;
 
-namespace UrlShortener.Controllers.V2;
+namespace UrlShortener.Controllers.V1;
 
 [ApiController]
 [ApiVersion("2")]

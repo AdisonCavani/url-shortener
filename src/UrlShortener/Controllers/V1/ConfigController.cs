@@ -1,16 +1,16 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
-using UrlShortener.Contracts.V2;
+using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 
-namespace UrlShortener.Controllers.V2;
+namespace UrlShortener.Controllers.V1;
 
+[Authorize]
 [ApiController]
-[ApiVersion("2")]
+[ApiVersion("1")]
 public class ConfigController : ControllerBase
 {
-    [Authorize]
     [HttpPost(ApiRoutes.Config.Get)]
     public IActionResult Config([FromServices] IOptionsSnapshot<AppSettings> optionsSnapshot)
     {
