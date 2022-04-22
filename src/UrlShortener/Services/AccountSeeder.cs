@@ -24,7 +24,7 @@ public class AccountSeeder
         }
     }
 
-    private IEnumerable<Role> GetAccountRoles()
+    private static IEnumerable<Role> GetAccountRoles()
     {
         var roles = new List<Role>()
         {
