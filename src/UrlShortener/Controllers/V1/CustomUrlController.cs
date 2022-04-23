@@ -46,20 +46,24 @@ public class CustomUrlController : ControllerBase
 
     [HttpPost(ApiRoutes.CustomUrl.Save)]
     [ProducesResponseType(201)]
-    public async Task<IActionResult> Save(string fullUrl, string customUrl)
+    public async Task<IActionResult> Save(string fullUrl, string shortUrl)
     {
-        if (string.IsNullOrWhiteSpace(fullUrl) || string.IsNullOrWhiteSpace(customUrl))
+        if (string.IsNullOrWhiteSpace(fullUrl) || string.IsNullOrWhiteSpace(shortUrl))
             return BadRequest();
 
         var uid = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!int.TryParse(uid, out var id))
+        if (!int.TryParse(uid, out var userId))
             return Unauthorized();
+
+        var existInDb = await _context.CustomUrl.AnyAsync(e => e.ShortUrl == shortUrl);
+        if (existInDb)
+            return Conflict();
 
         var obj = new CustomUrl()
         {
+            ShortUrl = shortUrl,
             FullUrl = fullUrl,
-            ShortUrl = customUrl,
-            UserId = id
+            UserId = userId
         };
 
         await _context.AddAsync(obj);
