@@ -24,6 +24,8 @@ public class CustomUrlController : ControllerBase
         _cache = cache;
     }
 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(404)]
     [HttpGet(ApiRoutes.CustomUrl.Get)]
     public async Task<IActionResult> Get(string shortUrl)
     {
@@ -43,8 +45,9 @@ public class CustomUrlController : ControllerBase
         return Ok(dbHit.FullUrl);
     }
 
-    [HttpPost(ApiRoutes.CustomUrl.Save)]
     [ProducesResponseType(201)]
+    [ProducesResponseType(409)]
+    [HttpPost(ApiRoutes.CustomUrl.Save)]
     public async Task<IActionResult> Save(string fullUrl, string shortUrl)
     {
         if (string.IsNullOrWhiteSpace(fullUrl) || string.IsNullOrWhiteSpace(shortUrl))

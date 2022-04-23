@@ -24,6 +24,8 @@ public class AccountController : ControllerBase
         _passwordHasher = passwordHasher;
     }
 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
     [HttpPost(ApiRoutes.Account.Login)]
     public async Task<IActionResult> Login([FromBody] LoginDto dto)
     {
@@ -46,6 +48,8 @@ public class AccountController : ControllerBase
         return Ok(token);
     }
 
+    [ProducesResponseType(201)]
+    [ProducesResponseType(400)]
     [HttpPost(ApiRoutes.Account.Register)]
     public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto dto)
     {

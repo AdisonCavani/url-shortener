@@ -24,6 +24,9 @@ public class UrlController : ControllerBase
         _hashids = hashids;
     }
 
+    [ProducesResponseType(200)]
+    [ProducesResponseType(400)]
+    [ProducesResponseType(404)]
     [HttpGet(ApiRoutes.Url.Get)]
     public async Task<IActionResult> Get(string shortUrl)
     {
@@ -48,8 +51,8 @@ public class UrlController : ControllerBase
         return Ok(dbHit.FullUrl);
     }
 
-    [HttpPost(ApiRoutes.Url.Save)]
     [ProducesResponseType(201)]
+    [HttpPost(ApiRoutes.Url.Save)]
     public async Task<IActionResult> Save(string url)
     {
         var obj = new Url()
