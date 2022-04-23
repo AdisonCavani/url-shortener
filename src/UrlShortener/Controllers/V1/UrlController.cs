@@ -5,6 +5,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 using UrlShortener.Entities;
+using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;
 
@@ -51,7 +52,7 @@ public class UrlController : ControllerBase
     [ProducesResponseType(201)]
     public async Task<IActionResult> Save(string url)
     {
-        var obj = new UrlDataModel()
+        var obj = new Url()
         {
             FullUrl = url
         };

@@ -2,7 +2,7 @@
 using HashidsNet;
 using Microsoft.AspNetCore.Identity;
 using UrlShortener.Entities;
-using UrlShortener.Models;
+using UrlShortener.Models.Requests;
 using UrlShortener.Models.Validators;
 using UrlShortener.Services;
 

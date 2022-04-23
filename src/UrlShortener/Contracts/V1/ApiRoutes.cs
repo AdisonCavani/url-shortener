@@ -22,6 +22,15 @@ public static class ApiRoutes
         public const string Get = Endpoint + "/get";
     }
 
+    public static class CustomUrl
+    {
+        private const string Endpoint = Base + "customurl";
+
+        public const string Get = Endpoint + "/get/{shortUrl}";
+
+        public const string Save = Endpoint + "/save";
+    }
+
     public static class Url
     {
         private const string Endpoint = Base + "url";

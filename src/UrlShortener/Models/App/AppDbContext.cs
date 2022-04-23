@@ -12,7 +12,10 @@ public class AppDbContext : DbContext
 
     public DbSet<Role> Roles { get; set; }
 
-    public DbSet<UrlDataModel> Url { get; set; }
+    public DbSet<Url> Url { get; set; }
+
+    public DbSet<CustomUrl> CustomUrl { get; set; }
+
 
     /// <summary>
     /// Default constructor, expecting database options passed in

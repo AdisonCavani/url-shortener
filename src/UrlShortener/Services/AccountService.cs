@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using UrlShortener.Data;
 using UrlShortener.Entities;
-using UrlShortener.Models;
+using UrlShortener.Models.Requests;
 
 namespace UrlShortener.Services;
 

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Entities;
 
-public class UrlDataModel
+public class Url
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

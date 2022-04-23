@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using UrlShortener.Contracts.V1;
 using UrlShortener.Data;
 using UrlShortener.Entities;
-using UrlShortener.Models;
+using UrlShortener.Models.Requests;
 using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;

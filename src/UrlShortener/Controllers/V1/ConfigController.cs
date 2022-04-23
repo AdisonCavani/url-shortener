@@ -11,11 +11,15 @@ namespace UrlShortener.Controllers.V1;
 [ApiVersion("1")]
 public class ConfigController : ControllerBase
 {
+    [ProducesResponseType(200)]
     [HttpPost(ApiRoutes.Config.Get)]
-    public IActionResult Config([FromServices] IOptionsSnapshot<AppSettings> optionsSnapshot)
+    public IActionResult Config(
+        [FromServices] IOptionsSnapshot<AuthSettings> authOptionsSnapshot,
+        [FromServices] IOptionsSnapshot<AppSettings> optionsSnapshot)
     {
         return Ok(new
         {
+            auth = authOptionsSnapshot.Value,
             config = optionsSnapshot.Value
         });
     }

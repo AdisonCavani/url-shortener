@@ -1,4 +1,4 @@
-namespace UrlShortener.Models;
+namespace UrlShortener.Models.Requests;
 
 public class RegisterUserDto
 {

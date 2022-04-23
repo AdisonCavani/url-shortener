@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Caching.Distributed;
 using System.Text.Json;
 
-namespace UrlShortener;
+namespace UrlShortener.Services;
 
 public static class DistributedCacheExtensions
 {

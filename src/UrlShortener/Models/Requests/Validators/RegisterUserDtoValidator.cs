@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using UrlShortener.Data;
+using UrlShortener.Models.Requests;
 
 namespace UrlShortener.Models.Validators;
 
