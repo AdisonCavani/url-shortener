@@ -51,7 +51,7 @@ public class AccountController : ControllerBase
     [ProducesResponseType(201)]
     [ProducesResponseType(400)]
     [HttpPost(ApiRoutes.Account.Register)]
-    public async Task<IActionResult> RegisterUser([FromBody] RegisterUserDto dto)
+    public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
     {
         var newUser = new User()
         {
@@ -65,6 +65,6 @@ public class AccountController : ControllerBase
         await _context.Users.AddAsync(newUser);
         await _context.SaveChangesAsync();
 
-        return Ok();
+        return StatusCode(201);
     }
 }
