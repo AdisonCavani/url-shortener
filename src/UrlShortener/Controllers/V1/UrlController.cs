@@ -55,19 +55,21 @@ public class UrlController : ControllerBase
     [HttpPost(ApiRoutes.Url.Save)]
     public async Task<IActionResult> Save(string url)
     {
-        var obj = new Url()
+        Url obj = new()
         {
             FullUrl = url
         };
 
-        var savedObj = await _context.AddAsync(obj);
-        await _context.SaveChangesAsync();
+        await _context.Url.AddAsync(obj);
+        var saved = await _context.SaveChangesAsync();
 
-        var encodedId = _hashids.EncodeLong(savedObj.Entity.Id);
+        var encodedId = _hashids.EncodeLong(obj.Id);
 
-        return new ObjectResult(encodedId)
+        var createdObj = new ObjectResult(encodedId)
         {
             StatusCode = StatusCodes.Status201Created
         };
+
+        return saved > 0 ? createdObj : StatusCode(500);
     }
 }

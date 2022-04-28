@@ -63,8 +63,8 @@ public class AccountController : ControllerBase
         newUser.PasswordHash = hashedPassword;
 
         await _context.Users.AddAsync(newUser);
-        await _context.SaveChangesAsync();
+        var saved = await _context.SaveChangesAsync();
 
-        return StatusCode(201);
+        return saved > 0 ? StatusCode(201) : StatusCode(500);
     }
 }
