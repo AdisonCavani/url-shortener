@@ -12,7 +12,7 @@ using UrlShortener.Data;
 using UrlShortener.Entities;
 using Xunit;
 
-namespace UrlShortener.Moq;
+namespace UrlShortener.UnitTests;
 
 public class UrlControllerTests
 {

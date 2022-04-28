@@ -14,7 +14,7 @@ using UrlShortener.Models.Requests;
 using UrlShortener.Services;
 using Xunit;
 
-namespace UrlShortener.Moq;
+namespace UrlShortener.UnitTests;
 
 public class AccountControllerTests
 {
