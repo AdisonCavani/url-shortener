@@ -25,4 +25,8 @@
     <ProjectReference Include="..\UrlShortener\UrlShortener.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="stryker-config.json" />
+  </ItemGroup>
+
 </Project>
