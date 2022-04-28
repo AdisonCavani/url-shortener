@@ -48,7 +48,7 @@ jobs:
 
     - name: Stryker
       working-directory: src/UrlShortener.UnitTests
-      run: dotnet stryker
+      run: dotnet stryker -r "progress" -r "cleartext" -r "html"
 
     - uses: actions/upload-artifact@v3
       with:
