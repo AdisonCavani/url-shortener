@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./src/UrlShortener
+        working-directory: src
 
     steps:
     - uses: actions/checkout@v3
@@ -25,6 +25,7 @@ jobs:
       uses: actions/setup-dotnet@v2
       with:
         dotnet-version: 6.0.x
+
     - name: Cache dependencies
       uses: actions/cache@v3
       with:
@@ -32,9 +33,24 @@ jobs:
         key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
         restore-keys: |
           ${{ runner.os }}-nuget-
+
     - name: Restore dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --no-restore
+
     - name: Test
       run: dotnet test --no-build --verbosity normal
+
+    - name: Restore dependencies
+      run: dotnet tool restore
+
+    - name: Stryker
+      working-directory: src/UrlShortener.UnitTests
+      run: dotnet stryker
+
+    - uses: actions/upload-artifact@v3
+      with:
+        name: Stryker result
+        path: src/UrlShortener.UnitTests/StrykerOutput/**/reports/mutation-report.html

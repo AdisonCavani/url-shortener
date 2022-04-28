@@ -1,0 +1,8 @@
+{
+    "stryker-config":
+    {
+        "mutation-level": "Complete",
+        "reporters": ["progress", "cleartext", "html"],
+        "mutate": ["Controllers/**/*.cs"]
+    }
+}

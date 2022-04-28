@@ -6,6 +6,7 @@ using MockQueryable.Moq;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using UrlShortener.Controllers.V1;
 using UrlShortener.Data;
 using UrlShortener.Entities;
@@ -43,6 +44,27 @@ public class AccountControllerTests
     }
 
     [Theory]
+    [InlineData("test@email.com", "")]
+    public async void Register_WhenCorrectCredentials_ReturnsOk(string email, string password)
+    {
+        // Arrange
+        _context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(1); // Object not save
+
+        RegisterUserDto dto = new()
+        {
+            Email = email,
+            Password = password
+        };
+
+        // Act
+        var result = await _accountController.Register(dto);
+
+        // Assert
+        Assert.Equal(201, (result as StatusCodeResult)?.StatusCode);
+    }
+
+    [Theory]
     [InlineData("test@email.com", "password")]
     public async void Login_WhenCorrectCredentials_ReturnsOk(string email, string password)
     {
@@ -76,6 +98,9 @@ public class AccountControllerTests
 
         // Assert
         Assert.IsType<BadRequestObjectResult>(result);
+
+        var resultObj = result as BadRequestObjectResult;
+        Assert.Equal("Invalid email or password", resultObj?.Value);
     }
 
     [Theory]
@@ -94,6 +119,9 @@ public class AccountControllerTests
 
         // Assert
         Assert.IsType<BadRequestObjectResult>(result);
+
+        var resultObj = result as BadRequestObjectResult;
+        Assert.Equal("Invalid email or password", resultObj?.Value);
     }
 
     [Theory]
