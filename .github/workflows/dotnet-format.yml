@@ -26,7 +26,7 @@ jobs:
           dotnet-version: 6.0.x
       
       - name: Install dotnet-format tool
-        run: dotnet tool install -g dotnet-format
+        run: dotnet tool install dotnet-format
 
       - name: Run dotnet format
         run: dotnet format -v diag --severity error
