@@ -1,4 +1,3 @@
-using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
@@ -6,7 +5,6 @@ using MockQueryable.Moq;
 using Moq;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
 using UrlShortener.Controllers.V1;
 using UrlShortener.Data;
 using UrlShortener.Entities;
