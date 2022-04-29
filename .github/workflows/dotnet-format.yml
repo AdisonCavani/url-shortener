@@ -25,4 +25,4 @@ jobs:
         run: dotnet tool install dotnet-format
 
       - name: Run dotnet format
-        run: dotnet format -v diag --verify-no-changes
+        run: dotnet format -v diag --verify-no-changes --severity error
