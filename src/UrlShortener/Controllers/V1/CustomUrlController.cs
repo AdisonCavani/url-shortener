@@ -33,7 +33,7 @@ public class CustomUrlController : ControllerBase
             return BadRequest();
 
         var cacheHit = await _cache.GetValueAsync<string>(shortUrl);
-        if (!string.IsNullOrEmpty(cacheHit))
+        if (!string.IsNullOrWhiteSpace(cacheHit))
             return Ok(cacheHit);
 
         var dbHit = await _context.CustomUrls.FirstOrDefaultAsync(a => a.ShortUrl == shortUrl);

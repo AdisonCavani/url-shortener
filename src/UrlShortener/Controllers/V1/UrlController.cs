@@ -39,7 +39,7 @@ public class UrlController : ControllerBase
             return NotFound();
 
         var cacheHit = await _cache.GetValueAsync<string>(rawId[0].ToString());
-        if (!string.IsNullOrEmpty(cacheHit))
+        if (!string.IsNullOrWhiteSpace(cacheHit))
             return Ok(cacheHit);
 
         var dbHit = await _context.Urls.FirstOrDefaultAsync(a => a.Id == rawId[0]);
