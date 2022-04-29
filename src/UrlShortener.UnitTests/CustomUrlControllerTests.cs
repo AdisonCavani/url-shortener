@@ -29,23 +29,12 @@ public class CustomUrlControllerTests
         var mockSet = GetUrls().AsQueryable().BuildMockDbSet();
         _context.Setup(m => m.CustomUrls).Returns(mockSet.Object);
     }
-    
-    [Theory]
-    [InlineData(null)]
-    public async void Get_WhenUrlIsNull_ReturnsNotFound(string shortUrl)
-    {
-        // Arrange
 
-        // Act
-        var result = await _controller.Get(shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
     [Theory]
     [InlineData("")]
-    public async void Get_WhenUrlIsEmpty_ReturnsNotFound(string shortUrl)
+    [InlineData("   ")]
+    [InlineData(null)]
+    public async void Get_WhenUrlIsEmptyNullOrWhitespace_ReturnsNotFound(string shortUrl)
     {
         // Arrange
 
@@ -55,7 +44,7 @@ public class CustomUrlControllerTests
         // Assert
         Assert.IsType<BadRequestResult>(result);
     }
-    
+
     [Theory]
     [InlineData("wrongUrl")]
     public async void Get_WhenWrongUrl_ReturnsNotFound(string shortUrl)
@@ -70,8 +59,12 @@ public class CustomUrlControllerTests
     }
 
     [Theory]
-    [InlineData("shortUrl")]
-    public async void Get_WhenCorrectUrl_ReturnsOkObjectResult(string shortUrl)
+    [InlineData("shortUrl1", "https://fullUrl1.com")]
+    [InlineData("shortUrl2", "https://fullUrl2.com")]
+    [InlineData("shortUrl3", "https://fullUrl3.com")]
+    [InlineData("shortUrl4", "https://fullUrl4.com")]
+    [InlineData("shortUrl5", "https://fullUrl5.com")]
+    public async void Get_WhenCorrectUrl_ReturnsOkObjectResult(string shortUrl, string expectedUrl)
     {
         // Arrange
 
@@ -82,124 +75,7 @@ public class CustomUrlControllerTests
         Assert.IsType<OkObjectResult>(result);
 
         var resultObj = result as OkObjectResult;
-        Assert.Equal("https://fullUrl.com", resultObj?.Value);
-    }
-    
-    [Theory]
-    [InlineData(null, "shortUrl")]
-    public async void Save_WhenFullUrlIsNull_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("fullUrl", null)]
-    public async void Save_WhenShortUrlIsNull_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData(null, null)]
-    public async void Save_WhenBothUrlAreNull_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("", "shortUrl")]
-    public async void Save_WhenFullUrlIsEmpty_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("fullUrl", "")]
-    public async void Save_WhenShortUrlIsEmpty_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("", "")]
-    public async void Save_WhenBothUrlAreEmpty_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("   ", "shortUrl")]
-    public async void Save_WhenFullUrlIsWhitespace_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("fullUrl", "   ")]
-    public async void Save_WhenShortUrlIsWhitespace_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
-    }
-    
-    [Theory]
-    [InlineData("   ", "   ")]
-    public async void Save_WhenBothUrlsAreWhitespace_ReturnsBadRequest(string fullUrl, string shortUrl)
-    {
-        // Arrange
-
-        // Act
-        var result = await _controller.Save(fullUrl, shortUrl);
-
-        // Assert
-        Assert.IsType<BadRequestResult>(result);
+        Assert.Equal(expectedUrl, resultObj?.Value);
     }
 
     private static List<CustomUrl> GetUrls()
@@ -208,8 +84,28 @@ public class CustomUrlControllerTests
         {
             new()
             {
-                ShortUrl = "shortUrl",
-                FullUrl = "https://fullUrl.com"
+                ShortUrl = "shortUrl1",
+                FullUrl = "https://fullUrl1.com"
+            },
+            new()
+            {
+                ShortUrl = "shortUrl2",
+                FullUrl = "https://fullUrl2.com"
+            },
+            new()
+            {
+                ShortUrl = "shortUrl3",
+                FullUrl = "https://fullUrl3.com"
+            },
+            new()
+            {
+                ShortUrl = "shortUrl4",
+                FullUrl = "https://fullUrl4.com"
+            },
+            new()
+            {
+                ShortUrl = "shortUrl5",
+                FullUrl = "https://fullUrl5.com"
             }
         };
 
