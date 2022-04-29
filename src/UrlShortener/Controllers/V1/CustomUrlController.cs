@@ -69,8 +69,8 @@ public class CustomUrlController : ControllerBase
         };
 
         await _context.AddAsync(obj);
-        await _context.SaveChangesAsync();
+        var saved = await _context.SaveChangesAsync();
 
-        return new StatusCodeResult(201);
+        return saved > 0 ? new StatusCodeResult(201) : StatusCode(500);
     }
 }
