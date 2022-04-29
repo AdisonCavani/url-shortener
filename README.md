@@ -3,3 +3,7 @@
 [![CodeQL](https://github.com/AdisonCavani/url-shortener/actions/workflows/codeql-analysis.yml/badge.svg)](https://github.com/AdisonCavani/url-shortener/actions/workflows/codeql-analysis.yml)
 
 url-shortener
+
+```
+dotnet tool restore
+```
