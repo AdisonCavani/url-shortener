@@ -15,7 +15,7 @@ namespace UrlShortener.UnitTests;
 public class CustomUrlControllerTests
 {
     // Dependencies
-    private readonly Mock<AppDbContext> _context = new(new DbContextOptionsBuilder<AppDbContext>().Options);
+        private readonly Mock<AppDbContext> _context = new(new DbContextOptionsBuilder<AppDbContext>().Options);
     private readonly Mock<IDistributedCache> _cache = new();
 
     // Controller
