@@ -4,8 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Security.Claims;
 using UrlShortener.Contracts.V1;
-using UrlShortener.Data;
-using UrlShortener.Entities;
+using UrlShortener.Models.App;
+using UrlShortener.Models.Entities;
 using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;

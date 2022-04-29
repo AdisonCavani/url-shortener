@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Contracts.V1;
-using UrlShortener.Data;
-using UrlShortener.Entities;
+using UrlShortener.Models.App;
+using UrlShortener.Models.Entities;
 using UrlShortener.Models.Requests;
 using UrlShortener.Services;
 

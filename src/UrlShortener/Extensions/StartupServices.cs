@@ -1,9 +1,9 @@
 ﻿using FluentValidation;
 using HashidsNet;
 using Microsoft.AspNetCore.Identity;
-using UrlShortener.Entities;
+using UrlShortener.Models.Entities;
 using UrlShortener.Models.Requests;
-using UrlShortener.Models.Validators;
+using UrlShortener.Models.Requests.Validators;
 using UrlShortener.Services;
 
 namespace UrlShortener.Extensions;

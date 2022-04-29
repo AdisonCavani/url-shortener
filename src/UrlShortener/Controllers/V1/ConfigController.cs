@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using UrlShortener.Contracts.V1;
-using UrlShortener.Data;
+using UrlShortener.Models.App;
 
 namespace UrlShortener.Controllers.V1;
 

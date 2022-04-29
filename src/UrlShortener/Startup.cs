@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using UrlShortener.Data;
 using UrlShortener.Extensions;
+using UrlShortener.Models.App;
 using UrlShortener.Services;
 
 namespace UrlShortener;

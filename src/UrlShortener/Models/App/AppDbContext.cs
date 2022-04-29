@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UrlShortener.Entities;
+using UrlShortener.Models.Entities;
 
-namespace UrlShortener.Data;
+namespace UrlShortener.Models.App;
 
 /// <summary>
 /// Database representation model for app

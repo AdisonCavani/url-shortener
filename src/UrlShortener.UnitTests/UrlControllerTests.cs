@@ -8,8 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using UrlShortener.Controllers.V1;
-using UrlShortener.Data;
-using UrlShortener.Entities;
+using UrlShortener.Models.App;
+using UrlShortener.Models.Entities;
 using Xunit;
 
 namespace UrlShortener.UnitTests;

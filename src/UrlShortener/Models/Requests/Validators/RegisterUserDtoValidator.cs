@@ -1,8 +1,7 @@
 ﻿using FluentValidation;
-using UrlShortener.Data;
-using UrlShortener.Models.Requests;
+using UrlShortener.Models.App;
 
-namespace UrlShortener.Models.Validators;
+namespace UrlShortener.Models.Requests.Validators;
 
 public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
 {

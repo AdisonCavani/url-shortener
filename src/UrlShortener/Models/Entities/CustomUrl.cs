@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UrlShortener.Entities;
+namespace UrlShortener.Models.Entities;
 
 public class CustomUrl
 {

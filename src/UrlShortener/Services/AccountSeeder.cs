@@ -1,5 +1,5 @@
-﻿using UrlShortener.Data;
-using UrlShortener.Entities;
+﻿using UrlShortener.Models.App;
+using UrlShortener.Models.Entities;
 
 namespace UrlShortener.Services;
 

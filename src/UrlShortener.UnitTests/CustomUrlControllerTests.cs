@@ -6,8 +6,8 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using UrlShortener.Controllers.V1;
-using UrlShortener.Data;
-using UrlShortener.Entities;
+using UrlShortener.Models.App;
+using UrlShortener.Models.Entities;
 using Xunit;
 
 namespace UrlShortener.UnitTests;
