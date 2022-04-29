@@ -17,6 +17,8 @@ on:
     - src/**.cs
     - src/**.csproj
     - src/**.json
+    branches:
+    - master
   pull_request:
     paths:
     - src/**.cs
