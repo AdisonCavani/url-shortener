@@ -24,7 +24,7 @@ public class AccountSeeder
 
     private static IEnumerable<Role> GetAccountRoles()
     {
-        List<Role> roles = new ()
+        List<Role> roles = new()
         {
             new()
             {
