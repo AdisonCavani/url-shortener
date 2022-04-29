@@ -36,7 +36,7 @@ public class CustomUrlController : ControllerBase
         if (!string.IsNullOrEmpty(cacheHit))
             return Ok(cacheHit);
 
-        var dbHit = await _context.CustomUrl.FirstOrDefaultAsync(a => a.ShortUrl == shortUrl);
+        var dbHit = await _context.CustomUrls.FirstOrDefaultAsync(a => a.ShortUrl == shortUrl);
 
         if (dbHit is null)
             return NotFound();
@@ -57,7 +57,7 @@ public class CustomUrlController : ControllerBase
         if (!int.TryParse(uid, out var userId))
             return Unauthorized();
 
-        var existInDb = await _context.CustomUrl.AnyAsync(e => e.ShortUrl == shortUrl);
+        var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == shortUrl);
         if (existInDb)
             return Conflict();
 

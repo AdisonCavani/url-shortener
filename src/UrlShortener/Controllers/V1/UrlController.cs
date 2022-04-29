@@ -42,7 +42,7 @@ public class UrlController : ControllerBase
         if (!string.IsNullOrEmpty(cacheHit))
             return Ok(cacheHit);
 
-        var dbHit = await _context.Url.FirstOrDefaultAsync(a => a.Id == rawId[0]);
+        var dbHit = await _context.Urls.FirstOrDefaultAsync(a => a.Id == rawId[0]);
 
         if (dbHit is null)
             return NotFound();
@@ -60,7 +60,7 @@ public class UrlController : ControllerBase
             FullUrl = url
         };
 
-        await _context.Url.AddAsync(obj);
+        await _context.Urls.AddAsync(obj);
         var saved = await _context.SaveChangesAsync();
 
         var encodedId = _hashids.EncodeLong(obj.Id);

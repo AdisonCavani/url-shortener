@@ -30,7 +30,7 @@ public class UrlControllerTests
 
         // Mock
         var mockSet = GetUrls().AsQueryable().BuildMockDbSet();
-        _context.Setup(m => m.Url).Returns(mockSet.Object);
+        _context.Setup(m => m.Urls).Returns(mockSet.Object);
     }
 
     [Theory]

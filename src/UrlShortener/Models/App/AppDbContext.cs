@@ -12,9 +12,9 @@ public class AppDbContext : DbContext
 
     public virtual DbSet<Role> Roles { get; set; }
 
-    public virtual DbSet<Url> Url { get; set; }
+    public virtual DbSet<Url> Urls { get; set; }
 
-    public virtual DbSet<CustomUrl> CustomUrl { get; set; }
+    public virtual DbSet<CustomUrl> CustomUrls { get; set; }
 
 
     /// <summary>
