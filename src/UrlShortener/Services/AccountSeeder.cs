@@ -15,24 +15,22 @@ public class AccountSeeder
     public void Seed()
     {
         if (_context.Database.CanConnect())
-        {
             if (!_context.Roles.Any())
             {
                 _context.Roles.AddRange(GetAccountRoles());
                 _context.SaveChanges();
             }
-        }
     }
 
     private static IEnumerable<Role> GetAccountRoles()
     {
-        var roles = new List<Role>()
+        List<Role> roles = new ()
         {
-            new Role()
+            new()
             {
                 Name = "User"
             },
-            new Role()
+            new()
             {
                 Name = "Admin"
             }
