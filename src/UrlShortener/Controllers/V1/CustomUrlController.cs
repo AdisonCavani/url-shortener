@@ -10,7 +10,6 @@ using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;
 
-[Authorize]
 [ApiController]
 [ApiVersion("1")]
 public class CustomUrlController : ControllerBase
@@ -45,6 +44,7 @@ public class CustomUrlController : ControllerBase
         return Ok(dbHit.FullUrl);
     }
 
+    [Authorize]
     [ProducesResponseType(201)]
     [ProducesResponseType(409)]
     [HttpPost(ApiRoutes.CustomUrl.Save)]
