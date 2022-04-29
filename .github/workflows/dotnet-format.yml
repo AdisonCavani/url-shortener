@@ -1,10 +1,6 @@
 name: .NET Format
 
 on:
-  push:
-    paths:
-    - src/**.cs
-    - src/**.csproj
   pull_request:
     paths:
     - src/**.cs
@@ -29,4 +25,4 @@ jobs:
         run: dotnet tool install dotnet-format
 
       - name: Run dotnet format
-        run: dotnet format -v diag --severity error
+        run: dotnet format -v diag --verify-no-changes
