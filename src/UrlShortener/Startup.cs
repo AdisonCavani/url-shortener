@@ -26,7 +26,10 @@ public class Startup
         services.Configure<AuthSettings>(Configuration.GetSection("AuthSettings"));
 
         services.AddDbContextPool<AppDbContext>(options =>
-            options.UseSqlServer(Configuration["AppSettings:SqlConnection"]));
+            options.UseSqlServer(Configuration["AppSettings:SqlConnection"], options =>
+            {
+                options.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
+            }));
 
         services.AddDependencyInjectionServices(Configuration);
 
