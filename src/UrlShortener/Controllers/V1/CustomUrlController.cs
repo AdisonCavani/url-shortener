@@ -6,6 +6,7 @@ using System.Security.Claims;
 using UrlShortener.Contracts.V1;
 using UrlShortener.Models.App;
 using UrlShortener.Models.Entities;
+using UrlShortener.Models.Requests;
 using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;
@@ -48,23 +49,20 @@ public class CustomUrlController : ControllerBase
     [ProducesResponseType(201)]
     [ProducesResponseType(409)]
     [HttpPost(ApiRoutes.CustomUrl.Save)]
-    public async Task<IActionResult> Save(string fullUrl, string shortUrl)
+    public async Task<IActionResult> Save(CustomUrlDto dto)
     {
-        if (string.IsNullOrWhiteSpace(fullUrl) || string.IsNullOrWhiteSpace(shortUrl))
-            return BadRequest();
-
         var uid = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!int.TryParse(uid, out var userId))
             return Unauthorized();
 
-        var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == shortUrl);
+        var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == dto.ShortUrl);
         if (existInDb)
             return Conflict();
 
         var obj = new CustomUrl()
         {
-            ShortUrl = shortUrl,
-            FullUrl = fullUrl,
+            FullUrl = dto.FullUrl,
+            ShortUrl = dto.ShortUrl,
             UserId = userId
         };
 
