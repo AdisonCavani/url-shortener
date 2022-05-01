@@ -44,7 +44,28 @@ public class AccountControllerTests
     }
 
     [Theory]
-    [InlineData("test@email.com", "")]
+    [InlineData("test@email.com", "password")]
+    public async void Register_WhenNotSaved_ReturnsInternalServerError(string email, string password)
+    {
+        // Arrange
+        _context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
+            .ReturnsAsync(0); // Object not saved
+
+        RegisterUserDto dto = new()
+        {
+            Email = email,
+            Password = password
+        };
+
+        // Act
+        var result = await _accountController.Register(dto);
+
+        // Assert
+        Assert.Equal(500, (result as StatusCodeResult)?.StatusCode);
+    }
+
+    [Theory]
+    [InlineData("test@email.com", "password")]
     public async void Register_WhenCorrectCredentials_ReturnsOk(string email, string password)
     {
         // Arrange
