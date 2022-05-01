@@ -49,7 +49,7 @@ public class AccountControllerTests
     {
         // Arrange
         _context.Setup(x => x.SaveChangesAsync(It.IsAny<CancellationToken>()))
-            .ReturnsAsync(1); // Object not save
+            .ReturnsAsync(1); // Object saved
 
         RegisterUserDto dto = new()
         {
