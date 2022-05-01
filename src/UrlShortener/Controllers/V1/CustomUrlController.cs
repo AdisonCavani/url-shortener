@@ -51,7 +51,7 @@ public class CustomUrlController : ControllerBase
     [HttpPost(ApiRoutes.CustomUrl.Save)]
     public async Task<IActionResult> Save(CustomUrlDto dto)
     {
-        var uid = HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        var uid = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
         if (!int.TryParse(uid, out var userId))
             return Unauthorized();
 
