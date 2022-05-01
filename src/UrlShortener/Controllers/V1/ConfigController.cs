@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using UrlShortener.Contracts.V1;
 using UrlShortener.Models.App;
+using UrlShortener.Models.Responses;
 
 namespace UrlShortener.Controllers.V1;
 
@@ -14,13 +15,13 @@ public class ConfigController : ControllerBase
     [ProducesResponseType(200)]
     [HttpPost(ApiRoutes.Config.Get)]
     public IActionResult Config(
-        [FromServices] IOptionsSnapshot<AuthSettings> authOptionsSnapshot,
-        [FromServices] IOptionsSnapshot<AppSettings> optionsSnapshot)
+        [FromServices] IOptionsSnapshot<AppSettings> appSettings,
+        [FromServices] IOptionsSnapshot<AuthSettings> authSettings)
     {
-        return Ok(new
+        return Ok(new SettingsDto
         {
-            auth = authOptionsSnapshot.Value,
-            config = optionsSnapshot.Value
+            AppSettings = appSettings.Value,
+            AuthSettings = authSettings.Value
         });
     }
 }
