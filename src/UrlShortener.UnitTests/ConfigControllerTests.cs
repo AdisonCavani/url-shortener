@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -5,7 +6,6 @@ using UrlShortener.Controllers.V1;
 using UrlShortener.Models.App;
 using UrlShortener.Models.Responses;
 using Xunit;
-using FluentAssertions;
 
 namespace UrlShortener.UnitTests;
 
