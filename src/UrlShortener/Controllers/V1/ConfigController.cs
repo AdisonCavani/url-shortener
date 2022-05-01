@@ -13,7 +13,7 @@ namespace UrlShortener.Controllers.V1;
 public class ConfigController : ControllerBase
 {
     [ProducesResponseType(200)]
-    [HttpPost(ApiRoutes.Config.Get)]
+    [HttpGet(ApiRoutes.Config.Get)]
     public IActionResult Config(
         [FromServices] IOptionsSnapshot<AppSettings> appSettings,
         [FromServices] IOptionsSnapshot<AuthSettings> authSettings)
