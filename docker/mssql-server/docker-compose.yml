@@ -1,4 +1,4 @@
-version: "3.9"
+version: "2"
 services:
   db:
     image: mcr.microsoft.com/mssql/server:latest
@@ -10,3 +10,5 @@ services:
       - MSSQL_TCP_PORT=1433
     ports:
       - 1433:1433
+    mem_limit: 2048m
+    mem_reservation: 1024m
