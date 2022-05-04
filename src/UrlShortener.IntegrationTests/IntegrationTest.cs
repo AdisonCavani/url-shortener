@@ -15,13 +15,13 @@ namespace UrlShortener.IntegrationTests;
 public class IntegrationTest
 {
     protected readonly HttpClient TestClient;
-    private string BaseUrl;
-    private string ApiVersion;
+    private readonly string _baseUrl;
+    private readonly string _apiVersion;
 
     public IntegrationTest(string baseUrl, string apiVersion)
     {
-        BaseUrl = baseUrl;
-        ApiVersion = apiVersion;
+        _baseUrl = baseUrl;
+        _apiVersion = apiVersion;
 
         var appFactory = new WebApplicationFactory<Startup>().WithWebHostBuilder(builder =>
         {
@@ -64,5 +64,5 @@ public class IntegrationTest
     }
 
     // Api route resolver
-    protected string GetRoute(string route) => BaseUrl + route.Replace("v{version:apiVersion}", ApiVersion);
+    protected string GetRoute(string route) => _baseUrl + route.Replace("v{version:apiVersion}", _apiVersion);
 }
