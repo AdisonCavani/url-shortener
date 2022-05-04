@@ -31,8 +31,9 @@ jobs:
     - name: Configure AWS Credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
-        role-to-assume: arn:aws:iam::418300535646:role/GithubActions
         aws-region: eu-central-1
+        role-session-name: url-shortener_GithubAction
+        role-to-assume: arn:aws:iam::418300535646:role/GithubActions
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
