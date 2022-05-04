@@ -20,9 +20,18 @@ jobs:
     defaults:
       run:
         working-directory: src
+    
+    permissions:
+      id-token: write
 
     steps:
     - uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::418300535646:role/GithubActions
+        aws-region: eu-central-1
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v2
