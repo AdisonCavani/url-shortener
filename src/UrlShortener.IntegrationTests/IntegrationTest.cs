@@ -2,9 +2,9 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Threading.Tasks;
 using UrlShortener.Contracts.V1;
 using UrlShortener.Models.App;
@@ -12,13 +12,14 @@ using UrlShortener.Models.Requests;
 
 namespace UrlShortener.IntegrationTests;
 
-public class IntegrationTest
+public class IntegrationTest : IDisposable
 {
     protected readonly HttpClient TestClient;
+    private readonly IServiceProvider _serviceProvider;
     private readonly string _baseUrl;
     private readonly string _apiVersion;
 
-    public IntegrationTest(string baseUrl, string apiVersion)
+    protected IntegrationTest(string baseUrl, string apiVersion)
     {
         _baseUrl = baseUrl;
         _apiVersion = apiVersion;
@@ -27,15 +28,16 @@ public class IntegrationTest
         {
             builder.ConfigureServices(services =>
             {
-                services.RemoveAll(typeof(AppDbContext));
-                // services.RemoveAll(typeof(RedisCache));
+                services.RemoveAll(typeof(DbContextOptions<AppDbContext>));
+
                 services.AddDbContext<AppDbContext>(options =>
                 {
-                    options.UseInMemoryDatabase("efcore");
+                    options.UseInMemoryDatabase("InMemoryDbForTesting");
                 });
             });
         });
 
+        _serviceProvider = appFactory.Services;
         TestClient = appFactory.CreateClient();
     }
 
@@ -46,7 +48,7 @@ public class IntegrationTest
 
     private async Task<string> GetJwtAsync()
     {
-        await TestClient.PostAsJsonAsync(GetRoute(ApiRoutes.Account.Register), new RegisterUserDto()
+        var register = await TestClient.PostAsJsonAsync(GetRoute(ApiRoutes.Account.Register), new RegisterUserDto()
         {
             Email = "test@email.com",
             Password = "password"
@@ -61,6 +63,13 @@ public class IntegrationTest
         var token = await login.Content.ReadAsStringAsync();
 
         return token;
+    }
+
+    public void Dispose()
+    {
+        // using var serviceScope = _serviceProvider.CreateScope();
+        // var context = serviceScope.ServiceProvider.GetService<AppDbContext>();
+        // context?.Database.EnsureDeleted();
     }
 
     // Api route resolver

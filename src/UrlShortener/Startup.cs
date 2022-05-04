@@ -25,7 +25,7 @@ public class Startup
         services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
         services.Configure<AuthSettings>(Configuration.GetSection("AuthSettings"));
 
-        services.AddDbContextPool<AppDbContext>(options =>
+        services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(Configuration["AppSettings:SqlConnection"], sqlOptions =>
             {
                 sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
@@ -92,8 +92,11 @@ public class Startup
             });
         }
 
-        context.Database.Migrate();
-        seeder.Seed(); // Order is important!
+        if (context.Database.IsRelational())
+        {
+            context.Database.Migrate();
+            seeder.Seed(); // Order is important!
+        }
 
         // Client side
         app.UseHsts();
