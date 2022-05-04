@@ -46,7 +46,7 @@ public class IntegrationTest
 
     private async Task<string> GetJwtAsync()
     {
-        var register = await TestClient.PostAsJsonAsync(GetRoute(ApiRoutes.Account.Register), new RegisterUserDto()
+        await TestClient.PostAsJsonAsync(GetRoute(ApiRoutes.Account.Register), new RegisterUserDto()
         {
             Email = "test@email.com",
             Password = "password"
