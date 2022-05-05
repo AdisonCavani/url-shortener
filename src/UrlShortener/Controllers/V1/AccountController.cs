@@ -31,7 +31,6 @@ public class AccountController : ControllerBase
     {
         // Try to find user
         var user = await _context.Users
-            .Include(u => u.Role)
             .FirstOrDefaultAsync(u => u.Email == dto.Email);
 
         if (user is null)
