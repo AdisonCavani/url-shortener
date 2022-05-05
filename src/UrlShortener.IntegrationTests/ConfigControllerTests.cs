@@ -7,20 +7,25 @@ using Xunit;
 
 namespace UrlShortener.IntegrationTests;
 
-public class ConfigControllerTests : IntegrationTest
+public class ConfigControllerTests
 {
-    public ConfigControllerTests() : base("https://localhost:7081/", "v1")
-    {
+    private readonly RouteResolver _route;
+    private readonly IntegrationTestWebFactory<Program> _factory;
 
+    public ConfigControllerTests()
+    {
+        _route = new("https://localhost:7081/", "v1");
+        _factory = new();
     }
 
     [Fact]
     public async Task Get_WhenBearerIsMissing_ReturnsUnauthorized()
     {
         // Arrange
+        var httpClient = _factory.CreateClient();
 
         // Act
-        var response = await TestClient.GetAsync(GetRoute(ApiRoutes.Config.Get));
+        var response = await httpClient.GetAsync(_route.Get(ApiRoutes.Config.Get));
 
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
@@ -30,10 +35,11 @@ public class ConfigControllerTests : IntegrationTest
     public async Task Get_WhenLoggedIn_ReturnsOk()
     {
         // Arrange
-        await AuthenticateAsync();
+        var httpClient = _factory.CreateClient();
+        await httpClient.AuthenticateAsync(_route);
 
         // Act
-        var response = await TestClient.GetAsync(GetRoute(ApiRoutes.Config.Get));
+        var response = await httpClient.GetAsync(_route.Get(ApiRoutes.Config.Get));
 
         // Assert
         Assert.Equal(HttpStatusCode.OK, response.StatusCode);
