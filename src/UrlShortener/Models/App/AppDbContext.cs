@@ -3,9 +3,6 @@ using UrlShortener.Models.Entities;
 
 namespace UrlShortener.Models.App;
 
-/// <summary>
-/// Database representation model for app
-/// </summary>
 public class AppDbContext : DbContext
 {
     public virtual DbSet<User> Users { get; set; }
@@ -16,13 +13,26 @@ public class AppDbContext : DbContext
 
     public virtual DbSet<CustomUrl> CustomUrls { get; set; }
 
-
-    /// <summary>
-    /// Default constructor, expecting database options passed in
-    /// </summary>
-    /// <param name="options">The database context options</param>
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
+    }
 
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Role>().HasData(new List<Role>
+        {
+            new()
+            {
+                Id = 1,
+                Name = "User"
+            },
+            new()
+            {
+                Id = 2,
+                Name = "Admin"
+            }
+        });
     }
 }

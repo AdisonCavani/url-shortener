@@ -26,7 +26,7 @@ public static class ApiRoutes
     {
         private const string Endpoint = Base + "customurl";
 
-        public const string Get = Endpoint + "/get/{shortUrl}";
+        public const string Get = Endpoint + "/get";
 
         public const string Save = Endpoint + "/save";
     }
@@ -35,7 +35,7 @@ public static class ApiRoutes
     {
         private const string Endpoint = Base + "url";
 
-        public const string Get = Endpoint + "/get/{shortUrl}";
+        public const string Get = Endpoint + "/get";
 
         public const string Save = Endpoint + "/save";
     }

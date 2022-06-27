@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.Extensions;
 using UrlShortener.Models.App;
-using UrlShortener.Services;
 
 namespace UrlShortener;
 
@@ -15,8 +14,7 @@ public class Startup
     {
         Configuration = configuration;
     }
-
-    // Use this method to add services to the container.
+    
     public void ConfigureServices(IServiceCollection services)
     {
         services.ConfigureSettings(Configuration);
@@ -29,11 +27,9 @@ public class Startup
         services.AddVersioning();
         services.AddSwagger();
     }
-
-    // Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context, AccountSeeder seeder)
+    
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context)
     {
-        // Configure the HTTP request pipeline.
         if (env.IsDevelopment())
         {
             app.UseSwagger();
@@ -47,10 +43,7 @@ public class Startup
         }
 
         if (context.Database.IsRelational())
-        {
             context.Database.Migrate();
-            seeder.Seed(); // Order is important!
-        }
 
         // Client side
         app.UseHsts();

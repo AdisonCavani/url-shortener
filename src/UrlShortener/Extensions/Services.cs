@@ -9,7 +9,6 @@ public static class Services
 {
     public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddScoped<AccountSeeder>();
         services.AddScoped<IAccountService, AccountService>();
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
 
