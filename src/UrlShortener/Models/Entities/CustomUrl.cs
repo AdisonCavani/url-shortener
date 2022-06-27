@@ -16,5 +16,5 @@ public class CustomUrl
     [Required]
     public int UserId { get; set; }
 
-    public virtual User User { get; set; }
+    public virtual AppUser User { get; set; }
 }

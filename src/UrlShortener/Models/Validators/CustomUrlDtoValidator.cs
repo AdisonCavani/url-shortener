@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
+using UrlShortener.Core.Models.Requests;
 
-namespace UrlShortener.Models.Requests.Validators;
+namespace UrlShortener.Models.Validators;
 
 public class CustomUrlDtoValidator : AbstractValidator<CustomUrlDto>
 {

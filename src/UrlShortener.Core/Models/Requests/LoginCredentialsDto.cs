@@ -1,6 +1,6 @@
-namespace UrlShortener.Models.Requests;
+﻿namespace UrlShortener.Core.Models.Requests;
 
-public class RegisterUserDto
+public class LoginCredentialsDto
 {
     public string Email { get; set; }
 

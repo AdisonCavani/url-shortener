@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
-using UrlShortener.Contracts.V1;
+using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Models.App;
 using UrlShortener.Models.Entities;
 using UrlShortener.Services;

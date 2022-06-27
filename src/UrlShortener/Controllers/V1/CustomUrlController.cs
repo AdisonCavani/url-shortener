@@ -3,10 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using System.Security.Claims;
-using UrlShortener.Contracts.V1;
+using UrlShortener.Core.Contracts.V1;
+using UrlShortener.Core.Models.Requests;
 using UrlShortener.Models.App;
 using UrlShortener.Models.Entities;
-using UrlShortener.Models.Requests;
 using UrlShortener.Services;
 
 namespace UrlShortener.Controllers.V1;

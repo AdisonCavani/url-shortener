@@ -1,8 +1,6 @@
 ﻿using System.Net;
-using System.Net.Http;
 using System.Threading.Tasks;
-using UrlShortener.Contracts.V1;
-using UrlShortener.Models.Responses;
+using UrlShortener.Core.Contracts.V1;
 using Xunit;
 
 namespace UrlShortener.IntegrationTests;
@@ -29,22 +27,5 @@ public class ConfigControllerTests
 
         // Assert
         Assert.Equal(HttpStatusCode.Unauthorized, response.StatusCode);
-    }
-
-    [Fact]
-    public async Task Get_WhenLoggedIn_ReturnsOk()
-    {
-        // Arrange
-        var httpClient = _factory.CreateClient();
-        await httpClient.AuthenticateAsync(_route);
-
-        // Act
-        var response = await httpClient.GetAsync(_route.Get(ApiRoutes.Config.Get));
-
-        // Assert
-        Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-
-        var responseObj = await response.Content.ReadAsAsync<SettingsDto>();
-        Assert.NotNull(responseObj);
     }
 }

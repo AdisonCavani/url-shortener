@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using UrlShortener.Models.Entities;
 
 namespace UrlShortener.Models.App;
 
-public class AppDbContext : DbContext
+public class AppDbContext : IdentityDbContext<AppUser, AppRole, int>
 {
-    public virtual DbSet<User> Users { get; set; }
-
-    public virtual DbSet<Role> Roles { get; set; }
-
     public virtual DbSet<Url> Urls { get; set; }
 
     public virtual DbSet<CustomUrl> CustomUrls { get; set; }
@@ -21,7 +18,7 @@ public class AppDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<Role>().HasData(new List<Role>
+        modelBuilder.Entity<AppRole>().HasData(new List<AppRole>
         {
             new()
             {

@@ -1,4 +1,4 @@
-﻿namespace UrlShortener.Models.Requests;
+﻿namespace UrlShortener.Core.Models.Requests;
 
 public class CustomUrlDto
 {

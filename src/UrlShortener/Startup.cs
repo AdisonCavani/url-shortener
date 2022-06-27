@@ -14,7 +14,7 @@ public class Startup
     {
         Configuration = configuration;
     }
-    
+
     public void ConfigureServices(IServiceCollection services)
     {
         services.ConfigureSettings(Configuration);
@@ -22,12 +22,13 @@ public class Startup
         services.RegisterServices(Configuration);
         services.AddCache(Configuration);
         services.ConfigureDbContext(Configuration);
+        services.ConfigureIdentity();
         services.AddAuthentication(Configuration);
         services.AddControllers().AddFluentValidation();
         services.AddVersioning();
         services.AddSwagger();
     }
-    
+
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context)
     {
         if (env.IsDevelopment())
