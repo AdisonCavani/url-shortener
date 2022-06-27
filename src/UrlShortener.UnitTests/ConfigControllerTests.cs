@@ -1,7 +1,7 @@
 using Microsoft.Extensions.Options;
 using Moq;
-using UrlShortener.Controllers.V1;
-using UrlShortener.Models.Settings;
+using UrlShortener.WebApi.Controllers.V1;
+using UrlShortener.WebApi.Models.Settings;
 
 namespace UrlShortener.UnitTests;
 

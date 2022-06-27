@@ -7,9 +7,9 @@ using Moq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
-using UrlShortener.Controllers.V1;
-using UrlShortener.Models.App;
-using UrlShortener.Models.Entities;
+using UrlShortener.WebApi.Controllers.V1;
+using UrlShortener.WebApi.Models.App;
+using UrlShortener.WebApi.Models.Entities;
 using Xunit;
 
 namespace UrlShortener.UnitTests;

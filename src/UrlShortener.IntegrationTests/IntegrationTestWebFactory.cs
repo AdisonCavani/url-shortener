@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using UrlShortener.Models.App;
+using UrlShortener.WebApi.Models.App;
 
 namespace UrlShortener.IntegrationTests;
 
