@@ -9,7 +9,7 @@ public static class DbContext
     {
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(configuration["AppSettings:SqlConnection"], sqlOptions =>
-            { 
+            {
                 sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
             }));
     }

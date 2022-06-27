@@ -12,7 +12,7 @@ public static class AuthHelpers
     {
         const string email = "test@email.com";
         const string password = "Password123!";
-        
+
         var register = await client.PostAsJsonAsync(route.Get(ApiRoutes.Account.Register), new RegisterUserDto()
         {
             Email = email,
