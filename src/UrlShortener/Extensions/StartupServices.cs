@@ -17,6 +17,7 @@ public static class StartupServices
         services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
         services.AddScoped<IValidator<CustomUrlDto>, CustomUrlDtoValidator>();
         services.AddScoped<IValidator<RegisterUserDto>, RegisterUserDtoValidator>();
+        services.AddScoped<IValidator<LoginDto>, LoginDtoValidator>();
 
         services.AddSingleton<IHashids>(_ => new Hashids(configuration["AppSettings:HashidsSalt"], 7));
 

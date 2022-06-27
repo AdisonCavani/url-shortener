@@ -12,7 +12,11 @@ public class RegisterUserDtoValidator : AbstractValidator<RegisterUserDto>
             .EmailAddress();
 
         RuleFor(x => x.Password)
-            .MinimumLength(6);
+            .NotEmpty()
+            .MinimumLength(8)
+            .Matches(@"[A-Z]+").WithMessage("Password must contain at least one uppercase letter.")
+            .Matches(@"[a-z]+").WithMessage("Password must contain at least one lowercase letter.")
+            .Matches(@"[0-9]+").WithMessage("Password must contain at least one number.");
 
         RuleFor(x => x.Email)
             .Custom((value, validation) =>
