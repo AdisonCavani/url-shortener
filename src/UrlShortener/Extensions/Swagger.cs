@@ -6,9 +6,8 @@ namespace UrlShortener.Extensions;
 
 public static class SwaggerService
 {
-    public static IServiceCollection AddSwagger(this IServiceCollection services)
+    public static void AddSwagger(this IServiceCollection services)
     {
-        // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         services.AddSwaggerGen(options =>
         {
             // TODO: configure swagger
@@ -44,7 +43,6 @@ public static class SwaggerService
         });
 
         services.AddSwaggerExamplesFromAssemblyOf<Startup>();
-
-        return services;
+        services.ConfigureOptions<ConfigureSwaggerOptions>();
     }
 }

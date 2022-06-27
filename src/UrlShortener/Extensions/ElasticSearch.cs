@@ -3,7 +3,7 @@ using Serilog.Sinks.Elasticsearch;
 
 namespace UrlShortener.Extensions;
 
-public static class ElasticSearchExtensions
+public static class ElasticSearch
 {
     public static LoggerConfiguration UseElasticSearch(this LoggerConfiguration configuration, HostBuilderContext context)
     {

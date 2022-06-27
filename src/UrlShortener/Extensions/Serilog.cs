@@ -2,7 +2,7 @@
 
 namespace UrlShortener.Extensions;
 
-public static class SerilogExtensions
+public static class Serilog
 {
     /// <summary>
     /// An extension method to configure Serilog logger

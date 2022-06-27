@@ -1,9 +1,6 @@
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using UrlShortener.Extensions;
 using UrlShortener.Models.App;
 using UrlShortener.Services;
@@ -22,58 +19,15 @@ public class Startup
     // Use this method to add services to the container.
     public void ConfigureServices(IServiceCollection services)
     {
-        services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
-        services.Configure<AuthSettings>(Configuration.GetSection("AuthSettings"));
-
-        services.AddDbContext<AppDbContext>(options =>
-            options.UseSqlServer(Configuration["AppSettings:SqlConnection"], sqlOptions =>
-            {
-                sqlOptions.EnableRetryOnFailure(10, TimeSpan.FromSeconds(30), null);
-            }));
-
-        services.AddDependencyInjectionServices(Configuration);
-
-        services.AddAuthentication(options =>
-        {
-            options.DefaultScheme = "Bearer";
-            options.DefaultChallengeScheme = "Bearer";
-            options.DefaultAuthenticateScheme = "Bearer";
-
-        }).AddJwtBearer(options =>
-        {
-            options.SaveToken = true;
-            options.RequireHttpsMetadata = true;
-            options.TokenValidationParameters = new TokenValidationParameters()
-            {
-                ValidateLifetime = true,
-                ValidateAudience = true,
-                ValidateIssuer = true,
-                ValidateIssuerSigningKey = true,
-                ClockSkew = TimeSpan.Zero, // FIX: might cause issues, if auth is out of sync
-                ValidIssuer = Configuration["AuthSettings:JwtIssuer"],
-                ValidAudience = Configuration["AuthSettings:JwtIssuer"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["AuthSettings:JwtKey"]))
-            };
-        });
-
+        services.ConfigureSettings(Configuration);
+        services.AddValidators();
+        services.RegisterServices(Configuration);
+        services.AddCache(Configuration);
+        services.ConfigureDbContext(Configuration);
+        services.AddAuthentication(Configuration);
         services.AddControllers().AddFluentValidation();
-
-        services.AddApiVersioning(options =>
-        {
-            options.DefaultApiVersion = new ApiVersion(1, 0);
-            options.AssumeDefaultVersionWhenUnspecified = true;
-            options.ReportApiVersions = true;
-        });
-
-        services.AddVersionedApiExplorer(setup =>
-        {
-            setup.GroupNameFormat = "'v'VVV";
-            setup.SubstituteApiVersionInUrl = true;
-        });
-
+        services.AddVersioning();
         services.AddSwagger();
-
-        services.ConfigureOptions<ConfigureSwaggerOptions>();
     }
 
     // Use this method to configure the HTTP request pipeline.
