@@ -59,12 +59,12 @@ public class AccountController : ControllerBase
     [HttpGet(ApiRoutes.Account.ConfirmEmail)]
     public async Task<IActionResult> ConfirmEmailAsync([FromQuery] ConfirmEmailDto dto)
     {
-        var user = await _signInManager.UserManager.FindByIdAsync(dto.UserId);
+        var user = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
 
         if (user is null)
             return BadRequest(new ErrorResponse
             {
-                Errors = new[] { "Couldn't find user associated with this id" }
+                Errors = new[] { "Couldn't find user associated with this email" }
             });
 
         var emailConfirmed = await _signInManager.UserManager.IsEmailConfirmedAsync(user);
@@ -91,22 +91,13 @@ public class AccountController : ControllerBase
         var result = await _signInManager.PasswordSignInAsync(dto.Email, dto.Password, true, true);
 
         if (result.IsNotAllowed)
-            return BadRequest(new ErrorResponse
-            {
-                Errors = new[] { "Confirm your email" }
-            });
+            return Conflict();
 
         if (result.IsLockedOut)
-            return BadRequest(new ErrorResponse
-            {
-                Errors = new[] { "User is locked out" }
-            });
+            return StatusCode(StatusCodes.Status403Forbidden);
 
         if (!result.Succeeded)
-            return BadRequest(new ErrorResponse
-            {
-                Errors = new[] { "Wrong credentials" }
-            });
+            return BadRequest();
 
         var user = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
 

@@ -7,8 +7,9 @@ public class ConfirmEmailDtoValidator : AbstractValidator<ConfirmEmailDto>
 {
     public ConfirmEmailDtoValidator()
     {
-        RuleFor(x => x.UserId)
-            .NotEmpty();
+        RuleFor(x => x.Email)
+            .NotEmpty()
+            .EmailAddress();
 
         RuleFor(x => x.Token)
             .NotEmpty();

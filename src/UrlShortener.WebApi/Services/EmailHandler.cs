@@ -28,8 +28,12 @@ public class EmailHandler
         var name = $"{user.FirstName} {user.LastName}";
         var topic = "Confirm your email";
 
+        var apiVersion = 1;
+
+        var baseUrl = "http://localhost:3000/account/confirm";
+
         var confirmationUrl =
-            $"https://localhost:5001/{ApiRoutes.Account.ConfirmEmail}?userId={HttpUtility.UrlEncode(user.Id.ToString())}&token={HttpUtility.UrlEncode(confirmationToken)}";
+            $"{baseUrl}?email={HttpUtility.UrlEncode(user.Email)}&token={HttpUtility.UrlEncode(confirmationToken)}";
 
         var body = $"<a href='{confirmationUrl}'>Confirm email</a>";
 
