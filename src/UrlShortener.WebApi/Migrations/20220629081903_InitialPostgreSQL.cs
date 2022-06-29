@@ -196,8 +196,8 @@ namespace UrlShortener.WebApi.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 1, "54408791-06af-4920-94ac-ff7160daf339", "User", null },
-                    { 2, "f439dd72-9140-46e5-88c2-ece20afb7a8e", "Admin", null }
+                    { 1, "f2e71995-f21d-44f7-b9d5-773f922a9ab6", "User", null },
+                    { 2, "6429ccd8-be3f-46bf-9a2a-a84144779b10", "Admin", null }
                 });
 
             migrationBuilder.CreateIndex(

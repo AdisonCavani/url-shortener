@@ -157,13 +157,13 @@ namespace UrlShortener.WebApi.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "54408791-06af-4920-94ac-ff7160daf339",
+                            ConcurrencyStamp = "f2e71995-f21d-44f7-b9d5-773f922a9ab6",
                             Name = "User"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "f439dd72-9140-46e5-88c2-ece20afb7a8e",
+                            ConcurrencyStamp = "6429ccd8-be3f-46bf-9a2a-a84144779b10",
                             Name = "Admin"
                         });
                 });
