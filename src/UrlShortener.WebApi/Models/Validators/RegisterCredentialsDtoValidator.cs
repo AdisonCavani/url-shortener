@@ -9,6 +9,8 @@ public class RegisterCredentialsDtoValidator : AbstractValidator<RegisterCredent
 {
     public RegisterCredentialsDtoValidator(UserManager<AppUser> userManager)
     {
+        RuleLevelCascadeMode = CascadeMode.Stop;
+        
         RuleFor(x => x.FirstName)
             .NotEmpty();
 
@@ -16,14 +18,8 @@ public class RegisterCredentialsDtoValidator : AbstractValidator<RegisterCredent
             .NotEmpty();
 
         RuleFor(x => x.Email)
-            .EmailAddress()
-            .Custom(async (value, validation) =>
-            {
-                var exist = await userManager.FindByEmailAsync(value);
-
-                if (exist is not null)
-                    validation.AddFailure("Email", "Email is taken");
-            });
+            .NotEmpty()
+            .EmailAddress();
 
         RuleFor(x => x.Password)
             .NotEmpty()
