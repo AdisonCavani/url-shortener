@@ -8,7 +8,7 @@ import {
   Stack,
   Text
 } from '@chakra-ui/react'
-import { Logo2 } from '../logo2'
+import { Logo2 } from '@components/logo2'
 import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa'
 
 const Footer = () => (

@@ -19,8 +19,8 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
-import { Logo } from '../../components/logo'
-import { OAuthButtonGroup } from '../../components/oauthButtonGroup'
+import { Logo } from '@components/logo'
+import { OAuthButtonGroup } from '@components/oauthButtonGroup'
 import * as Yup from 'yup'
 import Link from 'next/link'
 import axios, { AxiosError } from 'axios'

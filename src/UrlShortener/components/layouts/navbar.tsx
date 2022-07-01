@@ -15,7 +15,7 @@ import {
   useColorModeValue
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
-import { Logo2 } from '../logo2'
+import { Logo2 } from '@components/logo2'
 import NextLink from 'next/link'
 
 const Navbar = () => {
