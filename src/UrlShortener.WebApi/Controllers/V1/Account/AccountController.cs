@@ -4,7 +4,6 @@ using UrlShortener.Core;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.Core.Models.Responses;
-using UrlShortener.WebApi.Extensions;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services;
 
@@ -62,7 +61,7 @@ public class AccountController : ControllerBase
         var user = await _signInManager.UserManager.FindByEmailAsync(dto.Email);
 
         if (user is null)
-            return BadRequest(new ErrorResponse
+            return NotFound(new ErrorResponse
             {
                 Errors = new[] { "Couldn't find user associated with this email" }
             });
@@ -70,7 +69,7 @@ public class AccountController : ControllerBase
         var emailConfirmed = await _signInManager.UserManager.IsEmailConfirmedAsync(user);
 
         if (emailConfirmed)
-            return Conflict(new ErrorResponse
+           return Conflict(new ErrorResponse
             {
                 Errors = new[] { "Email is already confirmed" }
             });
