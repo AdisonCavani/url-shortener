@@ -16,7 +16,8 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue
+  useColorModeValue,
+  useQuery
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
 import { Logo } from '@components/logo'
@@ -89,27 +90,7 @@ const RegisterPage = () => {
                 password: ''
               }}
               onSubmit={async (values, actions) => {
-                await axios
-                  .post(
-                    'https://localhost:7081/api/v1/account/register',
-                    values
-                  )
-                  .then(res => {
-                    console.log(res)
-                    Router.push('/')
-                  })
-                  .catch(error => {
-                    if (error!.response!.status !== 400) {
-                      console.log(error!.response!.data!)
-
-                      let message = error.response.data.errors
-
-                      console.log(message)
-
-                      setAlertText('')
-                    } else setAlertText('Something went wrong...')
-                    setAlertVisibility(true)
-                  })
+                await fetchRegister(values)
                 actions.setSubmitting(false)
               }}
             >
@@ -226,6 +207,37 @@ const RegisterPage = () => {
       </Stack>
     </Container>
   )
+
+  async function fetchRegister(values) {
+    await axios
+      .post('https://localhost:7081/api/v1/account/register', values)
+      .then(res => {
+        console.log(res)
+        Router.push({
+          pathname: '/account/confirmation',
+          query: { email: values.email }
+        })
+      })
+      .catch(error => {
+        if (error!.response!.status !== 400) {
+          console.log(error!.response!.data!)
+
+          let message = error.response.data.errors
+
+          console.log(message)
+
+          setAlertText('')
+        } else setAlertText('Something went wrong...')
+        setAlertVisibility(true)
+      })
+  }
+  async function fetchRegister2(values) {
+    const res = await fetch('https://localhost:7081/api/v1/account/register', {
+      body: values
+    })
+
+    return res.json()
+  }
 }
 
 export default RegisterPage

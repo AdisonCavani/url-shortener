@@ -1,54 +1,73 @@
-import axios from 'axios'
+import { ErrorResponse } from '@models/errorResponse'
 import { GetServerSideProps } from 'next'
+import { ParsedUrlQuery } from 'querystring'
 
-export interface ConfirmProps {
-  success: boolean
+type Props = {
   errors?: string
-  response?: object
 }
 
-export default function ConfirmPage(props: ConfirmProps) {
-  if (!props.success) {
-    return <div>{props.errors}</div>
+interface Params extends ParsedUrlQuery {
+  email: string
+  token: string
+}
+
+const ConfirmPage = (props: Props) => {
+  if (props.errors) {
+    return <div>{props?.errors}</div>
   } else {
-    console.log(props.response)
+    return <div>Email confired successfuly</div>
   }
 }
 
-export const getServerSideProps: GetServerSideProps = async context => {
-  let email = encodeURIComponent(context!.query!.email!.toString())
-  let token = encodeURIComponent(context!.query!.token!.toString())
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
 
-  await fetch(
-    `https://localhost:7081/api/v1/account/confirmEmail?email=${email}&token=${token}`
+  if (!query?.email || !query?.token)
+    return {
+      notFound: true
+    }
+
+  const { email, token } = query as Params
+
+  const encodedEmail = encodeURIComponent(email)
+  const encodedToken = encodeURIComponent(token)
+
+  const result = await fetch(
+    `https://localhost:7081/api/v1/account/confirmEmail?email=${encodedEmail}&token=${encodedToken}`
   )
-    .then(res => {
-      if (res.ok)
-        return {
-          props: {
-            success: true,
-            response: res.json()
-          }
-        }
-      return {
-        props: {
-          success: false,
-          errors: 'Something went wrong...'
-        }
-      }
-    })
-    .catch(error => {
-      return {
-        props: {
-          success: false,
-          errors: error
-        }
-      }
-    })
-  return {
-    props: {
-      success: false,
-      errors: 'xd'
+
+  if (result.ok)
+    return {
+      props: {}
+    }
+
+  if (result.status === 404) {
+    return {
+      notFound: true
     }
   }
+
+  if (result.status === 409)
+    return {
+      props: {
+        errors: 'Email is already confirmed'
+      }
+    }
+
+  if (result.status === 400) {
+    const errorsArr = (await result.json()) as ErrorResponse
+    const errorMessage = errorsArr.errors?.join('\n')
+
+    return {
+      props: {
+        errors: errorMessage
+      }
+    }
+  }
+
+  return {
+    props: { errors: 'Something went wrong...' }
+  }
 }
+
+export default ConfirmPage
