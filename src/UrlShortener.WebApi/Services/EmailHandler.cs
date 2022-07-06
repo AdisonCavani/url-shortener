@@ -28,14 +28,7 @@ public class EmailHandler
         var name = $"{user.FirstName} {user.LastName}";
         var topic = "Confirm your email";
 
-        var apiVersion = 1;
-
-        var baseUrl = "http://localhost:3000/account/confirm";
-
-        var confirmationUrl =
-            $"{baseUrl}?email={HttpUtility.UrlEncode(user.Email)}&token={HttpUtility.UrlEncode(confirmationToken)}";
-
-        var body = $"<a href='{confirmationUrl}'>Confirm email</a>";
+        var body = $"Token: {confirmationToken}";
 
         var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, token: token);
 

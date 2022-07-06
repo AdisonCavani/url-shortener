@@ -13,10 +13,12 @@ public static class Identity
         services.AddIdentity<AppUser, AppRole>(options =>
             {
                 options.Tokens.PasswordResetTokenProvider = PasswordResetTokenProvider.ProviderKey;
+                options.Tokens.EmailConfirmationTokenProvider = EmailConfirmationTokenProvider.ProviderKey;
             })
             .AddEntityFrameworkStores<AppDbContext>()
             .AddTokenProvider<DataProtectorTokenProvider<AppUser>>(TokenOptions.DefaultProvider)
-            .AddTokenProvider<PasswordResetTokenProvider>(PasswordResetTokenProvider.ProviderKey);
+            .AddTokenProvider<PasswordResetTokenProvider>(PasswordResetTokenProvider.ProviderKey)
+            .AddTokenProvider<EmailConfirmationTokenProvider>(EmailConfirmationTokenProvider.ProviderKey);
 
         services.Configure<IdentityOptions>(options =>
         {
