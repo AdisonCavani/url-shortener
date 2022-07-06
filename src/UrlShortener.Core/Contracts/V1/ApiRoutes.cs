@@ -11,10 +11,16 @@ public static class ApiRoutes
         private const string _endpoint = $"{_base}/account";
 
         public const string Login = $"{_endpoint}/login";
-        public const string IsEmailConfirmed = $"{_endpoint}/isEmailConfirmed";
-        public const string ConfirmEmail = $"{_endpoint}/confirmEmail";
         public const string Register = $"{_endpoint}/register";
-        public const string ResendVerificationEmail = $"{_endpoint}/resendVerificationEmail";
+
+        public static class Email
+        {
+            private const string _endpoint = $"{Account._endpoint}/email";
+
+            public const string IsConfirmed = $"{_endpoint}/isConfirmed";
+            public const string Confirm = $"{_endpoint}/confirm";
+            public const string ResendVerification = $"{_endpoint}/resendVerification";
+        }
 
         public static class Password
         {

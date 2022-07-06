@@ -12,6 +12,7 @@ public static class SwaggerService
         services.AddSwaggerGen(options =>
         {
             options.ExampleFilters();
+            options.EnableAnnotations();
             options.DescribeAllParametersInCamelCase();
             options.OperationFilter<AuthOperationFilter>();
 
