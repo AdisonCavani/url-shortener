@@ -93,6 +93,8 @@ const LoginPage = () => {
               validationSchema={SigninSchema}
               initialValues={{ email: '', password: '' }}
               onSubmit={async (values, actions) => {
+                process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+
                 await axios
                   .post(ApiRoutes.Account.Login, values)
                   .then(res => {

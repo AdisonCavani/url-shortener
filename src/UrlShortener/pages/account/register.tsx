@@ -209,6 +209,8 @@ const RegisterPage = () => {
   )
 
   async function fetchRegister(values) {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+
     await axios
       .post(ApiRoutes.Account.Register, values)
       .then(res => {

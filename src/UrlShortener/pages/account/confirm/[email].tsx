@@ -88,6 +88,7 @@ const Email = () => {
   )
 
   async function fetchConfirmEmail(email: string, token: string) {
+    process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
     const encodedEmail = encodeURIComponent(email)
 
     const result = await fetch(
@@ -107,6 +108,8 @@ const Email = () => {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
+
   if (!query.email)
     return {
       notFound: true
