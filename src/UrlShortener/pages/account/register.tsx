@@ -231,13 +231,6 @@ const RegisterPage = () => {
         setAlertVisibility(true)
       })
   }
-  async function fetchRegister2(values) {
-    const res = await fetch('https://localhost:7081/api/v1/account/register', {
-      body: values
-    })
-
-    return res.json()
-  }
 }
 
 export default RegisterPage
