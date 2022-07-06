@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using UrlShortener.Core;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.Core.Models.Responses;
+using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services;
 
@@ -53,6 +55,22 @@ public class AccountController : ControllerBase
         return emailHandled
             ? Ok()
             : StatusCode(500);
+    }
+
+    [HttpGet(ApiRoutes.Account.IsEmailConfirmed)]
+    public async Task<IActionResult> IsEmailConfirmedAsync(
+        [FromServices] AppDbContext context,
+        [FromQuery] IsEmailConfirmedDto dto)
+    {
+        var user = await context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == dto.Email);
+
+        if (user is null)
+            return NotFound();
+
+        if (user.EmailConfirmed)
+            return BadRequest();
+        
+        return Ok();
     }
 
     [HttpGet(ApiRoutes.Account.ConfirmEmail)]

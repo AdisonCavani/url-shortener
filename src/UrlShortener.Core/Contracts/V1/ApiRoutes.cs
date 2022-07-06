@@ -11,6 +11,7 @@ public static class ApiRoutes
         private const string _endpoint = $"{_base}/account";
 
         public const string Login = $"{_endpoint}/login";
+        public const string IsEmailConfirmed = $"{_endpoint}/isEmailConfirmed";
         public const string ConfirmEmail = $"{_endpoint}/confirmEmail";
         public const string Register = $"{_endpoint}/register";
         public const string ResendVerificationEmail = $"{_endpoint}/resendVerificationEmail";
