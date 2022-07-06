@@ -1,30 +1,28 @@
+const root = 'https://localhost:7081'
+const version = '1'
+const baseUrl = `${root}/api/v${version}`
+
+const accountEndpoint = `${baseUrl}/account`
+const emailEndpoint = `${accountEndpoint}/email`
+const passwordEndpoint = `${accountEndpoint}/password`
+
 export class ApiRoutes {
-  static readonly root = 'https://localhost:7081'
-  static readonly version = '1'
-  static readonly baseUrl = `${this.root}/v${this.version}`
+  public static Account = class {
+    public static readonly Login = `${accountEndpoint}/login`
+    public static readonly Register = `${accountEndpoint}/register`
 
-  static Account = class {
-    private static readonly endpoint = `${ApiRoutes.baseUrl}/account`
-
-    public static readonly Login = `${this.endpoint}/login`
-    public static readonly Register = `${this.endpoint}/register`
-
-    static Email = class {
-      private static readonly endpoint = `${ApiRoutes.Account.endpoint}/email`
-
-      public static readonly Confirm = `${this.endpoint}/confirm`
-      public static readonly IsConfirmed = `${this.endpoint}/isConfirmed`
-      public static readonly ResendVerification = `${this.endpoint}/resendVerification`
+    public static Email = class {
+      public static readonly Confirm = `${emailEndpoint}/confirm`
+      public static readonly IsConfirmed = `${emailEndpoint}/isConfirmed`
+      public static readonly ResendVerification = `${emailEndpoint}/resendVerification`
     }
 
-    static Password = class {
-      private static readonly endpoint = `${ApiRoutes.Account.endpoint}/password`
+    public static Password = class {
+      public static readonly VerifyToken = `${passwordEndpoint}/verifyToken`
+      public static readonly Reset = `${passwordEndpoint}/reset`
+      public static readonly SendRecovery = `${passwordEndpoint}/recovery`
 
-      public static readonly VerifyToken = `${this.endpoint}/verifyToken`
-      public static readonly Reset = `${this.endpoint}/reset`
-      public static readonly SendRecovery = `${this.endpoint}/recovery`
-
-      public static readonly Change = `${this.endpoint}/change`
+      public static readonly Change = `${passwordEndpoint}/change`
     }
   }
 }
