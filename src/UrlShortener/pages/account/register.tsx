@@ -16,8 +16,7 @@ import {
   Stack,
   Text,
   useBreakpointValue,
-  useColorModeValue,
-  useQuery
+  useColorModeValue
 } from '@chakra-ui/react'
 import { Field, Form, Formik } from 'formik'
 import { Logo } from '@components/logo'
@@ -213,10 +212,7 @@ const RegisterPage = () => {
       .post('https://localhost:7081/api/v1/account/register', values)
       .then(res => {
         console.log(res)
-        Router.push({
-          pathname: '/account/confirmation',
-          query: { email: values.email }
-        })
+        Router.push(`/account/confirm/${encodeURIComponent(values.email)}`)
       })
       .catch(error => {
         if (error!.response!.status !== 400) {
