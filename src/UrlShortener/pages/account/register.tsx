@@ -26,6 +26,7 @@ import Link from 'next/link'
 import axios, { AxiosError } from 'axios'
 import Router from 'next/router'
 import { useState } from 'react'
+import { ApiRoutes } from '@models/apiRoutes'
 
 const RegisterPage = () => {
   const SigninSchema = Yup.object().shape({
@@ -209,7 +210,7 @@ const RegisterPage = () => {
 
   async function fetchRegister(values) {
     await axios
-      .post('https://localhost:7081/api/v1/account/register', values)
+      .post(ApiRoutes.Account.Register, values)
       .then(res => {
         console.log(res)
         Router.push(`/account/confirm/${encodeURIComponent(values.email)}`)

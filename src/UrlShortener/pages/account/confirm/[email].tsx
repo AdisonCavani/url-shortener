@@ -15,6 +15,7 @@ import {
   Center
 } from '@chakra-ui/react'
 import { Logo } from '@components/logo'
+import { ApiRoutes } from '@models/apiRoutes'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -90,7 +91,7 @@ const Email = () => {
     const encodedEmail = encodeURIComponent(email)
 
     const result = await fetch(
-      `https://localhost:7081/api/v1/account/confirmEmail?email=${encodedEmail}&token=${token}`
+      `${ApiRoutes.Account.Email.Confirm}?email=${encodedEmail}&token=${token}`
     )
 
     if (result.ok) {
@@ -115,7 +116,7 @@ export const getServerSideProps: GetServerSideProps = async ({ query }) => {
   const encodedEmail = encodeURIComponent(email)
 
   const result = await fetch(
-    `https://localhost:7081/api/v1/account/isEmailConfirmed?email=${encodedEmail}`
+    `${ApiRoutes.Account.Email.IsConfirmed}?email=${encodedEmail}`
   )
 
   if (result.ok)

@@ -31,6 +31,7 @@ import Link from 'next/link'
 import React, { useState } from 'react'
 import axios, { AxiosError } from 'axios'
 import Router from 'next/router'
+import { ApiRoutes } from '@models/apiRoutes'
 
 const LoginPage = () => {
   const SigninSchema = Yup.object().shape({
@@ -93,7 +94,7 @@ const LoginPage = () => {
               initialValues={{ email: '', password: '' }}
               onSubmit={async (values, actions) => {
                 await axios
-                  .post('https://localhost:7081/api/v1/account/login', values)
+                  .post(ApiRoutes.Account.Login, values)
                   .then(res => {
                     console.log(res)
                     setAlertVisibility(false)
