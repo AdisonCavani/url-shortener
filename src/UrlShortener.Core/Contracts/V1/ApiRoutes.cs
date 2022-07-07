@@ -17,8 +17,8 @@ public static class ApiRoutes
         {
             private const string _endpoint = $"{Account._endpoint}/email";
 
-            public const string IsConfirmed = $"{_endpoint}/isConfirmed";
             public const string Confirm = $"{_endpoint}/confirm";
+            public const string IsConfirmed = $"{_endpoint}/isConfirmed";
             public const string ResendVerification = $"{_endpoint}/resendVerification";
         }
 
@@ -26,11 +26,10 @@ public static class ApiRoutes
         {
             private const string _endpoint = $"{Account._endpoint}/password";
 
-            public const string SendRecoveryEmail = $"{_endpoint}/recovery";
-            public const string VerifyToken = $"{_endpoint}/verifyToken";
-            public const string Reset = $"{_endpoint}/reset";
-
             public const string Change = $"{_endpoint}/change";
+            public const string Recovery = $"{_endpoint}/recovery";
+            public const string Reset = $"{_endpoint}/reset";
+            public const string VerifyToken = $"{_endpoint}/verifyToken";
         }
     }
 
