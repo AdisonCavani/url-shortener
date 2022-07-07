@@ -5,13 +5,6 @@ namespace UrlShortener.WebApi.Services;
 
 public static class DistributedCacheExtensions
 {
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="cache"></param>
-    /// <param name="key"></param>
-    /// <returns></returns>
     public static async Task<T?> GetValueAsync<T>(this IDistributedCache cache, string key)
     {
         var jsonData = await cache.GetStringAsync(key);
@@ -19,17 +12,8 @@ public static class DistributedCacheExtensions
         return string.IsNullOrWhiteSpace(jsonData) ? default : JsonSerializer.Deserialize<T>(jsonData);
     }
 
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="cache"></param>
-    /// <param name="key"></param>
-    /// <param name="value"></param>
-    /// <param name="absoluteExpireTime">60 seconds by default</param>
-    /// <param name="unusedExpireTime"></param>
-    /// <returns></returns>
-    public static async Task SetValueAsync<T>(this IDistributedCache cache,
+    public static async Task SetValueAsync<T>(
+        this IDistributedCache cache,
         string key,
         T value,
         TimeSpan? absoluteExpireTime = null,
