@@ -1,6 +1,7 @@
 import {
   Alert,
   AlertIcon,
+  AlertStatus,
   Box,
   Button,
   Checkbox,
@@ -28,9 +29,9 @@ import { OAuthButtonGroup } from '@components/oauthButtonGroup'
 import * as Yup from 'yup'
 import { HiEye, HiEyeOff } from 'react-icons/hi'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios, { AxiosError } from 'axios'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import { ApiRoutes } from '@models/apiRoutes'
 
 const LoginPage = () => {
@@ -55,8 +56,21 @@ const LoginPage = () => {
     }
   }
 
-  const [alertText, setAlertText] = useState('')
+  const [alertText, setAlertText] = useState('Something went wrong...')
+  const [alertStatus, setAlertStatus] = useState('error' as AlertStatus)
   const [alertVisible, setAlertVisibility] = useState(false)
+
+  const router = useRouter()
+
+  useEffect(() => {
+    if (!router.isReady) return
+
+    if (router.query.emailConfirmed) {
+      setAlertText('Email confirmed! Now you can login')
+      setAlertStatus('success')
+      setAlertVisibility(true)
+    }
+  }, [router.isReady, router.query])
 
   return (
     <Container
@@ -120,7 +134,7 @@ const LoginPage = () => {
                 <Form>
                   <Stack spacing="5">
                     {alertVisible && (
-                      <Alert status="error" variant="subtle">
+                      <Alert status={alertStatus} variant="subtle">
                         <AlertIcon />
                         {alertText}
                       </Alert>
@@ -182,9 +196,11 @@ const LoginPage = () => {
                     >
                       Remember me
                     </Field>
-                    <Button variant="link" colorScheme="blue" size="sm">
-                      Forgot password?
-                    </Button>
+                    <Link href="/account/password/recovery" passHref>
+                      <Button variant="link" colorScheme="blue" size="sm">
+                        Forgot password?
+                      </Button>
+                    </Link>
                   </HStack>
                   <Stack spacing="6">
                     <Button

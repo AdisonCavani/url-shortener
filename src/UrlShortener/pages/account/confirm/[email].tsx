@@ -24,7 +24,7 @@ const Email = () => {
   const router = useRouter()
   const email = router.query.email as string
 
-  const [alertText, setAlertText] = useState('')
+  const [alertText, setAlertText] = useState('Something went wrong...')
   const [alertVisible, setAlertVisibility] = useState(false)
 
   const [inProgress, setInProgress] = useState(false)
@@ -96,7 +96,7 @@ const Email = () => {
     )
 
     if (result.ok) {
-      router.push('/account/login')
+      router.push('/account/login?emailConfirmed=true')
       return
     } else if (result.status === 400) setAlertText('Not found')
     else if (result.status === 409) setAlertText('Email is already confirmed')

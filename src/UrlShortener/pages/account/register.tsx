@@ -47,7 +47,7 @@ const RegisterPage = () => {
       .required('This field is required')
   })
 
-  const [alertText, setAlertText] = useState('')
+  const [alertText, setAlertText] = useState('Something went wrong...')
   const [alertVisible, setAlertVisibility] = useState(false)
 
   return (
