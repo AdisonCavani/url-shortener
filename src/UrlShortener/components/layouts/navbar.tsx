@@ -1,7 +1,6 @@
 import {
   Box,
   Button,
-  ButtonGroup,
   Container,
   Flex,
   HStack,
@@ -11,7 +10,6 @@ import {
   MenuButton,
   MenuItem,
   MenuList,
-  useBreakpointValue,
   useColorModeValue
 } from '@chakra-ui/react'
 import { HamburgerIcon } from '@chakra-ui/icons'
@@ -37,11 +35,6 @@ const Navbar = () => {
             flex="1"
             display={{ base: 'none', md: 'flex' }}
           >
-            {/* <ButtonGroup variant="link" spacing="8">
-                  {['Product', 'Pricing', 'Resources', 'Support'].map(item => (
-                    <Button key={item}>{item}</Button>
-                  ))}
-                </ButtonGroup> */}
             <HStack spacing="3">
               <NextLink href="/account/login" passHref>
                 <Button variant="ghost">Sign in</Button>
