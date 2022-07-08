@@ -6,6 +6,8 @@ public static class ApiRoutes
     private const string _version = "v{version:apiVersion}";
     private const string _base = $"{_root}/{_version}";
 
+    public const string Health = "/api/health";
+
     public static class Account
     {
         private const string _endpoint = $"{_base}/account";

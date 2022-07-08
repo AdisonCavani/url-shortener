@@ -1,4 +1,6 @@
 ﻿using HashidsNet;
+using UrlShortener.WebApi.HealthChecks;
+using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Services;
 using UrlShortener.WebApi.Services.Interfaces;
 
@@ -8,6 +10,10 @@ public static class Services
 {
     public static void RegisterServices(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddHealthChecks()
+            .AddDbContextCheck<AppDbContext>()
+            .AddCheck<RedisHealthCheck>("Redis");
+
 #if RELEASE
         services.AddScoped<IEmailService, DevEmailService>();
 #else
