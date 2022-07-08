@@ -6,12 +6,8 @@ public static class Cache
     {
         services.AddStackExchangeRedisCache(options =>
         {
-            options.Configuration = configuration["AppSettings:RedisConnection"];
-            options.ConfigurationOptions = new()
-            {
-                // TODO: configure
-            };
+            options.Configuration = configuration["AppSettings:RedisConnectionString"];
+            // TODO: configure redis
         });
-        services.AddDistributedMemoryCache();
     }
 }
