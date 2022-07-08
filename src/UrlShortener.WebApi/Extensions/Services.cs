@@ -1,4 +1,5 @@
 ﻿using HashidsNet;
+using Microsoft.Extensions.Caching.Distributed;
 using UrlShortener.WebApi.HealthChecks;
 using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Services;
@@ -23,5 +24,9 @@ public static class Services
         services.AddScoped<JwtService>();
 
         services.AddSingleton<IHashids>(_ => new Hashids(configuration["AppSettings:HashidsSalt"], 7));
+
+        services.AddScoped<UrlService>();
+        services.AddScoped<IUrlService>(x =>
+            new CachedUrlService(x.GetRequiredService<IDistributedCache>(), x.GetRequiredService<UrlService>()));
     }
 }
