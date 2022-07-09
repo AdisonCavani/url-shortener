@@ -29,6 +29,7 @@ public class Startup
         services.AddSwagger();
 #if RELEASE
         services.AddMetrics();
+        services.AddAppMetricsHealthPublishing();
 #endif
         services.AddCors(options =>
         {
