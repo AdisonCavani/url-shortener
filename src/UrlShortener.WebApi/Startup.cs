@@ -1,10 +1,6 @@
-using System.Net.Mime;
 using FluentValidation.AspNetCore;
-using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
-using UrlShortener.Core.Contracts.V1;
-using UrlShortener.Core.Models.Responses;
 using UrlShortener.WebApi.Extensions;
 using UrlShortener.WebApi.Models.App;
 
@@ -31,6 +27,7 @@ public class Startup
         services.AddControllers().AddFluentValidation();
         services.AddVersioning();
         services.AddSwagger();
+        services.AddMetrics();
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>
@@ -42,7 +39,8 @@ public class Startup
         });
     }
 
-    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider, AppDbContext context)
+    public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider,
+        AppDbContext context)
     {
         if (env.IsDevelopment())
         {
@@ -59,40 +57,15 @@ public class Startup
         if (context.Database.IsRelational())
             context.Database.Migrate();
 
-        app.UseHealthChecks(ApiRoutes.Health, new HealthCheckOptions
-        {
-            ResponseWriter = async (context, report) =>
-            {
-                context.Response.ContentType = MediaTypeNames.Application.Json;
+        app.UseHealthChecksEndpoint();
 
-                var response = new HealthCheckResponse
-                {
-                    Status = report.Status.ToString(),
-                    Checks = report.Entries.Select(x => new HealthCheck
-                    {
-                        Component = x.Key,
-                        Status = x.Value.Status.ToString(),
-                        Description = x.Value.Description
-                    }),
-                    Duration = report.TotalDuration
-                };
-
-                await context.Response.WriteAsJsonAsync(response);
-            }
-        });
-
-        // Client side
         app.UseHsts();
-
-        // Server side
         app.UseHttpsRedirection();
 
         app.UseRouting();
-
         app.UseCors();
 
         app.UseAuthentication();
-
         app.UseAuthorization();
 
         app.UseEndpoints(endpoints =>
@@ -100,5 +73,4 @@ public class Startup
             endpoints.MapControllers();
         });
     }
-
 }

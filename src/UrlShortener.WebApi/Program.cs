@@ -13,6 +13,7 @@ public class Program
         Host.CreateDefaultBuilder(args)
             .AddSerilog()
             .AddAwsParameterStore()
+            .AddAppMetrics()
             .ConfigureWebHostDefaults(webBuilder =>
             {
                 webBuilder.UseStartup<Startup>();
