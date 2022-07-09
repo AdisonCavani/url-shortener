@@ -19,7 +19,7 @@ public class IsConfirmed : EndpointBaseAsync.WithRequest<IsEmailConfirmedDto>.Wi
 
     // TODO: benchmark: context vs userManager
     [HttpGet(ApiRoutes.Account.Email.IsConfirmed)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] IsEmailConfirmedDto dto, CancellationToken ct = default)
     {
         var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(x => x.Email == dto.Email, ct);

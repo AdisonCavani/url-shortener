@@ -6,7 +6,7 @@ namespace UrlShortener.WebApi.Services;
 public class EmailConfirmationTokenProvider : TotpSecurityStampBasedTokenProvider<AppUser>
 {
     public const string ProviderKey = "ConfirmEmail";
-    
+
     public override Task<bool> CanGenerateTwoFactorTokenAsync(UserManager<AppUser> manager, AppUser user)
     {
         return Task.FromResult(false);

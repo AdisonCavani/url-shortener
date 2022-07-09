@@ -12,16 +12,16 @@ public class Get : EndpointBaseSync.WithoutRequest.WithActionResult
 {
     private readonly IOptions<AppSettings> _appSettings;
     private readonly IOptions<AuthSettings> _authSettings;
-    
+
     public Get(IOptions<AppSettings> appSettings, IOptions<AuthSettings> authSettings)
     {
         _appSettings = appSettings;
         _authSettings = authSettings;
     }
-    
+
     [Authorize]
     [HttpGet(ApiRoutes.Config.Get)]
-    [SwaggerOperation(Tags = new[] {"Config Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Config Endpoint" })]
     public override ActionResult Handle()
     {
         return Ok(new

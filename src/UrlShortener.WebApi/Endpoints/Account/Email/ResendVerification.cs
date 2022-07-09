@@ -22,7 +22,7 @@ public class ResendVerification : EndpointBaseAsync.WithRequest<ResendVerificati
     }
 
     [HttpGet(ApiRoutes.Account.Email.ResendVerification)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] ResendVerificationEmailDto dto, CancellationToken ct = default)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);
@@ -30,7 +30,7 @@ public class ResendVerification : EndpointBaseAsync.WithRequest<ResendVerificati
         if (user is null)
             return BadRequest(new ErrorResponse
             {
-                Errors = new[] {"Couldn't find user associated with this email"}
+                Errors = new[] { "Couldn't find user associated with this email" }
             });
 
         var emailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -38,7 +38,7 @@ public class ResendVerification : EndpointBaseAsync.WithRequest<ResendVerificati
         if (emailConfirmed)
             return Conflict(new ErrorResponse
             {
-                Errors = new[] {"Email is already confirmed"}
+                Errors = new[] { "Email is already confirmed" }
             });
 
         var result = await _emailHandler.SendVerificationEmailAsync(user, ct);

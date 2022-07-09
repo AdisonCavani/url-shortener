@@ -14,9 +14,9 @@ public class Get : EndpointBaseAsync.WithRequest<string>.WithActionResult
     {
         _urlService = urlService;
     }
-    
+
     [HttpGet(ApiRoutes.CustomUrl.Get)]
-    [SwaggerOperation(Tags = new[] {"CustomUrl Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "CustomUrl Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] string dto, CancellationToken ct = default)
     {
         var result = await _urlService.GetCustomUrlAsync(dto, ct);

@@ -1,10 +1,10 @@
-﻿using System.Security.Claims;
-using Ardalis.ApiEndpoints;
+﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Swashbuckle.AspNetCore.Annotations;
+using System.Security.Claims;
 using UrlShortener.Core;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
@@ -26,7 +26,7 @@ public class Change : EndpointBaseAsync.WithRequest<ChangePasswordDto>.WithActio
 
     [Authorize]
     [HttpPost(ApiRoutes.Account.Password.Change)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromBody] ChangePasswordDto dto, CancellationToken ct = default)
     {
         var uid = HttpContext?.User?.FindFirstValue(JwtRegisteredClaimNames.Sub);

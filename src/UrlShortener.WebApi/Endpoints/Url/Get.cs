@@ -19,7 +19,7 @@ public class Get : EndpointBaseAsync.WithRequest<string>.WithActionResult
     }
 
     [HttpGet(ApiRoutes.Url.Get)]
-    [SwaggerOperation(Tags = new[] {"Url Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] string dto, CancellationToken ct = default)
     {
         if (dto.Length != 7)

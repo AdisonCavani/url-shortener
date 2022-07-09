@@ -22,7 +22,7 @@ public class Login : EndpointBaseAsync.WithRequest<LoginCredentialsDto>.WithActi
     }
 
     [HttpPost(ApiRoutes.Account.Login)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromBody] LoginCredentialsDto dto,
         CancellationToken ct = default)
     {

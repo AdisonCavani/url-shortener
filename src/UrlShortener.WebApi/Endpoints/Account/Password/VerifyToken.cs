@@ -20,7 +20,7 @@ public class VerifyToken : EndpointBaseAsync.WithRequest<PasswordRecoveryTokenDt
     }
 
     [HttpPost(ApiRoutes.Account.Password.VerifyToken)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromBody] PasswordRecoveryTokenDto dto, CancellationToken ct = default)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);
@@ -28,14 +28,14 @@ public class VerifyToken : EndpointBaseAsync.WithRequest<PasswordRecoveryTokenDt
         if (user is null)
             return BadRequest(new ErrorResponse
             {
-                Errors = new[] {"Couldn't find user associated with this email"}
+                Errors = new[] { "Couldn't find user associated with this email" }
             });
 
         if (!await _userManager.VerifyUserTokenAsync(user, PasswordResetTokenProvider.ProviderKey,
                 PasswordResetTokenProvider.ProviderKey, dto.Token))
             return BadRequest(new ErrorResponse
             {
-                Errors = new[] {"Invalid token"}
+                Errors = new[] { "Invalid token" }
             });
 
         return Ok();

@@ -22,7 +22,7 @@ public class Recover : EndpointBaseAsync.WithRequest<PasswordRecoveryDto>.WithAc
     }
 
     [HttpGet(ApiRoutes.Account.Password.Recovery)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] PasswordRecoveryDto dto, CancellationToken ct = default)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);
@@ -30,7 +30,7 @@ public class Recover : EndpointBaseAsync.WithRequest<PasswordRecoveryDto>.WithAc
         if (user is null)
             return BadRequest(new ErrorResponse
             {
-                Errors = new[] {"Couldn't find user associated with this email"}
+                Errors = new[] { "Couldn't find user associated with this email" }
             });
 
         var emailHandled = await _emailHandler.SendPasswordRecoveryEmailAsync(user, ct);

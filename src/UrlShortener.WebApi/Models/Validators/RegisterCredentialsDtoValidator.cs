@@ -7,10 +7,10 @@ namespace UrlShortener.WebApi.Models.Validators;
 
 public class RegisterCredentialsDtoValidator : AbstractValidator<RegisterCredentialsDto>
 {
-    public RegisterCredentialsDtoValidator(UserManager<AppUser> userManager)
+    public RegisterCredentialsDtoValidator()
     {
         RuleLevelCascadeMode = CascadeMode.Stop;
-        
+
         RuleFor(x => x.FirstName)
             .NotEmpty();
 

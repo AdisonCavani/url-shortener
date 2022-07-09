@@ -22,7 +22,7 @@ public class Reset : EndpointBaseAsync.WithRequest<ResetPasswordDto>.WithActionR
     }
 
     [HttpPost(ApiRoutes.Account.Password.Reset)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromBody] ResetPasswordDto dto, CancellationToken ct = default)
     {
         var user = await _userManager.FindByEmailAsync(dto.Email);

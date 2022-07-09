@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Web;
-using UrlShortener.Core.Contracts.V1;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services.Interfaces;
 

@@ -22,7 +22,7 @@ public class Register : EndpointBaseAsync.WithRequest<RegisterCredentialsDto>.Wi
     }
 
     [HttpPost(ApiRoutes.Account.Register)]
-    [SwaggerOperation(Tags = new[] {"Account Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Account Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromBody] RegisterCredentialsDto dto,
         CancellationToken ct = default)
     {

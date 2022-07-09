@@ -19,7 +19,7 @@ public class Save : EndpointBaseAsync.WithRequest<string>.WithActionResult
     }
 
     [HttpPost(ApiRoutes.Url.Save)]
-    [SwaggerOperation(Tags = new[] {"Url Endpoint"})]
+    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult> HandleAsync([FromQuery] string dto, CancellationToken ct = default)
     {
         Models.Entities.Url obj = new()

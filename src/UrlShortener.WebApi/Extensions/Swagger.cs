@@ -1,7 +1,7 @@
-﻿using Microsoft.OpenApi.Models;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace UrlShortener.WebApi.Extensions;
 
