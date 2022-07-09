@@ -32,8 +32,7 @@ public class JwtService
                 new(JwtRegisteredClaimNames.GivenName, user.FirstName),
                 new(JwtRegisteredClaimNames.FamilyName, user.LastName)
             }),
-            // Expires = DateTime.UtcNow.AddMinutes(_authSettings.Value.ExpireMinutes),
-            Expires = DateTime.UtcNow.AddDays(30),
+            Expires = DateTime.UtcNow.AddMinutes(_authSettings.Value.ExpireMinutes),
             Audience = _authSettings.Value.Audience,
             Issuer = _authSettings.Value.Issuer,
             SigningCredentials = new(key, SecurityAlgorithms.HmacSha256Signature)
