@@ -27,7 +27,9 @@ public class Startup
         services.AddControllers().AddFluentValidation();
         services.AddVersioning();
         services.AddSwagger();
+#if RELEASE
         services.AddMetrics();
+#endif
         services.AddCors(options =>
         {
             options.AddDefaultPolicy(policy =>
