@@ -11,7 +11,7 @@ public static class AppMetrics
         {
             options.EndpointOptions = endpointOptions =>
             {
-                endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusProtobufOutputFormatter();
+                endpointOptions.MetricsEndpointOutputFormatter = new MetricsPrometheusTextOutputFormatter();
                 endpointOptions.EnvironmentInfoEndpointEnabled = false;
                 endpointOptions.MetricsTextEndpointEnabled = false;
             };
