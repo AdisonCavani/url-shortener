@@ -12,8 +12,8 @@ public class Program
     public static IHostBuilder CreateHostBuilder(string[] args) =>
         Host.CreateDefaultBuilder(args)
             .AddSerilog()
-#if RELEASE
             .AddAwsParameterStore()
+#if RELEASE
             .AddAppMetrics()
 #endif
             .ConfigureWebHostDefaults(webBuilder =>
