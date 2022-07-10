@@ -1,7 +1,5 @@
 ﻿using FluentValidation;
-using Microsoft.AspNetCore.Identity;
 using UrlShortener.Core.Models.Requests;
-using UrlShortener.WebApi.Models.Entities;
 
 namespace UrlShortener.WebApi.Models.Validators;
 
