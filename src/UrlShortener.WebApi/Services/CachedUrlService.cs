@@ -1,33 +1,26 @@
-﻿using Microsoft.Extensions.Caching.Distributed;
+﻿using StackExchange.Redis;
 using UrlShortener.WebApi.Services.Interfaces;
 
 namespace UrlShortener.WebApi.Services;
 
 public class CachedUrlService : IUrlService
 {
-    private readonly IDistributedCache _cache;
     private readonly IUrlService _urlService;
+    private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-    public CachedUrlService(IDistributedCache cache, IUrlService urlService)
+    public CachedUrlService(IUrlService urlService, IConnectionMultiplexer connectionMultiplexer)
     {
         _urlService = urlService;
-        _cache = cache;
+        _connectionMultiplexer = connectionMultiplexer;
     }
 
     public async Task<string?> GetUrlByIdAsync(int id, CancellationToken ct = default)
     {
-        // var result = await _memoryCache.GetOrCreateAsync(id,
-        //     async entry =>
-        //     {
-        //         entry.AbsoluteExpirationRelativeToNow = TimeSpan.FromMinutes(2);
-        //         return await _urlService.GetUrlByIdAsync(id);
-        //     });
-        //
-        // return result;
+        var database = _connectionMultiplexer.GetDatabase();
 
-        var cacheHit = await _cache.GetValueAsync<string>(id.ToString(), ct: ct);
+        var cacheHit = await database.StringGetAsync(id.ToString());
 
-        if (cacheHit is not null)
+        if (cacheHit.HasValue)
             return cacheHit;
 
         var dbHit = await _urlService.GetUrlByIdAsync(id, ct);
@@ -35,15 +28,17 @@ public class CachedUrlService : IUrlService
         if (dbHit is null)
             return null;
 
-        await _cache.SetValueAsync(id.ToString(), dbHit, ct: ct);
+        await database.StringSetAsync(id.ToString(), dbHit);
         return dbHit;
     }
 
     public async Task<string?> GetCustomUrlAsync(string shortUrl, CancellationToken ct = default)
     {
-        var cacheHit = await _cache.GetValueAsync<string>(shortUrl, ct);
+        var database = _connectionMultiplexer.GetDatabase();
 
-        if (cacheHit is not null)
+        var cacheHit = await database.StringGetAsync(shortUrl);
+
+        if (cacheHit.HasValue)
             return cacheHit;
 
         var dbHit = await _urlService.GetCustomUrlAsync(shortUrl, ct);
@@ -51,7 +46,7 @@ public class CachedUrlService : IUrlService
         if (dbHit is null)
             return null;
 
-        await _cache.SetValueAsync(shortUrl, dbHit, ct: ct);
+        await database.StringSetAsync(shortUrl, dbHit);
         return dbHit;
     }
 }

@@ -8,11 +8,5 @@ public static class Cache
     {
         services.AddSingleton<IConnectionMultiplexer>(_ =>
             ConnectionMultiplexer.Connect(configuration["AppSettings:RedisConnectionString"]));
-
-        services.AddStackExchangeRedisCache(options =>
-        {
-            options.Configuration = configuration["AppSettings:RedisConnectionString"];
-            // TODO: configure redis
-        });
     }
 }

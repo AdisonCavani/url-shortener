@@ -1,5 +1,5 @@
 ﻿using HashidsNet;
-using Microsoft.Extensions.Caching.Distributed;
+using StackExchange.Redis;
 using UrlShortener.WebApi.HealthChecks;
 using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Services;
@@ -27,6 +27,6 @@ public static class Services
 
         services.AddScoped<UrlService>();
         services.AddScoped<IUrlService>(x =>
-            new CachedUrlService(x.GetRequiredService<IDistributedCache>(), x.GetRequiredService<UrlService>()));
+            new CachedUrlService(x.GetRequiredService<UrlService>(), x.GetRequiredService<IConnectionMultiplexer>()));
     }
 }
