@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.WebApi.Models.App;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class DbContext
 {

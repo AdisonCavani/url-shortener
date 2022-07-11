@@ -2,7 +2,7 @@
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.WebApi.Models.Validators;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class Validators
 {

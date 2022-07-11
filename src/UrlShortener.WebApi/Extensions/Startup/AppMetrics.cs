@@ -1,7 +1,7 @@
 ﻿using App.Metrics.AspNetCore;
 using App.Metrics.Formatters.Prometheus;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class AppMetrics
 {

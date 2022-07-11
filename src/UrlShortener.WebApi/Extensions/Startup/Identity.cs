@@ -2,9 +2,9 @@
 using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services;
+using UrlShortener.WebApi.Services.Auth;
 
-namespace UrlShortener.WebApi.Extensions;
-using Microsoft.Extensions.DependencyInjection;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class Identity
 {

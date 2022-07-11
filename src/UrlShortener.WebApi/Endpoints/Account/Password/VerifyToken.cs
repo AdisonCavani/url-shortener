@@ -7,6 +7,7 @@ using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services;
+using UrlShortener.WebApi.Services.Auth;
 
 namespace UrlShortener.WebApi.Endpoints.Account.Password;
 

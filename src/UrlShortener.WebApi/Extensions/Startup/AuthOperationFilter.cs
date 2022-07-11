@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public class AuthOperationFilter : IOperationFilter
 {

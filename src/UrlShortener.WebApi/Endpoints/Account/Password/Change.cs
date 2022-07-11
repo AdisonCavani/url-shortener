@@ -9,16 +9,16 @@ using UrlShortener.Core;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.WebApi.Models.Entities;
-using UrlShortener.WebApi.Services;
+using UrlShortener.WebApi.Services.Interfaces;
 
 namespace UrlShortener.WebApi.Endpoints.Account.Password;
 
 public class Change : EndpointBaseAsync.WithRequest<ChangePasswordDto>.WithActionResult
 {
-    private readonly EmailHandler _emailHandler;
+    private readonly IEmailHandler _emailHandler;
     private readonly UserManager<AppUser> _userManager;
 
-    public Change(EmailHandler emailHandler, UserManager<AppUser> userManager)
+    public Change(IEmailHandler emailHandler, UserManager<AppUser> userManager)
     {
         _emailHandler = emailHandler;
         _userManager = userManager;

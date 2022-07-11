@@ -2,6 +2,7 @@ using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.EntityFrameworkCore;
 using UrlShortener.WebApi.Extensions;
+using UrlShortener.WebApi.Extensions.Startup;
 using UrlShortener.WebApi.Models.App;
 
 namespace UrlShortener.WebApi;

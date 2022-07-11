@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class Versioning
 {

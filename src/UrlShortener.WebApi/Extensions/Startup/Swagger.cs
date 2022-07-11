@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Reflection;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
-using System.Reflection;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class SwaggerService
 {
@@ -31,7 +31,7 @@ public static class SwaggerService
             });
         });
 
-        services.AddSwaggerExamplesFromAssemblyOf<Startup>();
+        services.AddSwaggerExamplesFromAssemblyOf<WebApi.Startup>();
         services.ConfigureOptions<ConfigureSwaggerOptions>();
     }
 }

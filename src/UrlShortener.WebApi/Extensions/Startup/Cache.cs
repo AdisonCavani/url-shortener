@@ -1,6 +1,6 @@
 ﻿using StackExchange.Redis;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class Cache
 {

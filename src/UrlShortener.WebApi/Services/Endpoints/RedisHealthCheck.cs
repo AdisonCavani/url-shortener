@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 
-namespace UrlShortener.WebApi.HealthChecks;
+namespace UrlShortener.WebApi.Services.Endpoints;
 
 public class RedisHealthCheck : IHealthCheck
 {

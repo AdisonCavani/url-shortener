@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using System.Net.Mime;
+﻿using System.Net.Mime;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Responses;
 
-namespace UrlShortener.WebApi.Extensions;
+namespace UrlShortener.WebApi.Extensions.Startup;
 
 public static class HealthChecks
 {

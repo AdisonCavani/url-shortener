@@ -6,16 +6,16 @@ using UrlShortener.Core;
 using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Core.Models.Requests;
 using UrlShortener.WebApi.Models.Entities;
-using UrlShortener.WebApi.Services;
+using UrlShortener.WebApi.Services.Interfaces;
 
 namespace UrlShortener.WebApi.Endpoints.Account;
 
 public class Register : EndpointBaseAsync.WithRequest<RegisterCredentialsDto>.WithActionResult
 {
-    private readonly EmailHandler _emailHandler;
+    private readonly IEmailHandler _emailHandler;
     private readonly UserManager<AppUser> _userManager;
 
-    public Register(EmailHandler emailHandler, UserManager<AppUser> userManager)
+    public Register(IEmailHandler emailHandler, UserManager<AppUser> userManager)
     {
         _emailHandler = emailHandler;
         _userManager = userManager;

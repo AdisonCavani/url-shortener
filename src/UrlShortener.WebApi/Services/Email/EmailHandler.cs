@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.Web;
+﻿using System.Web;
+using Microsoft.AspNetCore.Identity;
 using UrlShortener.WebApi.Models.Entities;
 using UrlShortener.WebApi.Services.Interfaces;
 
-namespace UrlShortener.WebApi.Services;
+namespace UrlShortener.WebApi.Services.Email;
 
-// TODO: create HTML template handler
-public class EmailHandler
+public class EmailHandler : IEmailHandler
 {
     private readonly IEmailService _emailService;
     private readonly UserManager<AppUser> _userManager;
@@ -17,7 +16,7 @@ public class EmailHandler
         _userManager = userManager;
     }
 
-    public async Task<bool> SendVerificationEmailAsync(AppUser user, CancellationToken token = default)
+    public async Task<bool> SendVerificationEmailAsync(AppUser user, CancellationToken ct = default)
     {
         var confirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
@@ -29,24 +28,24 @@ public class EmailHandler
 
         var body = $"Token: {confirmationToken}";
 
-        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, token: token);
+        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, ct);
 
         return emailSend;
     }
 
-    public async Task<bool> SendPasswordChangedAlertAsync(AppUser user, CancellationToken token = default)
+    public async Task<bool> SendPasswordChangedAlertAsync(AppUser user, CancellationToken ct = default)
     {
         var name = $"{user.FirstName} {user.LastName}";
         var topic = "Password has been changed";
 
         var body = $"<p>Your password has been changed</p>";
 
-        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, token: token);
+        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, ct);
 
         return emailSend;
     }
 
-    public async Task<bool> SendPasswordRecoveryEmailAsync(AppUser user, CancellationToken token = default)
+    public async Task<bool> SendPasswordRecoveryEmailAsync(AppUser user, CancellationToken ct = default)
     {
         var passwordToken = await _userManager.GeneratePasswordResetTokenAsync(user);
 
@@ -58,7 +57,7 @@ public class EmailHandler
 
         var body = $"<p>Token: {HttpUtility.UrlEncode(passwordToken)}</p>";
 
-        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, token: token);
+        var emailSend = await _emailService.SendEmailAsync(name, user.Email, topic, body, ct);
 
         return emailSend;
     }

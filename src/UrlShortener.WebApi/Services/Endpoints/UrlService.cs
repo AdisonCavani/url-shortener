@@ -2,7 +2,7 @@
 using UrlShortener.WebApi.Models.App;
 using UrlShortener.WebApi.Services.Interfaces;
 
-namespace UrlShortener.WebApi.Services;
+namespace UrlShortener.WebApi.Services.Endpoints;
 
 public class UrlService : IUrlService
 {

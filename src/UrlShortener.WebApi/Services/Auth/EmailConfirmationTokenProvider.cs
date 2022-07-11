@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using UrlShortener.WebApi.Models.Entities;
 
-namespace UrlShortener.WebApi.Services;
+namespace UrlShortener.WebApi.Services.Auth;
 
-public class PasswordResetTokenProvider : TotpSecurityStampBasedTokenProvider<AppUser>
+public class EmailConfirmationTokenProvider : TotpSecurityStampBasedTokenProvider<AppUser>
 {
-    public const string ProviderKey = "ResetPassword";
+    public const string ProviderKey = "ConfirmEmail";
 
     public override Task<bool> CanGenerateTwoFactorTokenAsync(UserManager<AppUser> manager, AppUser user)
     {

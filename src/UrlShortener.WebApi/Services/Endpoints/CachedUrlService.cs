@@ -1,7 +1,7 @@
 ﻿using StackExchange.Redis;
 using UrlShortener.WebApi.Services.Interfaces;
 
-namespace UrlShortener.WebApi.Services;
+namespace UrlShortener.WebApi.Services.Endpoints;
 
 public class CachedUrlService : IUrlService
 {

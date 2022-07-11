@@ -7,6 +7,13 @@ public interface IEmailService
         string receiverEmail,
         string subject,
         string body,
-        bool html = true,
-        CancellationToken token = default);
+        CancellationToken ct = default);
+
+    Task<bool> SendTemplateEmailAsync(
+        string receiverName,
+        string receiverEmail,
+        string subject,
+        string templateId,
+        object templateData,
+        CancellationToken ct = default);
 }
