@@ -29,17 +29,18 @@ public class SendgridEmailHandler : IEmailHandler
             return false;
 
         var name = $"{user.FirstName} {user.LastName}";
-        var topic = "Confirm your email";
 
         var templateData = new VerificationEmailTemplateData
         {
+            Subject = "Confirm your email",
+            Preheader = "",
+
             Token = confirmationToken
         };
 
         var emailSend = await _emailService.SendTemplateEmailAsync(
             name,
             user.Email,
-            topic,
             _sendGridSettings.Value.VerificationEmailTemplateId,
             templateData,
             ct);
@@ -50,10 +51,12 @@ public class SendgridEmailHandler : IEmailHandler
     public async Task<bool> SendPasswordChangedAlertAsync(AppUser user, CancellationToken ct = default)
     {
         var name = $"{user.FirstName} {user.LastName}";
-        var topic = "Password has been changed";
 
         var templateData = new PasswordChangedAlertTemplateData
         {
+            Subject = "Password has been changed",
+            Preheader = "",
+
             FirstName = user.FirstName,
             LastName = user.LastName
         };
@@ -61,7 +64,6 @@ public class SendgridEmailHandler : IEmailHandler
         var emailSend = await _emailService.SendTemplateEmailAsync(
             name,
             user.Email,
-            topic,
             _sendGridSettings.Value.PasswordChangedAlertTemplateId,
             templateData,
             ct);
@@ -77,17 +79,18 @@ public class SendgridEmailHandler : IEmailHandler
             return false;
 
         var name = $"{user.FirstName} {user.LastName}";
-        var topic = "Password recovery";
 
         var templateData = new PasswordRecoveryTemplateData
         {
+            Subject = "Password recovery",
+            Preheader = "",
+
             Token = passwordToken
         };
 
         var emailSend = await _emailService.SendTemplateEmailAsync(
             name,
             user.Email,
-            topic,
             _sendGridSettings.Value.PasswordRecoveryTemplateId,
             templateData,
             ct);

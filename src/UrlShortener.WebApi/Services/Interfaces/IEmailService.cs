@@ -1,4 +1,6 @@
-﻿namespace UrlShortener.WebApi.Services.Interfaces;
+﻿using UrlShortener.WebApi.Models.EmailTemplates;
+
+namespace UrlShortener.WebApi.Services.Interfaces;
 
 public interface IEmailService
 {
@@ -12,8 +14,7 @@ public interface IEmailService
     Task<bool> SendTemplateEmailAsync(
         string receiverName,
         string receiverEmail,
-        string subject,
         string templateId,
-        object templateData,
+        BaseEmailTemplateData templateData,
         CancellationToken ct = default);
 }

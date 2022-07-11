@@ -1,6 +1,9 @@
-﻿namespace UrlShortener.WebApi.Models.EmailTemplates;
+﻿using Newtonsoft.Json;
 
-public class VerificationEmailTemplateData
+namespace UrlShortener.WebApi.Models.EmailTemplates;
+
+public class VerificationEmailTemplateData : BaseEmailTemplateData
 {
+    [JsonProperty("token")]
     public string Token { get; set; }
 }

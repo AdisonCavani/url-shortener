@@ -1,6 +1,7 @@
 ﻿using MailKit.Net.Smtp;
 using MimeKit;
 using MimeKit.Text;
+using UrlShortener.WebApi.Models.EmailTemplates;
 using UrlShortener.WebApi.Services.Interfaces;
 
 namespace UrlShortener.WebApi.Services.Email;
@@ -42,9 +43,8 @@ public class DevEmailService : IEmailService
     public Task<bool> SendTemplateEmailAsync(
         string receiverName,
         string receiverEmail,
-        string subject,
         string templateId,
-        object templateData,
+        BaseEmailTemplateData templateData,
         CancellationToken ct = default)
     {
         throw new NotImplementedException();

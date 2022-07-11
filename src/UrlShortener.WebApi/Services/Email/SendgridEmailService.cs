@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Options;
 using SendGrid;
 using SendGrid.Helpers.Mail;
+using UrlShortener.WebApi.Models.EmailTemplates;
 using UrlShortener.WebApi.Models.Settings;
 using UrlShortener.WebApi.Services.Interfaces;
 
@@ -43,9 +44,8 @@ public class SendgridEmailService : IEmailService
     public async Task<bool> SendTemplateEmailAsync(
         string receiverName,
         string receiverEmail,
-        string subject,
         string templateId,
-        object templateData,
+        BaseEmailTemplateData templateData,
         CancellationToken ct = default)
     {
         try
@@ -55,7 +55,6 @@ public class SendgridEmailService : IEmailService
             var msg = new SendGridMessage();
             msg.SetFrom(_sendGridSettings.Value.Email, _sendGridSettings.Value.Name);
             msg.AddTo(receiverEmail, receiverName);
-            msg.SetSubject(subject);
 
             msg.SetTemplateId(templateId);
             msg.SetTemplateData(templateData);
