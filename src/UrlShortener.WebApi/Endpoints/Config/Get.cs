@@ -12,11 +12,19 @@ public class Get : EndpointBaseSync.WithoutRequest.WithActionResult
 {
     private readonly IOptions<AppSettings> _appSettings;
     private readonly IOptions<AuthSettings> _authSettings;
+    private readonly IOptions<SendGridSettings> _sendGridSettings;
+    private readonly IOptions<SmtpSettings> _smtpSettings;
 
-    public Get(IOptions<AppSettings> appSettings, IOptions<AuthSettings> authSettings)
+    public Get(
+        IOptions<AppSettings> appSettings,
+        IOptions<AuthSettings> authSettings,
+        IOptions<SendGridSettings> sendGridSettings,
+        IOptions<SmtpSettings> smtpSettings)
     {
         _appSettings = appSettings;
         _authSettings = authSettings;
+        _sendGridSettings = sendGridSettings;
+        _smtpSettings = smtpSettings;
     }
 
     [Authorize]
@@ -27,7 +35,9 @@ public class Get : EndpointBaseSync.WithoutRequest.WithActionResult
         return Ok(new
         {
             AppSettings = _appSettings.Value,
-            AuthSettings = _authSettings.Value
+            AuthSettings = _authSettings.Value,
+            SendGridSettings = _sendGridSettings.Value,
+            SmtpSettings = _smtpSettings.Value,
         });
     }
 }
