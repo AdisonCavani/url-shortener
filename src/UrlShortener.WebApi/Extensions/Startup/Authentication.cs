@@ -1,6 +1,7 @@
-﻿using System.Text;
+﻿using System.Net;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace UrlShortener.WebApi.Extensions.Startup;
 
@@ -27,7 +28,12 @@ public static class Authentication
                 ClockSkew = TimeSpan.Zero, // FIX: might cause issues, if auth is out of sync
                 ValidIssuer = configuration["AuthSettings:Issuer"],
                 ValidAudience = configuration["AuthSettings:Audience"],
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["AuthSettings:SecretKey"]))
+                IssuerSigningKeyResolver = (s, securityToken, identifier, parameters) =>
+                {
+                    var json = new WebClient().DownloadString($"{parameters.ValidIssuer}/.well-known/jwks.json");
+                    var obj = JsonConvert.DeserializeObject<JsonWebKeySet>(json);
+                    return obj?.Keys;
+                }
             };
         });
     }

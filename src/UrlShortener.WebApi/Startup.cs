@@ -23,7 +23,6 @@ public class Startup
         services.RegisterServices(Configuration);
         services.AddCache(Configuration);
         services.ConfigureDbContext(Configuration);
-        services.ConfigureIdentity();
         services.AddAuthentication(Configuration);
         services.AddControllers().AddFluentValidation();
         services.AddVersioning();

@@ -1,8 +1,6 @@
 ﻿using HashidsNet;
 using StackExchange.Redis;
 using UrlShortener.WebApi.Models.App;
-using UrlShortener.WebApi.Services.Auth;
-using UrlShortener.WebApi.Services.Email;
 using UrlShortener.WebApi.Services.Endpoints;
 using UrlShortener.WebApi.Services.Interfaces;
 
@@ -15,17 +13,6 @@ public static class Services
         services.AddHealthChecks()
             .AddDbContextCheck<AppDbContext>()
             .AddCheck<RedisHealthCheck>("Redis");
-
-#if RELEASE
-        // services.AddScoped<IEmailService, DevEmailService>();
-        services.AddScoped<IEmailService, SmtpEmailService>();
-        services.AddScoped<IEmailHandler, EmailHandler>();
-#else
-        services.AddScoped<IEmailService, SendgridEmailService>();
-        services.AddScoped<IEmailHandler, SendgridEmailHandler>();
-#endif
-
-        services.AddScoped<JwtService>();
 
         services.AddSingleton<IHashids>(_ => new Hashids(configuration["AppSettings:HashidsSalt"], 7));
 
