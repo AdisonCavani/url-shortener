@@ -21,11 +21,12 @@ public class Save : EndpointBaseAsync.WithRequest<CustomUrlDto>.WithActionResult
 
     [Authorize]
     [HttpPost(ApiRoutes.CustomUrl.Save)]
-    [SwaggerOperation(Tags = new[] { "CustomUrl Endpoint" })]
+    [SwaggerOperation(Tags = new[] {"CustomUrl Endpoint"})]
     public override async Task<ActionResult> HandleAsync([FromBody] CustomUrlDto dto, CancellationToken ct = default)
     {
         var uid = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (!int.TryParse(uid, out var userId))
+
+        if (string.IsNullOrWhiteSpace(uid))
             return Unauthorized();
 
         var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == dto.ShortUrl, ct);
@@ -36,7 +37,7 @@ public class Save : EndpointBaseAsync.WithRequest<CustomUrlDto>.WithActionResult
         {
             FullUrl = dto.FullUrl,
             ShortUrl = dto.ShortUrl,
-            UserId = userId
+            UserId = uid
         };
 
         await _context.AddAsync(obj, ct);

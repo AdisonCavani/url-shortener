@@ -1,4 +1,3 @@
-using UrlShortener.WebApi.Extensions;
 using UrlShortener.WebApi.Extensions.Startup;
 
 namespace UrlShortener.WebApi;

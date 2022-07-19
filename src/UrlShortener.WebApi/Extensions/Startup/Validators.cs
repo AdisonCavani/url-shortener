@@ -10,15 +10,6 @@ public static class Validators
     {
         ValidatorOptions.Global.LanguageManager.Enabled = false;
 
-        services.AddScoped<IValidator<ChangePasswordDto>, ChangePasswordDtoValidator>();
-        services.AddScoped<IValidator<IsEmailConfirmedDto>, IsEmailConfirmedDtoValidator>();
-        services.AddScoped<IValidator<ConfirmEmailDto>, ConfirmEmailDtoValidator>();
-        services.AddScoped<IValidator<LoginCredentialsDto>, LoginCredentialsDtoValidator>();
-        services.AddScoped<IValidator<PasswordRecoveryDto>, PasswordRecoveryDtoValidator>();
-        services.AddScoped<IValidator<PasswordRecoveryTokenDto>, PasswordRecoveryTokenDtoValidator>();
-        services.AddScoped<IValidator<RegisterCredentialsDto>, RegisterCredentialsDtoValidator>();
-        services.AddScoped<IValidator<ResendVerificationEmailDto>, ResendVerificationEmailDtoValidator>();
-        services.AddScoped<IValidator<ResetPasswordDto>, ResetPasswordDtoValidator>();
         services.AddScoped<IValidator<CustomUrlDto>, CustomUrlDtoValidator>();
     }
 }
