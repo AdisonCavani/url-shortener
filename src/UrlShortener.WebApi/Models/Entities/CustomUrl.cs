@@ -14,5 +14,6 @@ public class CustomUrl
     public string FullUrl { get; set; }
 
     [Required]
+    [StringLength(36, MinimumLength = 36, ErrorMessage = "UserId must be UUID v4 format")]
     public string UserId { get; set; }
 }

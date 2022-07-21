@@ -2,6 +2,7 @@
 using System.Text.Json;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 
 namespace UrlShortener.WebApi.Extensions.Startup;
 
@@ -31,7 +32,7 @@ public static class Authentication
                 IssuerSigningKeyResolver = (s, securityToken, identifier, parameters) =>
                 {
                     var json = new WebClient().DownloadString($"{parameters.ValidIssuer}/.well-known/jwks.json");
-                    var obj = JsonSerializer.Deserialize<JsonWebKeySet>(json);
+                    var obj = JsonConvert.DeserializeObject<JsonWebKeySet>(json);
                     return obj?.Keys;
                 }
             };
