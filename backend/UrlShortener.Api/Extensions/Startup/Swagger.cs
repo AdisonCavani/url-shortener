@@ -31,7 +31,7 @@ public static class SwaggerService
             });
         });
 
-        services.AddSwaggerExamplesFromAssemblyOf<Api.Startup>();
+        services.AddSwaggerExamplesFromAssemblyOf<Program>();
         services.ConfigureOptions<ConfigureSwaggerOptions>();
     }
 }
