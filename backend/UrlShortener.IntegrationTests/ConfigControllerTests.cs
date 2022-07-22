@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using UrlShortener.Core.Contracts.V1;
 using UrlShortener.Api;
+using UrlShortener.Shared.Contracts;
 using Xunit;
 
 namespace UrlShortener.IntegrationTests;
