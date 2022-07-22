@@ -4,13 +4,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Security.Claims;
-using UrlShortener.Api.Models.App;
-using UrlShortener.Core.Contracts.V1;
-using UrlShortener.Core.Models.Requests;
+using UrlShortener.Api.Database;
+using UrlShortener.Shared.Contracts;
+using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Endpoints.CustomUrl;
 
-public class Save : EndpointBaseAsync.WithRequest<CustomUrlDto>.WithActionResult
+public class Save : EndpointBaseAsync.WithRequest<SaveCustomUrlRequest>.WithActionResult
 {
     private readonly AppDbContext _context;
 
@@ -22,21 +22,21 @@ public class Save : EndpointBaseAsync.WithRequest<CustomUrlDto>.WithActionResult
     [Authorize]
     [HttpPost(ApiRoutes.CustomUrl.Save)]
     [SwaggerOperation(Tags = new[] {"CustomUrl Endpoint"})]
-    public override async Task<ActionResult> HandleAsync([FromBody] CustomUrlDto dto, CancellationToken ct = default)
+    public override async Task<ActionResult> HandleAsync(SaveCustomUrlRequest req, CancellationToken ct = default)
     {
         var uid = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (string.IsNullOrWhiteSpace(uid))
             return Unauthorized();
 
-        var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == dto.ShortUrl, ct);
+        var existInDb = await _context.CustomUrls.AnyAsync(e => e.ShortUrl == req.ShortUrl, ct);
         if (existInDb)
             return Conflict();
 
-        var obj = new Models.Entities.CustomUrl()
+        var obj = new Entities.CustomUrl
         {
-            FullUrl = dto.FullUrl,
-            ShortUrl = dto.ShortUrl,
+            FullUrl = req.FullUrl,
+            ShortUrl = req.ShortUrl,
             UserId = uid
         };
 

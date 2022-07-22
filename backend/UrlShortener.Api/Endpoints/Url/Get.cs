@@ -1,13 +1,13 @@
 ﻿using Ardalis.ApiEndpoints;
 using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
-using UrlShortener.Api.Services.Interfaces;
-using UrlShortener.Core.Contracts.V1;
+using UrlShortener.Api.Services;
+using UrlShortener.Shared.Contracts;
+using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Endpoints.Url;
 
-public class Get : EndpointBaseAsync.WithRequest<string>.WithActionResult
+public class Get : EndpointBaseAsync.WithRequest<GetUrlRequest>.WithActionResult<string>
 {
     private readonly IHashids _hashids;
     private readonly IUrlService _urlService;
@@ -17,15 +17,14 @@ public class Get : EndpointBaseAsync.WithRequest<string>.WithActionResult
         _hashids = hashids;
         _urlService = urlService;
     }
-
+    
     [HttpGet(ApiRoutes.Url.Get)]
-    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
-    public override async Task<ActionResult> HandleAsync([FromQuery] string dto, CancellationToken ct = default)
+    public override async Task<ActionResult<string>> HandleAsync(GetUrlRequest req, CancellationToken ct = default)
     {
-        if (dto.Length != 7)
+        if (req.Id.Length != 7)
             return BadRequest();
 
-        var rawId = _hashids.Decode(dto);
+        var rawId = _hashids.Decode(req.Id);
 
         if (rawId.Length == 0)
             return BadRequest();

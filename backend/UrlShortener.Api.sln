@@ -1,17 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.2.32317.152
+VisualStudioVersion = 17.3.32708.82
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlShortener.Api", "UrlShortener.Api\UrlShortener.Api.csproj", "{2CE9F814-C622-4296-8F6D-3549380B4B72}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlShortener.Api", "UrlShortener.Api\UrlShortener.Api.csproj", "{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C45EB1E2-C034-4574-87E0-BAB6557827DA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.UnitTests", "UrlShortener.UnitTests\UrlShortener.UnitTests.csproj", "{DFA632FC-3827-49EA-83C6-560E3A3DF4D3}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.IntegrationTests", "UrlShortener.IntegrationTests\UrlShortener.IntegrationTests.csproj", "{B00912EC-69D4-4959-B741-853379861EED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Core", "UrlShortener.Core\UrlShortener.Core.csproj", "{93267720-58FD-4F17-8BF4-7FF81F186AD1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Shared", "UrlShortener.Shared\UrlShortener.Shared.csproj", "{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,27 +13,19 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2CE9F814-C622-4296-8F6D-3549380B4B72}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2CE9F814-C622-4296-8F6D-3549380B4B72}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2CE9F814-C622-4296-8F6D-3549380B4B72}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2CE9F814-C622-4296-8F6D-3549380B4B72}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DFA632FC-3827-49EA-83C6-560E3A3DF4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DFA632FC-3827-49EA-83C6-560E3A3DF4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DFA632FC-3827-49EA-83C6-560E3A3DF4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DFA632FC-3827-49EA-83C6-560E3A3DF4D3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B00912EC-69D4-4959-B741-853379861EED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B00912EC-69D4-4959-B741-853379861EED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B00912EC-69D4-4959-B741-853379861EED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B00912EC-69D4-4959-B741-853379861EED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{93267720-58FD-4F17-8BF4-7FF81F186AD1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93267720-58FD-4F17-8BF4-7FF81F186AD1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93267720-58FD-4F17-8BF4-7FF81F186AD1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93267720-58FD-4F17-8BF4-7FF81F186AD1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9F28C911-743C-45A3-BE30-D5BCDE42D744}
+		SolutionGuid = {044F3F54-C970-42FF-A08C-48A865FC1FA3}
 	EndGlobalSection
 EndGlobal

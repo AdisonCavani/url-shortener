@@ -1,8 +1,8 @@
 ﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using UrlShortener.Api.Models.App;
-using UrlShortener.Core.Contracts.V1;
+using UrlShortener.Api.Database;
+using UrlShortener.Shared.Contracts;
 
 namespace UrlShortener.Api.Endpoints.CustomUrl;
 

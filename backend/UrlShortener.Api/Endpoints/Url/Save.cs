@@ -2,12 +2,13 @@
 using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UrlShortener.Api.Models.App;
-using UrlShortener.Core.Contracts.V1;
+using UrlShortener.Api.Database;
+using UrlShortener.Shared.Contracts;
+using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Endpoints.Url;
 
-public class Save : EndpointBaseAsync.WithRequest<string>.WithActionResult
+public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResult
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
@@ -20,11 +21,11 @@ public class Save : EndpointBaseAsync.WithRequest<string>.WithActionResult
 
     [HttpPost(ApiRoutes.Url.Save)]
     [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
-    public override async Task<ActionResult> HandleAsync([FromQuery] string dto, CancellationToken ct = default)
+    public override async Task<ActionResult> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)
     {
-        Models.Entities.Url obj = new()
+        Entities.Url obj = new()
         {
-            FullUrl = dto
+            FullUrl = req.Url
         };
 
         await _context.Urls.AddAsync(obj, ct);
