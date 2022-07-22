@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 using UrlShortener.Api.Services;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
@@ -19,6 +20,7 @@ public class Get : EndpointBaseAsync.WithRequest<GetUrlRequest>.WithActionResult
     }
     
     [HttpGet(ApiRoutes.Url.Get)]
+    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult<string>> HandleAsync(GetUrlRequest req, CancellationToken ct = default)
     {
         if (req.Id.Length != 7)

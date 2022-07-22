@@ -1,6 +1,7 @@
 ﻿using Ardalis.ApiEndpoints;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Annotations;
 using UrlShortener.Api.Database;
 using UrlShortener.Shared.Contracts;
 
@@ -16,6 +17,7 @@ public class Delete: EndpointBaseAsync.WithRequest<string>.WithActionResult
     }
     
     [HttpDelete(ApiRoutes.CustomUrl.Delete)]
+    [SwaggerOperation(Tags = new[] { "CustomUrl Endpoint" })]
     public override async Task<ActionResult> HandleAsync(string dto, CancellationToken ct = default)
     {
         var exist = await _context.CustomUrls.FirstOrDefaultAsync(x => x.ShortUrl == dto, ct);
