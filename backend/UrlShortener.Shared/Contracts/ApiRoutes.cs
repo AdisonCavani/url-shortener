@@ -2,11 +2,9 @@
 
 public static class ApiRoutes
 {
-    private const string Root = "api";
-    private const string Version = "v{version:apiVersion}";
-    private const string Base = $"{Root}/{Version}";
+    private const string Base = "/api";
 
-    public const string Health = "/api/health";
+    public const string Health = $"{Base}/health";
     
     public static class Config
     {
