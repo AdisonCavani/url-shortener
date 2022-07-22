@@ -3,23 +3,23 @@ name: .NET
 on:
   push:
     paths:
-    - src/**.cs
-    - src/**.csproj
-    - src/**.json
+    - backend/**.cs
+    - backend/**.csproj
+    - backend/**.json
     branches:
     - master
   pull_request:
     paths:
-    - src/**.cs
-    - src/**.csproj
-    - src/**.json
+    - backend/**.cs
+    - backend/**.csproj
+    - backend/**.json
 
 jobs:
   build:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src
+        working-directory: backend
     
     permissions:
       id-token: write
@@ -61,10 +61,10 @@ jobs:
       run: dotnet tool install dotnet-stryker
 
     - name: Stryker
-      working-directory: src/UrlShortener.UnitTests
+      working-directory: backend/UrlShortener.UnitTests
       run: dotnet stryker -r "progress" -r "cleartext" -r "html"
 
     - uses: actions/upload-artifact@v3
       with:
         name: Stryker result
-        path: src/UrlShortener.UnitTests/StrykerOutput/**/reports/mutation-report.html
+        path: backend/UrlShortener.UnitTests/StrykerOutput/**/reports/mutation-report.html
