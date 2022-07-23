@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using UrlShortener.Api.Database;
+using UrlShortener.Api.Services.Interfaces;
 
 namespace UrlShortener.Api.Services;
 
@@ -12,15 +13,9 @@ public class UrlService : IUrlService
         _context = context;
     }
 
-    public async Task<string?> GetUrlByIdAsync(int id, CancellationToken ct = default)
+    public async Task<string?> GetUrlByIdAsync(long id, CancellationToken ct = default)
     {
         var result = await _context.Urls.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id, ct);
-        return result?.FullUrl;
-    }
-
-    public async Task<string?> GetCustomUrlAsync(string shortUrl, CancellationToken ct = default)
-    {
-        var result = await _context.CustomUrls.AsNoTracking().FirstOrDefaultAsync(a => a.ShortUrl == shortUrl, ct);
         return result?.FullUrl;
     }
 }

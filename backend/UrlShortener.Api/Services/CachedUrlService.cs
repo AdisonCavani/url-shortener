@@ -1,4 +1,5 @@
 ﻿using StackExchange.Redis;
+using UrlShortener.Api.Services.Interfaces;
 
 namespace UrlShortener.Api.Services;
 
@@ -13,7 +14,7 @@ public class CachedUrlService : IUrlService
         _connectionMultiplexer = connectionMultiplexer;
     }
 
-    public async Task<string?> GetUrlByIdAsync(int id, CancellationToken ct = default)
+    public async Task<string?> GetUrlByIdAsync(long id, CancellationToken ct = default)
     {
         var database = _connectionMultiplexer.GetDatabase();
 
@@ -28,24 +29,6 @@ public class CachedUrlService : IUrlService
             return null;
 
         await database.StringSetAsync(id.ToString(), dbHit);
-        return dbHit;
-    }
-
-    public async Task<string?> GetCustomUrlAsync(string shortUrl, CancellationToken ct = default)
-    {
-        var database = _connectionMultiplexer.GetDatabase();
-
-        var cacheHit = await database.StringGetAsync(shortUrl);
-
-        if (cacheHit.HasValue)
-            return cacheHit;
-
-        var dbHit = await _urlService.GetCustomUrlAsync(shortUrl, ct);
-
-        if (dbHit is null)
-            return null;
-
-        await database.StringSetAsync(shortUrl, dbHit);
         return dbHit;
     }
 }

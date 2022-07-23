@@ -3,9 +3,9 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
 
-public class GetUrlRequestValidator : AbstractValidator<GetUrlRequest>
+public class DeleteUrlRequestValidator : AbstractValidator<DeleteUrlRequest>
 {
-	public GetUrlRequestValidator()
+	public DeleteUrlRequestValidator()
 	{
 		RuleFor(x => x.Id).NotEmpty();
 	}

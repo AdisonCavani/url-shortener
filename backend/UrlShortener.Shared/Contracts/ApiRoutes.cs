@@ -12,21 +12,22 @@ public static class ApiRoutes
 
         public const string Get = $"{Endpoint}/get";
     }
-
-    public static class CustomUrl
+    
+    public static class AnonymousUrl
     {
-        private const string Endpoint = $"{Base}/customurl";
+        private const string Endpoint = $"{Base}/anonymousUrl";
 
         public const string Get = $"{Endpoint}/get";
         public const string Save = $"{Endpoint}/save";
-        public const string Delete = $"{Endpoint}/delete";
     }
 
     public static class Url
     {
         private const string Endpoint = $"{Base}/url";
 
-        public const string Get = $"{Endpoint}/get";
+        public const string GetAll = $"{Endpoint}/getAll";
         public const string Save = $"{Endpoint}/save";
+        public const string Update = $"{Endpoint}/update";
+        public const string Delete = $"{Endpoint}/delete";
     }
 }

@@ -3,10 +3,11 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
 
-public class GetUrlRequestValidator : AbstractValidator<GetUrlRequest>
+public class UpdateUrlRequestValidator : AbstractValidator<UpdateUrlRequest>
 {
-	public GetUrlRequestValidator()
+	public UpdateUrlRequestValidator()
 	{
 		RuleFor(x => x.Id).NotEmpty();
+		RuleFor(x => x.NewUrl).NotEmpty();
 	}
 }

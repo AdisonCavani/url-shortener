@@ -2,6 +2,7 @@
 using StackExchange.Redis;
 using UrlShortener.Api.Database;
 using UrlShortener.Api.Services;
+using UrlShortener.Api.Services.Interfaces;
 
 namespace UrlShortener.Api.Extensions;
 
