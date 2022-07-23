@@ -9,7 +9,7 @@ using UrlShortener.Api.Database;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 
-namespace UrlShortener.Api.Endpoints.Url;
+namespace UrlShortener.Api.Endpoints.UserUrl;
 
 public class Update : EndpointBaseAsync.WithRequest<UpdateUrlRequest>.WithActionResult
 {
@@ -23,8 +23,8 @@ public class Update : EndpointBaseAsync.WithRequest<UpdateUrlRequest>.WithAction
     }
 
     [Authorize]
-    [HttpPatch(ApiRoutes.Url.Update)]
-    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
+    [HttpPatch(ApiRoutes.UserUrl.Update)]
+    [SwaggerOperation(Tags = new[] { "UserUrl Endpoint" })]
     public override async Task<ActionResult> HandleAsync(UpdateUrlRequest req, CancellationToken ct = default)
     {
         var existInDb = await _context.Urls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);

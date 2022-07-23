@@ -2,12 +2,11 @@
 using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using UrlShortener.Api.Services;
 using UrlShortener.Api.Services.Interfaces;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 
-namespace UrlShortener.Api.Endpoints.AnonymousUrl;
+namespace UrlShortener.Api.Endpoints.Url;
 
 public class Get : EndpointBaseAsync.WithRequest<GetUrlRequest>.WithActionResult<string>
 {
@@ -20,8 +19,8 @@ public class Get : EndpointBaseAsync.WithRequest<GetUrlRequest>.WithActionResult
         _urlService = urlService;
     }
     
-    [HttpGet(ApiRoutes.AnonymousUrl.Get)]
-    [SwaggerOperation(Tags = new[] { "AnonymousUrl Endpoint" })]
+    [HttpGet(ApiRoutes.Url.Get)]
+    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult<string>> HandleAsync(GetUrlRequest req, CancellationToken ct = default)
     {
         var rawId = _hashids.Decode(req.Id);

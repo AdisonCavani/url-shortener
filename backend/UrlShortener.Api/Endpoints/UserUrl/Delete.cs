@@ -9,7 +9,7 @@ using UrlShortener.Api.Database;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 
-namespace UrlShortener.Api.Endpoints.Url;
+namespace UrlShortener.Api.Endpoints.UserUrl;
 
 public class Delete : EndpointBaseAsync.WithRequest<DeleteUrlRequest>.WithActionResult
 {
@@ -23,8 +23,8 @@ public class Delete : EndpointBaseAsync.WithRequest<DeleteUrlRequest>.WithAction
     }
 
     [Authorize]
-    [HttpDelete(ApiRoutes.Url.Delete)]
-    [SwaggerOperation(Tags = new[] {"Url Endpoint"})]
+    [HttpDelete(ApiRoutes.UserUrl.Delete)]
+    [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
     public override async Task<ActionResult> HandleAsync(DeleteUrlRequest req, CancellationToken ct = default)
 
     {

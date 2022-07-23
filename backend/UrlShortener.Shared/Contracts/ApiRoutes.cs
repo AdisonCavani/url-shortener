@@ -13,17 +13,17 @@ public static class ApiRoutes
         public const string Get = $"{Endpoint}/get";
     }
     
-    public static class AnonymousUrl
+    public static class Url
     {
-        private const string Endpoint = $"{Base}/anonymousUrl";
+        private const string Endpoint = $"{Base}/url";
 
         public const string Get = $"{Endpoint}/get";
         public const string Save = $"{Endpoint}/save";
     }
 
-    public static class Url
+    public static class UserUrl
     {
-        private const string Endpoint = $"{Base}/url";
+        private const string Endpoint = $"{Base}/userUrl";
 
         public const string GetAll = $"{Endpoint}/getAll";
         public const string Save = $"{Endpoint}/save";

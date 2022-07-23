@@ -10,7 +10,7 @@ using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 using UrlShortener.Shared.Contracts.Responses;
 
-namespace UrlShortener.Api.Endpoints.Url;
+namespace UrlShortener.Api.Endpoints.UserUrl;
 
 public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionResult<GetAllUrlsResponse>
 {
@@ -24,8 +24,8 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionRe
     }
 
     [Authorize]
-    [HttpGet(ApiRoutes.Url.GetAll)]
-    [SwaggerOperation(Tags = new[] {"Url Endpoint"})]
+    [HttpGet(ApiRoutes.UserUrl.GetAll)]
+    [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
     public override async Task<ActionResult<GetAllUrlsResponse>> HandleAsync([FromQuery] GetAllUrlsRequest req,
         CancellationToken ct = default)
     {
