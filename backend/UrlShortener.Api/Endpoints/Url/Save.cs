@@ -8,7 +8,7 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Endpoints.Url;
 
-public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResult
+public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResult<string>
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
@@ -21,7 +21,7 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
 
     [HttpPost(ApiRoutes.Url.Save)]
     [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
-    public override async Task<ActionResult> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)
+    public override async Task<ActionResult<string>> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)
     {
         Database.Entities.Url obj = new()
         {

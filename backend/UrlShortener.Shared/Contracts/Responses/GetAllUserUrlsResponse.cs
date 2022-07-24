@@ -1,8 +1,8 @@
 ﻿namespace UrlShortener.Shared.Contracts.Responses;
 
-public class GetAllUrlsResponse
+public class GetAllUserUrlsResponse
 {
-    public IEnumerable<GetUrlResponse> Urls { get; set; } = Enumerable.Empty<GetUrlResponse>();
+    public IEnumerable<GetUserUrlResponse> Urls { get; set; } = Enumerable.Empty<GetUserUrlResponse>();
     
     public int Pages { get; set; }
     

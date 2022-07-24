@@ -3,9 +3,9 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
 
-public class GetAllUrlsRequestValidator : AbstractValidator<GetAllUrlsRequest>
+public class GetAllUserUrlsRequestValidator : AbstractValidator<GetAllUserUrlsRequest>
 {
-	public GetAllUrlsRequestValidator()
+	public GetAllUserUrlsRequestValidator()
 	{
 		RuleFor(x => x.Page)
 			.NotNull()

@@ -10,10 +10,11 @@ public static class Validators
     {
         ValidatorOptions.Global.LanguageManager.Enabled = false;
         
-        services.AddScoped<IValidator<DeleteUrlRequest>, DeleteUrlRequestValidator>();
-        services.AddScoped<IValidator<GetAllUrlsRequest>, GetAllUrlsRequestValidator>();
+        services.AddScoped<IValidator<DeleteUserUrlRequest>, DeleteUserUrlRequestValidator>();
+        services.AddScoped<IValidator<GetAllUserUrlsRequest>, GetAllUserUrlsRequestValidator>();
         services.AddScoped<IValidator<GetUrlRequest>, GetUrlRequestValidator>();
         services.AddScoped<IValidator<SaveUrlRequest>, SaveUrlRequestValidator>();
-        services.AddScoped<IValidator<UpdateUrlRequest>, UpdateUrlRequestValidator>();
+        services.AddScoped<IValidator<SaveUserUrlRequest>, SaveUserUrlRequestValidator>();
+        services.AddScoped<IValidator<UpdateUserUrlRequest>, UpdateUserUrlRequestValidator>();
     }
 }

@@ -12,7 +12,7 @@ using UrlShortener.Shared.Contracts.Responses;
 
 namespace UrlShortener.Api.Endpoints.UserUrl;
 
-public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionResult<GetAllUrlsResponse>
+public class Get : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActionResult<GetAllUserUrlsResponse>
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
@@ -26,7 +26,7 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionRe
     [Authorize]
     [HttpGet(ApiRoutes.UserUrl.GetAll)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
-    public override async Task<ActionResult<GetAllUrlsResponse>> HandleAsync([FromQuery] GetAllUrlsRequest req,
+    public override async Task<ActionResult<GetAllUserUrlsResponse>> HandleAsync([FromQuery] GetAllUserUrlsRequest req,
         CancellationToken ct = default)
     {
         var userId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -47,14 +47,14 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionRe
             .ToListAsync(ct);
 
         var urlsResponse = urls.Select(
-            url => new GetUrlResponse
+            url => new GetUserUrlResponse
             {
                 Id = url.Id,
                 ShortUrl = _hashids.EncodeLong(url.Id),
                 FullUrl = url.FullUrl
             }).ToList();
 
-        return Ok(new GetAllUrlsResponse
+        return Ok(new GetAllUserUrlsResponse
         {
             Urls = urlsResponse,
             CurrentPage = req.Page,

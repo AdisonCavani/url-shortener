@@ -11,7 +11,7 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Endpoints.UserUrl;
 
-public class Delete : EndpointBaseAsync.WithRequest<DeleteUrlRequest>.WithActionResult
+public class Delete : EndpointBaseAsync.WithRequest<DeleteUserUrlRequest>.WithActionResult
 {
     private readonly AppDbContext _context;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
@@ -25,7 +25,7 @@ public class Delete : EndpointBaseAsync.WithRequest<DeleteUrlRequest>.WithAction
     [Authorize]
     [HttpDelete(ApiRoutes.UserUrl.Delete)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
-    public override async Task<ActionResult> HandleAsync(DeleteUrlRequest req, CancellationToken ct = default)
+    public override async Task<ActionResult> HandleAsync(DeleteUserUrlRequest req, CancellationToken ct = default)
 
     {
         var existInDb = await _context.UserUrls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);

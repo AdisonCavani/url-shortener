@@ -11,7 +11,7 @@ using UrlShortener.Shared.Contracts.Responses;
 
 namespace UrlShortener.Api.Endpoints.UserUrl;
 
-public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResult<SaveUrlResponse>
+public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithActionResult<SaveUserUrlResponse>
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
@@ -25,7 +25,7 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
     [Authorize]
     [HttpPost(ApiRoutes.UserUrl.Save)]
     [SwaggerOperation(Tags = new[] { "UserUrl Endpoint" })]
-    public override async Task<ActionResult<SaveUrlResponse>> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)
+    public override async Task<ActionResult<SaveUserUrlResponse>> HandleAsync(SaveUserUrlRequest req, CancellationToken ct = default)
     {
         var userId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -43,7 +43,7 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
 
         var encodedId = _hashids.EncodeLong(obj.Id);
 
-        var responseObj = new SaveUrlResponse
+        var responseObj = new SaveUserUrlResponse
         {
             Id = obj.Id,
             ShortUrl = encodedId,

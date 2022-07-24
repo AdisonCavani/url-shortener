@@ -1,6 +1,6 @@
 ﻿namespace UrlShortener.Shared.Contracts.Requests;
 
-public class GetAllUrlsRequest
+public class GetAllUserUrlsRequest
 {
     public int Page { get; set; }
 }
