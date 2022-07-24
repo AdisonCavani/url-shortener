@@ -34,13 +34,13 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUrlsRequest>.WithActionRe
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        if (!await _context.Urls.AnyAsync(ct))
+        if (!await _context.UserUrls.AnyAsync(ct))
             return NotFound();
 
         var pageResults = 5f;
-        var pageCount = Math.Ceiling(await _context.Urls.LongCountAsync(ct) / pageResults);
+        var pageCount = Math.Ceiling(await _context.UserUrls.LongCountAsync(ct) / pageResults);
 
-        var urls = await _context.Urls
+        var urls = await _context.UserUrls
             .Where(x => x.UserId == userId)
             .Skip((req.Page - 1) * (int) pageResults)
             .Take((int) pageResults)

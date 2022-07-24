@@ -23,12 +23,12 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
     [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)
     {
-        Database.Entities.AnonymousUrl obj = new()
+        Database.Entities.Url obj = new()
         {
             FullUrl = req.Url
         };
 
-        await _context.AnonymousUrls.AddAsync(obj, ct);
+        await _context.Urls.AddAsync(obj, ct);
         var saved = await _context.SaveChangesAsync(ct);
 
         var encodedId = _hashids.EncodeLong(obj.Id);

@@ -32,13 +32,13 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
         
-        Database.Entities.Url obj = new()
+        Database.Entities.UserUrl obj = new()
         {
             FullUrl = req.Url,
             UserId = userId
         };
 
-        await _context.Urls.AddAsync(obj, ct);
+        await _context.UserUrls.AddAsync(obj, ct);
         var saved = await _context.SaveChangesAsync(ct);
 
         var encodedId = _hashids.EncodeLong(obj.Id);

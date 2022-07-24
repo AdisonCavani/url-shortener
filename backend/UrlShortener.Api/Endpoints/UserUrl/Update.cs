@@ -27,7 +27,7 @@ public class Update : EndpointBaseAsync.WithRequest<UpdateUrlRequest>.WithAction
     [SwaggerOperation(Tags = new[] { "UserUrl Endpoint" })]
     public override async Task<ActionResult> HandleAsync(UpdateUrlRequest req, CancellationToken ct = default)
     {
-        var existInDb = await _context.Urls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+        var existInDb = await _context.UserUrls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
 
         if (existInDb is null)
             return NotFound();
