@@ -8,7 +8,6 @@ using Moq;
 using UrlShortener.Api.Database;
 using UrlShortener.Api.Endpoints.Url;
 using UrlShortener.Api.Services;
-using UrlShortener.Api.Services.Interfaces;
 using UrlShortener.Shared.Contracts.Requests;
 using Xunit;
 using MockQueryable.Moq;
@@ -18,7 +17,6 @@ namespace UrlShortener.UnitTests.Url;
 public class GetTests
 {
     private readonly IHashids _hashids;
-    private readonly IUrlService _urlService;
     private readonly Mock<AppDbContext> _context = new(new DbContextOptionsBuilder<AppDbContext>().Options);
     
     private readonly Get _endpoint;
@@ -26,16 +24,16 @@ public class GetTests
     public GetTests()
     {
         _hashids = new Hashids("1234", 7);
-        _urlService = new UrlService(_context.Object);
-        
+
         var mockSet = GetMockSet().AsQueryable().BuildMockDbSet();
         _context.Setup(m => m.Urls).Returns(mockSet.Object);
 
-        _endpoint = new(_hashids, _urlService);
+        _endpoint = new(_hashids, new UrlService(_context.Object));
     }
 
     [Theory]
     [InlineData("abcdefg")]
+    [InlineData("1234567")]
     public async Task Get_WhenIncorrectId_ReturnsBadRequest(string id)
     {
         // Arrange
@@ -45,10 +43,10 @@ public class GetTests
         };
 
         // Act
-        var result = await _endpoint.HandleAsync(req);
+        var res = await _endpoint.HandleAsync(req);
         
         // Assert
-        Assert.IsType<BadRequestResult>(result.Result);
+        Assert.IsType<BadRequestResult>(res.Result);
     }
     
     [Theory]
@@ -63,10 +61,10 @@ public class GetTests
         };
 
         // Act
-        var result = await _endpoint.HandleAsync(req);
+        var res = await _endpoint.HandleAsync(req);
         
         // Assert
-        Assert.IsType<NotFoundResult>(result.Result);
+        Assert.IsType<NotFoundResult>(res.Result);
     }
     
     [Theory]
@@ -81,10 +79,10 @@ public class GetTests
         };
 
         // Act
-        var result = await _endpoint.HandleAsync(req);
+        var res = await _endpoint.HandleAsync(req);
         
         // Assert
-        Assert.IsType<OkObjectResult>(result.Result);
+        Assert.IsType<OkObjectResult>(res.Result);
     }
 
     private static List<Api.Database.Entities.Url> GetMockSet()
