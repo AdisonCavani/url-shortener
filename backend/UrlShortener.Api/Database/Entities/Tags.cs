@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace UrlShortener.Api.Database.Entities;
 
-public class UserUrl
+public class Tag
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -11,9 +11,5 @@ public class UserUrl
 
     [Required]
     [MaxLength(255)]
-    public string FullUrl { get; set; } = default!;
-
-    [Required]
-    [StringLength(36, MinimumLength = 36, ErrorMessage = $"{nameof(UserId)} must be in UUID v4 format")]
-    public string UserId { get; set; } = default!;
+    public string Name { get; set; } = default!;
 }

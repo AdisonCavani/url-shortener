@@ -6,18 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using UrlShortener.Api.Database;
+using UrlShortener.Api.Mapping;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 using UrlShortener.Shared.Contracts.Responses;
 
 namespace UrlShortener.Api.Endpoints.UserUrl;
 
-public class Get : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActionResult<GetAllUserUrlsResponse>
+public class GetAll : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActionResult<GetAllUserUrlsResponse>
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
 
-    public Get(AppDbContext context, IHashids hashids)
+    public GetAll(AppDbContext context, IHashids hashids)
     {
         _context = context;
         _hashids = hashids;
@@ -26,7 +27,8 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActi
     [Authorize]
     [HttpGet(ApiRoutes.UserUrl.GetAll)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
-    public override async Task<ActionResult<GetAllUserUrlsResponse>> HandleAsync([FromQuery] GetAllUserUrlsRequest req,
+    public override async Task<ActionResult<GetAllUserUrlsResponse>> HandleAsync(
+        [FromQuery] GetAllUserUrlsRequest req,
         CancellationToken ct = default)
     {
         var userId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -34,16 +36,24 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActi
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        if (!await _context.UserUrls.AnyAsync(ct))
-            return NotFound();
+        if (!await _context.Urls.AnyAsync(ct))
+            return NoContent();
 
         var pageResults = 5f;
-        var pageCount = Math.Ceiling(await _context.UserUrls.LongCountAsync(ct) / pageResults);
+        var urlsCount = await _context.Urls
+            .Where(x => x.UrlDetails != null && x.UrlDetails.UserId == userId)
+            .LongCountAsync(ct);
+        var pageCount = Math.Ceiling(urlsCount / pageResults);
 
-        var urls = await _context.UserUrls
-            .Where(x => x.UserId == userId)
+        if (req.Page > pageCount)
+            return NotFound();
+
+        var urls = await _context.Urls
+            .Include(x => x.UrlDetails)
+            .Where(x => x.UrlDetails != null && x.UrlDetails.UserId == userId)
             .Skip((req.Page - 1) * (int) pageResults)
             .Take((int) pageResults)
+            .Include(x => x.UrlDetails!.Tags)
             .ToListAsync(ct);
 
         var urlsResponse = urls.Select(
@@ -51,8 +61,9 @@ public class Get : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActi
             {
                 Id = url.Id,
                 ShortUrl = _hashids.EncodeLong(url.Id),
-                FullUrl = url.FullUrl
-            }).ToList();
+                FullUrl = url.FullUrl,
+                UrlDetails = url.UrlDetails!.ToUrlDetails()
+            }).ToList().OrderBy(x => x.Id);
 
         return Ok(new GetAllUserUrlsResponse
         {

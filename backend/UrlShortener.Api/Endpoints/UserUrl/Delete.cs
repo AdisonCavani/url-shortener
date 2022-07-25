@@ -28,7 +28,7 @@ public class Delete : EndpointBaseAsync.WithRequest<DeleteUserUrlRequest>.WithAc
     public override async Task<ActionResult> HandleAsync(DeleteUserUrlRequest req, CancellationToken ct = default)
 
     {
-        var existInDb = await _context.UserUrls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+        var existInDb = await _context.Urls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
 
         if (existInDb is null)
             return NotFound();
@@ -38,10 +38,10 @@ public class Delete : EndpointBaseAsync.WithRequest<DeleteUserUrlRequest>.WithAc
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
 
-        if (existInDb.UserId != userId)
-            return StatusCode(StatusCodes.Status403Forbidden);
+        if (existInDb.UrlDetails?.UserId != userId)
+            return Forbid();
 
-        _context.UserUrls.Remove(existInDb);
+        _context.Urls.Remove(existInDb);
         var result = await _context.SaveChangesAsync(ct);
 
         var cacheDb = _connectionMultiplexer.GetDatabase();

@@ -5,13 +5,14 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using UrlShortener.Api.Database;
+using UrlShortener.Api.Database.Entities;
+using UrlShortener.Api.Mapping;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
-using UrlShortener.Shared.Contracts.Responses;
 
 namespace UrlShortener.Api.Endpoints.UserUrl;
 
-public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithActionResult<SaveUserUrlResponse>
+public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithActionResult<string>
 {
     private readonly AppDbContext _context;
     private readonly IHashids _hashids;
@@ -25,32 +26,30 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithAction
     [Authorize]
     [HttpPost(ApiRoutes.UserUrl.Save)]
     [SwaggerOperation(Tags = new[] { "UserUrl Endpoint" })]
-    public override async Task<ActionResult<SaveUserUrlResponse>> HandleAsync(SaveUserUrlRequest req, CancellationToken ct = default)
+    public override async Task<ActionResult<string>> HandleAsync(SaveUserUrlRequest req, CancellationToken ct = default)
     {
         var userId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
-        
-        Database.Entities.UserUrl obj = new()
+
+        Database.Entities.Url obj = new()
         {
             FullUrl = req.Url,
-            UserId = userId
+            UrlDetails = new UrlDetails
+            {
+                UserId = userId,
+                Title = req.Title,
+                Tags = req?.Tags?.ToTagEntityList()
+            }
         };
 
-        await _context.UserUrls.AddAsync(obj, ct);
+        await _context.Urls.AddAsync(obj, ct);
         var saved = await _context.SaveChangesAsync(ct);
 
         var encodedId = _hashids.EncodeLong(obj.Id);
 
-        var responseObj = new SaveUserUrlResponse
-        {
-            Id = obj.Id,
-            ShortUrl = encodedId,
-            FullUrl = obj.FullUrl
-        };
-
-        var createdObj = new ObjectResult(responseObj)
+        var createdObj = new ObjectResult(encodedId)
         {
             StatusCode = StatusCodes.Status201Created
         };

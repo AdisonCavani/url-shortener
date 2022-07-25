@@ -9,5 +9,9 @@ public class Url
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public long Id { get; set; }
 
-    [Required] [MaxLength(255)] public string FullUrl { get; set; } = default!;
+    [Required]
+    [MaxLength(255)]
+    public string FullUrl { get; set; } = default!;
+
+    public UrlDetails? UrlDetails { get; set; }
 }

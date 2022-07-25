@@ -25,6 +25,7 @@ public static class ApiRoutes
     {
         private const string Endpoint = $"{Base}/userUrl";
 
+        public const string Get = $"{Endpoint}/get";
         public const string GetAll = $"{Endpoint}/getAll";
         public const string Save = $"{Endpoint}/save";
         public const string Update = $"{Endpoint}/update";

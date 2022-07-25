@@ -15,7 +15,7 @@ public class UrlService : IUrlService
 
     public async Task<string?> GetUrlByIdAsync(long id, CancellationToken ct = default)
     {
-        var result = await _context.UserUrls.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id, ct);
+        var result = await _context.Urls.AsNoTracking().FirstOrDefaultAsync(a => a.Id == id, ct);
         return result?.FullUrl;
     }
 }

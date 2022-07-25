@@ -3,12 +3,12 @@ using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
 
-public class GetAllUserUrlsRequestValidator : AbstractValidator<GetAllUserUrlsRequest>
+public class GetAllUserUrlsRequestValidator: AbstractValidator<GetAllUserUrlsRequest>
 {
-	public GetAllUserUrlsRequestValidator()
-	{
-		RuleFor(x => x.Page)
-			.NotNull()
-			.GreaterThan(0);
-	}
+    public GetAllUserUrlsRequestValidator()
+    {
+        RuleFor(x => x.Page)
+            .NotNull()
+            .GreaterThanOrEqualTo(1);
+    }
 }
