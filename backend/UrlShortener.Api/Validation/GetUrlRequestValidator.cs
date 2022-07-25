@@ -7,6 +7,8 @@ public class GetUrlRequestValidator : AbstractValidator<GetUrlRequest>
 {
 	public GetUrlRequestValidator()
 	{
-		RuleFor(x => x.Id).NotEmpty();
+		RuleFor(x => x.Id)
+			.NotEmpty()
+			.Length(7);
 	}
 }

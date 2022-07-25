@@ -13,6 +13,10 @@ public static class Validators
         services.AddScoped<IValidator<GetUrlRequest>, GetUrlRequestValidator>();
         services.AddScoped<IValidator<SaveUrlRequest>, SaveUrlRequestValidator>();
         
+        services.AddScoped<IValidator<GetUserUrlRequest>, GetUserUrlRequestValidator>();
         services.AddScoped<IValidator<GetAllUserUrlsRequest>, GetAllUserUrlsRequestValidator>();
+        services.AddScoped<IValidator<SaveUserUrlRequest>, SaveUserUrlRequestValidator>();
+        services.AddScoped<IValidator<UpdateUserUrlRequest>, UpdateUserUrlRequestValidator>();
+        services.AddScoped<IValidator<DeleteUserUrlRequest>, DeleteUserUrlRequestValidator>();
     }
 }

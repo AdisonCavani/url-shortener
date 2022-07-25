@@ -1,11 +1,12 @@
 ﻿using FluentValidation;
+using UrlShortener.Shared.Contracts.Dtos;
 using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
 
-public class SaveUrlRequestValidator : AbstractValidator<SaveUrlRequest>
+public class SaveUserUrlRequestValidator : AbstractValidator<SaveUserUrlRequest>
 {
-	public SaveUrlRequestValidator()
+	public SaveUserUrlRequestValidator()
 	{
 		RuleFor(x => x.Url)
 			.NotEmpty()
@@ -16,5 +17,10 @@ public class SaveUrlRequestValidator : AbstractValidator<SaveUrlRequest>
 				    || !(uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps))
 					context.AddFailure("Url", "Must be valid URL");
 			});
+
+		RuleFor(x => x.Title)
+			.MaximumLength(255);
+
+		RuleForEach(x => x.Tags).SetValidator(new TagDtoValidator());
 	}
 }
