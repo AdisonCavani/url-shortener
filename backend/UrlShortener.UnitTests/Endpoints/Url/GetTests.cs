@@ -12,7 +12,7 @@ using UrlShortener.Shared.Contracts.Requests;
 using Xunit;
 using MockQueryable.Moq;
 
-namespace UrlShortener.UnitTests.Url;
+namespace UrlShortener.UnitTests.Endpoints.Url;
 
 public class GetTests
 {

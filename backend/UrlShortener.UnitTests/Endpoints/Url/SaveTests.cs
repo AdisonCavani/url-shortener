@@ -13,7 +13,7 @@ using UrlShortener.Api.Endpoints.Url;
 using UrlShortener.Shared.Contracts.Requests;
 using Xunit;
 
-namespace UrlShortener.UnitTests.Url;
+namespace UrlShortener.UnitTests.Endpoints.Url;
 
 public class SaveTests
 {
