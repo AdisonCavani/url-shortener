@@ -24,7 +24,7 @@ public class GetTests
     }
 
     [Fact]
-    public void Get_ReturnsOkObjectResult()
+    public void ReturnsOk()
     {
         // Arrange
         var expected = new

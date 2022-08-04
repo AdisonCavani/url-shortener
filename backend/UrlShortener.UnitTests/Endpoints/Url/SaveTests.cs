@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using HashidsNet;
@@ -32,7 +31,7 @@ public class SaveTests
     [Theory]
     [InlineData("http://test.com")]
     [InlineData("https://example.com")]
-    public async Task Get_WhenCorrectUrl_ButNotSaved_Returns_500(string url)
+    public async Task WhenCorrectUrl_ButNotSaved_Returns500(string url)
     {
         // Arrange
         _context.Setup(x => 
@@ -48,17 +47,14 @@ public class SaveTests
         var res = await _endpoint.HandleAsync(req);
         
         // Assert
-        Assert.IsType<StatusCodeResult>(res.Result);
-
-        var resObj = res.Result as StatusCodeResult;
-        
+        var resObj = Assert.IsType<StatusCodeResult>(res.Result);
         Assert.Equal(StatusCodes.Status500InternalServerError, resObj?.StatusCode);
     }
 
     [Theory]
     [InlineData("http://test.com")]
     [InlineData("https://example.com")]
-    public async Task Get_WhenCorrectUrl_ReturnsOk(string url)
+    public async Task ReturnsOk(string url)
     {
         // Arrange
         _context.Setup(x => 
@@ -74,10 +70,7 @@ public class SaveTests
         var res = await _endpoint.HandleAsync(req);
         
         // Assert
-        Assert.IsType<ObjectResult>(res.Result);
-
-        var resObj = res.Result as ObjectResult;
-        
+        var resObj = Assert.IsType<ObjectResult>(res.Result);
         Assert.Equal(StatusCodes.Status201Created, resObj?.StatusCode);
     }
 }

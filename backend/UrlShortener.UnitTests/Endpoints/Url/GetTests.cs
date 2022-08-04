@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using HashidsNet;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,7 +8,6 @@ using UrlShortener.Api.Endpoints.Url;
 using UrlShortener.Api.Services;
 using UrlShortener.Shared.Contracts.Requests;
 using Xunit;
-using MockQueryable.Moq;
 
 namespace UrlShortener.UnitTests.Endpoints.Url;
 
@@ -24,9 +21,8 @@ public class GetTests
     public GetTests()
     {
         _hashids = new Hashids("1234", 7);
-
-        var mockSet = GetMockSet().AsQueryable().BuildMockDbSet();
-        _context.Setup(m => m.Urls).Returns(mockSet.Object);
+        
+        _context.Setup(m => m.Urls).Returns(UrlHelpers.GetMockSet());
 
         _endpoint = new(_hashids, new UrlService(_context.Object));
     }
@@ -50,9 +46,9 @@ public class GetTests
     }
     
     [Theory]
-    [InlineData(3)]
-    [InlineData(4)]
-    public async Task Get_WhenCorrectId_ButNotInDb_ReturnsNotFound(long id)
+    [InlineData(444)]
+    [InlineData(144)]
+    public async Task WhenCorrectId_ButNotInDb_ReturnsNotFound(long id)
     {
         // Arrange
         var req = new GetUrlRequest
@@ -70,7 +66,7 @@ public class GetTests
     [Theory]
     [InlineData(1)]
     [InlineData(2)]
-    public async Task Get_WhenCorrectId_ReturnsOk(long id)
+    public async Task ReturnsOk(long id)
     {
         // Arrange
         var req = new GetUrlRequest
@@ -83,24 +79,5 @@ public class GetTests
         
         // Assert
         Assert.IsType<OkObjectResult>(res.Result);
-    }
-
-    private static List<Api.Database.Entities.Url> GetMockSet()
-    {
-        List<Api.Database.Entities.Url> urls = new()
-        {
-            new()
-            {
-                Id = 1,
-                FullUrl = "https://test.com"
-            },
-            new()
-            {
-                Id = 2,
-                FullUrl = "http://example.com"
-            }
-        };
-
-        return urls;
     }
 }
