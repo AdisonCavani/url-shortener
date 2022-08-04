@@ -18,7 +18,8 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUrlRequest>.WithActionResu
         _context = context;
         _hashids = hashids;
     }
-
+    
+    [ProducesResponseType(StatusCodes.Status201Created)]
     [HttpPost(ApiRoutes.Url.Save)]
     [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
     public override async Task<ActionResult<string>> HandleAsync(SaveUrlRequest req, CancellationToken ct = default)

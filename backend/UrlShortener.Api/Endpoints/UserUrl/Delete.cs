@@ -22,21 +22,24 @@ public class Delete : EndpointBaseAsync.WithRequest<DeleteUserUrlRequest>.WithAc
         _connectionMultiplexer = connectionMultiplexer;
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Authorize]
     [HttpDelete(ApiRoutes.UserUrl.Delete)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]
     public override async Task<ActionResult> HandleAsync(DeleteUserUrlRequest req, CancellationToken ct = default)
 
     {
-        var existInDb = await _context.Urls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
-
-        if (existInDb is null)
-            return NotFound();
-
         var userId = HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
 
         if (userId is null)
             return StatusCode(StatusCodes.Status500InternalServerError);
+        
+        var existInDb = await _context.Urls.FirstOrDefaultAsync(x => x.Id == req.Id, ct);
+
+        if (existInDb is null)
+            return NotFound();
 
         if (existInDb.UrlDetails?.UserId != userId)
             return Forbid();

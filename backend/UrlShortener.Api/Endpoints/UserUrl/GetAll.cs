@@ -24,6 +24,9 @@ public class GetAll : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithA
         _hashids = hashids;
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Authorize]
     [HttpGet(ApiRoutes.UserUrl.GetAll)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]

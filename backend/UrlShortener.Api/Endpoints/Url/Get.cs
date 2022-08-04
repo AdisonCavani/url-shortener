@@ -19,9 +19,13 @@ public class Get : EndpointBaseAsync.WithRequest<GetUrlRequest>.WithActionResult
         _urlService = urlService;
     }
     
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [HttpGet(ApiRoutes.Url.Get)]
-    [SwaggerOperation(Tags = new[] { "Url Endpoint" })]
-    public override async Task<ActionResult<string>> HandleAsync(GetUrlRequest req, CancellationToken ct = default)
+    [SwaggerOperation(Tags = new[] {"Url Endpoint"})]
+    public override async Task<ActionResult<string>> HandleAsync(
+        [FromQuery] GetUrlRequest req,
+        CancellationToken ct = default)
     {
         var rawId = _hashids.Decode(req.Id);
 

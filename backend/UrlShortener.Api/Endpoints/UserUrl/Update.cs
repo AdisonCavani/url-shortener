@@ -23,6 +23,9 @@ public class Update : EndpointBaseAsync.WithRequest<UpdateUserUrlRequest>.WithAc
         _connectionMultiplexer = connectionMultiplexer;
     }
 
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status403Forbidden)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     [Authorize]
     [HttpPatch(ApiRoutes.UserUrl.Update)]
     [SwaggerOperation(Tags = new[] {"UserUrl Endpoint"})]

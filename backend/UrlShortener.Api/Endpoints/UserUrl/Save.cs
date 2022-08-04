@@ -22,7 +22,7 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithAction
         _context = context;
         _hashids = hashids;
     }
-
+    
     [Authorize]
     [HttpPost(ApiRoutes.UserUrl.Save)]
     [SwaggerOperation(Tags = new[] { "UserUrl Endpoint" })]
