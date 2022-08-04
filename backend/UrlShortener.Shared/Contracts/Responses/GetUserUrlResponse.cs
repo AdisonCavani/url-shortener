@@ -1,5 +1,4 @@
 ﻿using UrlShortener.Shared.Contracts.Dtos;
-using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Shared.Contracts.Responses;
 

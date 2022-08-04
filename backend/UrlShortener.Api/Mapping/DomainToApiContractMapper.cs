@@ -1,6 +1,5 @@
 ﻿using UrlShortener.Api.Database.Entities;
 using UrlShortener.Shared.Contracts.Dtos;
-using UrlShortener.Shared.Contracts.Responses;
 
 namespace UrlShortener.Api.Mapping;
 

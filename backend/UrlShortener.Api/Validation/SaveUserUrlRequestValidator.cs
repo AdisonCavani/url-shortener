@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using UrlShortener.Shared.Contracts.Dtos;
 using UrlShortener.Shared.Contracts.Requests;
 
 namespace UrlShortener.Api.Validation;
