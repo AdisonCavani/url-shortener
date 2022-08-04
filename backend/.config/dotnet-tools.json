@@ -2,23 +2,17 @@
   "version": 1,
   "isRoot": true,
   "tools": {
-      "dotnet-ef": {
-      "version": "6.0.6",
-      "commands": [
-        "dotnet-ef"
-      ]
-    },    
+    "dotnet-ef": {
+      "version": "6.0.7",
+      "commands": ["dotnet-ef"]
+    },
     "dotnet-format": {
       "version": "5.1.250801",
-      "commands": [
-        "dotnet-format"
-      ]
+      "commands": ["dotnet-format"]
     },
     "dotnet-stryker": {
-      "version": "2.0.0",
-      "commands": [
-        "dotnet-stryker"
-      ]
+      "version": "2.1.0",
+      "commands": ["dotnet-stryker"]
     }
   }
 }
