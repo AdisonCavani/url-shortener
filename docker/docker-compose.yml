@@ -1,0 +1,22 @@
+version: "3.1"
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+  redis:
+    image: redis
+    container_name: redis
+    ports:
+      - 6379:6379
+    restart: always
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL

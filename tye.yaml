@@ -36,3 +36,10 @@ services:
   bindings:
   - port: 6379
     connectionString: ${host}:${port}
+
+# details-service
+- name: details-service
+  project: backend/DetailsService/DetailsService.csproj
+  env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Production
