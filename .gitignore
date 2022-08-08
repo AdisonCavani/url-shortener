@@ -426,3 +426,5 @@ Desktop.ini
 .DS_Store
 
 **/.next
+
+**/.tye

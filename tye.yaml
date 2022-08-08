@@ -1,0 +1,38 @@
+name: url-shortener
+
+services:
+
+# logging - seq
+- name: seq
+  image: datalust/seq
+  env:
+  - name: ACCEPT_EULA
+    value: Y
+  bindings:
+    - port: 5341
+      containerPort: 80
+      protocol: http
+      connectionString: "${protocol}://${host}:${port}"
+
+
+# url-service
+- name: url-service
+  project: backend/UrlService/UrlService.csproj
+  env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Production
+- name: url-service-postgres
+  image: postgres
+  env:
+  - name: POSTGRES_USER
+    value: admin
+  - name: POSTGRES_PASSWORD
+    value: "pass@word1"
+  bindings:
+  - port: 5432
+    connectionString: Server=${host};Port=${port};User Id=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};
+- name: url-service-redis
+  image: redis
+  bindings:
+  - port: 6379
+    connectionString: ${host}:${port}
