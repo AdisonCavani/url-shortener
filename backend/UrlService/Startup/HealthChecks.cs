@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Responses;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class HealthChecks
 {

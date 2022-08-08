@@ -1,13 +1,14 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
+using AutoMapper;
 using HashidsNet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Swashbuckle.AspNetCore.Annotations;
 using UrlService.Database;
-using UrlService.Mapping;
 using UrlShortener.Shared.Contracts;
+using UrlShortener.Shared.Contracts.Dtos;
 using UrlShortener.Shared.Contracts.Requests;
 using UrlShortener.Shared.Contracts.Responses;
 
@@ -15,13 +16,15 @@ namespace UrlService.Endpoints.UserUrl;
 
 public class GetAll : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithActionResult<GetAllUserUrlsResponse>
 {
-    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     private readonly IHashids _hashids;
+    private readonly AppDbContext _context;
 
-    public GetAll(AppDbContext context, IHashids hashids)
+    public GetAll(IMapper mapper, IHashids hashids, AppDbContext context)
     {
-        _context = context;
+        _mapper = mapper;
         _hashids = hashids;
+        _context = context;
     }
 
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -65,7 +68,7 @@ public class GetAll : EndpointBaseAsync.WithRequest<GetAllUserUrlsRequest>.WithA
                 Id = url.Id,
                 ShortUrl = _hashids.EncodeLong(url.Id),
                 FullUrl = url.FullUrl,
-                UrlDetails = url.UrlDetails!.ToUrlDetails()
+                UrlDetails = _mapper.Map<UrlDetailsDto>(url.UrlDetails)
             }).ToList().OrderBy(x => x.Id);
 
         return Ok(new GetAllUserUrlsResponse

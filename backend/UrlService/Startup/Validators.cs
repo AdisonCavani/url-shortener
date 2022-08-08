@@ -2,7 +2,7 @@
 using UrlService.Validation;
 using UrlShortener.Shared.Contracts.Requests;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class Validators
 {

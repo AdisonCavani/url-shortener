@@ -1,12 +1,12 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
+using AutoMapper;
 using HashidsNet;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using UrlService.Database;
 using UrlService.Database.Entities;
-using UrlService.Mapping;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 
@@ -14,11 +14,13 @@ namespace UrlService.Endpoints.UserUrl;
 
 public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithActionResult<string>
 {
-    private readonly AppDbContext _context;
+    private readonly IMapper _mapper;
     private readonly IHashids _hashids;
+    private readonly AppDbContext _context;
 
-    public Save(AppDbContext context, IHashids hashids)
+    public Save(IMapper mapper, IHashids hashids, AppDbContext context)
     {
+        _mapper = mapper;
         _context = context;
         _hashids = hashids;
     }
@@ -40,7 +42,7 @@ public class Save : EndpointBaseAsync.WithRequest<SaveUserUrlRequest>.WithAction
             {
                 UserId = userId,
                 Title = req.Title,
-                Tags = req?.Tags?.ToTagEntityList()
+                Tags = _mapper.Map<List<Tag>>(req.Tags)
             }
         };
 

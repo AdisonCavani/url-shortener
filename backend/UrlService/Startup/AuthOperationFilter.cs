@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public class AuthOperationFilter : IOperationFilter
 {

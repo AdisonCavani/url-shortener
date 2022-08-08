@@ -2,12 +2,13 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
+using UrlService.Options;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class Authentication
 {
-    public static void AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+    public static void AddAuthentication(this IServiceCollection services, AuthOptions authOptions)
     {
         services.AddAuthentication(options =>
         {
@@ -26,8 +27,8 @@ public static class Authentication
                 ValidateIssuer = true,
                 ValidateIssuerSigningKey = true,
                 ClockSkew = TimeSpan.Zero, // FIX: might cause issues, if auth is out of sync
-                ValidIssuer = configuration["AuthSettings:Issuer"],
-                ValidAudience = configuration["AuthSettings:Audience"],
+                ValidIssuer = authOptions.Issuer,
+                ValidAudience = authOptions.Audience,
                 IssuerSigningKeyResolver = (_, _, _, parameters) =>
                 {
                     var json = new WebClient().DownloadString($"{parameters.ValidIssuer}/.well-known/jwks.json");

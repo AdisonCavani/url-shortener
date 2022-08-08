@@ -1,8 +1,8 @@
-﻿namespace UrlService.Extensions;
+﻿namespace UrlService.Startup;
 
 public static class AwsParameterStore
 {
-    public static IHostBuilder AddAwsParameterStore(this IHostBuilder builder)
+    public static void AddAwsParameterStore(this ConfigureWebHostBuilder builder)
     {
         builder.ConfigureAppConfiguration(confBuilder =>
         {
@@ -19,7 +19,5 @@ public static class AwsParameterStore
                 // AWSOptions credentials are configured using AWS CLI
             });
         });
-
-        return builder;
     }
 }

@@ -1,11 +1,11 @@
 ﻿using App.Metrics.AspNetCore;
 using App.Metrics.Formatters.Prometheus;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class AppMetrics
 {
-    public static IHostBuilder AddAppMetrics(this IHostBuilder builder)
+    public static void AddAppMetrics(this ConfigureWebHostBuilder builder)
     {
         builder.UseMetrics(options =>
         {
@@ -16,7 +16,5 @@ public static class AppMetrics
                 endpointOptions.MetricsTextEndpointEnabled = false;
             };
         });
-
-        return builder;
     }
 }

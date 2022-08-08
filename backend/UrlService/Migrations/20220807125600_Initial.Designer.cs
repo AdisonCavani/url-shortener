@@ -12,8 +12,8 @@ using UrlService.Database;
 namespace UrlService.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220724190014_FixDbScheme")]
-    partial class FixDbScheme
+    [Migration("20220807125600_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

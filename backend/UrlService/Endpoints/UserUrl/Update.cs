@@ -1,12 +1,13 @@
 ﻿using System.Security.Claims;
 using Ardalis.ApiEndpoints;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using StackExchange.Redis;
 using Swashbuckle.AspNetCore.Annotations;
 using UrlService.Database;
-using UrlService.Mapping;
+using UrlService.Database.Entities;
 using UrlShortener.Shared.Contracts;
 using UrlShortener.Shared.Contracts.Requests;
 
@@ -14,11 +15,13 @@ namespace UrlService.Endpoints.UserUrl;
 
 public class Update : EndpointBaseAsync.WithRequest<UpdateUserUrlRequest>.WithActionResult
 {
+    private readonly IMapper _mapper;
     private readonly AppDbContext _context;
     private readonly IConnectionMultiplexer _connectionMultiplexer;
 
-    public Update(AppDbContext context, IConnectionMultiplexer connectionMultiplexer)
+    public Update(IMapper mapper, AppDbContext context, IConnectionMultiplexer connectionMultiplexer)
     {
+        _mapper = mapper;
         _context = context;
         _connectionMultiplexer = connectionMultiplexer;
     }
@@ -53,7 +56,7 @@ public class Update : EndpointBaseAsync.WithRequest<UpdateUserUrlRequest>.WithAc
         if (existInDb.UrlDetails.Tags is not null)
             _context.Tags.RemoveRange(existInDb.UrlDetails.Tags);
 
-        existInDb.UrlDetails.Tags = req.Tags?.ToTagEntityList();
+        existInDb.UrlDetails.Tags = _mapper.Map<List<Tag>>(req.Tags);
         var result = await _context.SaveChangesAsync(ct);
 
         var cacheDb = _connectionMultiplexer.GetDatabase();

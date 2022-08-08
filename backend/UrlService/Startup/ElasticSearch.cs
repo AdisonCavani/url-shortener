@@ -2,20 +2,23 @@
 using Serilog.Formatting.Json;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Sinks.File;
+using UrlService.Options;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class ElasticSearch
 {
-    public static LoggerConfiguration UseElasticSearch(this LoggerConfiguration configuration,
-        HostBuilderContext context)
+    public static void UseElasticSearch(
+        this LoggerConfiguration configuration,
+        LoggingOptions loggingOptions,
+        IWebHostEnvironment env)
     {
         configuration
             .WriteTo.Elasticsearch(
-                new ElasticsearchSinkOptions(new Uri(context.Configuration["ElasticConfiguration:Uri"]))
+                new ElasticsearchSinkOptions(new Uri(loggingOptions.ElasticConnectionString))
                 {
                     IndexFormat =
-                        $"{context.Configuration["AppName"]}-logs-{context.HostingEnvironment.EnvironmentName?.ToLower().Replace('.', '-')}-{DateTime.UtcNow:yyyy-MM}",
+                        $"{loggingOptions.AppName}-logs-{env.EnvironmentName?.ToLower().Replace('.', '-')}-{DateTime.UtcNow:yyyy-MM}",
                     AutoRegisterTemplate = true,
                     NumberOfShards = 2,
                     NumberOfReplicas = 1,
@@ -29,7 +32,5 @@ public static class ElasticSearch
                         new FileSink(Path.Combine(AppContext.BaseDirectory, "logs", "ES-failures.txt"),
                             new JsonFormatter(), null)
                 });
-
-        return configuration;
     }
 }

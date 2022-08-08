@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 
-namespace UrlService.Extensions;
+namespace UrlService.Startup;
 
 public static class SwaggerService
 {

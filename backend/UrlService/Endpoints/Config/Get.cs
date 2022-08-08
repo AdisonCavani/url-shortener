@@ -3,20 +3,20 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Swashbuckle.AspNetCore.Annotations;
-using UrlService.Configuration;
+using UrlService.Options;
 using UrlShortener.Shared.Contracts;
 
 namespace UrlService.Endpoints.Config;
 
 public class Get : EndpointBaseSync.WithoutRequest.WithActionResult
 {
-    private readonly IOptions<AppSettings> _appSettings;
-    private readonly IOptions<AuthSettings> _authSettings;
+    private readonly IOptions<AuthOptions> _authOptions;
+    private readonly IOptions<ConnectionOptions> _connectionOptions;
 
-    public Get(IOptions<AppSettings> appSettings, IOptions<AuthSettings> authSettings)
+    public Get(IOptions<AuthOptions> authOptions, IOptions<ConnectionOptions> connectionOptions)
     {
-        _appSettings = appSettings;
-        _authSettings = authSettings;
+        _authOptions = authOptions;
+        _connectionOptions = connectionOptions;
     }
 
     [Authorize]
@@ -26,8 +26,8 @@ public class Get : EndpointBaseSync.WithoutRequest.WithActionResult
     {
         return Ok(new
         {
-            AppSettings = _appSettings.Value,
-            AuthSettings = _authSettings.Value
+            AuthOptions = _authOptions.Value,
+            ConnectionOptions = _connectionOptions.Value
         });
     }
 }
