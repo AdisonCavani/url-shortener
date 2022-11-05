@@ -3,11 +3,10 @@ using StackExchange.Redis;
 using UrlService.Database;
 using UrlService.Options;
 using UrlService.Services;
-using UrlService.Services.Interfaces;
 
 namespace UrlService.Startup;
 
-public static class Services
+public static class AddServices
 {
     public static void RegisterServices(this IServiceCollection services, ConnectionOptions connectionOptions)
     {
@@ -17,8 +16,9 @@ public static class Services
 
         services.AddSingleton<IHashids>(_ => new Hashids(connectionOptions.HashidsSalt, 7));
 
-        services.AddScoped<UrlService.Services.UrlService>();
-        services.AddScoped<IUrlService>(x =>
-            new CachedUrlService(x.GetRequiredService<UrlService.Services.UrlService>(), x.GetRequiredService<IConnectionMultiplexer>()));
+        services.AddSingleton<IMessageBusPublisher, MessageBusPublisher>();
+        services.AddScoped<UrlRepository>();
+        services.AddScoped<IUrlRepository>(x =>
+            new CachedUrlRepository(x.GetRequiredService<UrlRepository>(), x.GetRequiredService<IConnectionMultiplexer>()));
     }
 }

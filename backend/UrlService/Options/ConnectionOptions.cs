@@ -9,4 +9,9 @@ public class ConnectionOptions
     public string RedisConnectionString { get; set; } = default!;
     
     public string PostgresConnectionString { get; set; } = default!;
+    
+    public string RabbitMqHost { get; set; } = default!;
+
+    public int RabbitMqPort { get; set; }
+
 }

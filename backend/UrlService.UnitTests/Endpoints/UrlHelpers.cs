@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using MockQueryable.Moq;
 using Moq;
-using UrlService.Database.Entities;
 
 namespace UrlService.UnitTests.Endpoints;
 
@@ -16,7 +15,7 @@ public static class UrlHelpers
     public const string USER1_UUID = "4913d21f-390c-4be4-b10b-21611c79db54";
     public const string USER2_UUID = "a8382cef-e9c9-4025-a7ae-1081dc4f0af9";
 
-    public static DbSet<Database.Entities.Url> GetMockSet()
+    public static DbSet<Database.Entities.UrlEntity> GetMockSet()
     {
         var faker = new Faker();
 
@@ -24,7 +23,7 @@ public static class UrlHelpers
         var detailsId = 1;
         var tagId = 1;
 
-        var list = new List<Database.Entities.Url>();
+        var list = new List<Database.Entities.UrlEntity>();
 
         for (int i = 1; i <= 100; i++)
         {
@@ -44,7 +43,7 @@ public static class UrlHelpers
                     CreatedAt = faker.Date.Past(),
 
                     Tags = faker.Random.Number(0, 100) <= 20
-                        ? new List<Tag>
+                        ? new List<TagEntity>
                         {
                             new()
                             {

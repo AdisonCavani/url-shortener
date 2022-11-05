@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Filters;
 
 namespace UrlService.Startup;
 
@@ -11,16 +9,10 @@ public static class SwaggerService
     {
         services.AddSwaggerGen(options =>
         {
-            options.ExampleFilters();
-            options.EnableAnnotations();
+            options.UseApiEndpoints();
             options.DescribeAllParametersInCamelCase();
             options.OperationFilter<AuthOperationFilter>();
 
-            var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
-
-            options.IncludeXmlComments(xmlPath);
-            
             options.AddSecurityDefinition(JwtBearerDefaults.AuthenticationScheme, new()
             {
                 Description = "JWT Authorization header using the bearer scheme",
@@ -29,7 +21,5 @@ public static class SwaggerService
                 Type = SecuritySchemeType.ApiKey
             });
         });
-
-        services.AddSwaggerExamplesFromAssemblyOf<Program>();
     }
 }

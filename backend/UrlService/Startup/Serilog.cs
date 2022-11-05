@@ -16,7 +16,7 @@ public static class Serilog
                 .ReadFrom.Configuration(context.Configuration);
 
             if (env.IsProduction())
-                configuration.UseSeq(loggingOptions);
+                configuration.WriteTo.Seq(loggingOptions.SeqConnectionString);
                 // configuration.UseElasticSearch(loggingOptions, context.HostingEnvironment);
             
             else

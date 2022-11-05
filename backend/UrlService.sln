@@ -5,8 +5,6 @@ VisualStudioVersion = 17.3.32708.82
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UrlService", "UrlService\UrlService.csproj", "{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlShortener.Shared", "UrlShortener.Shared\UrlShortener.Shared.csproj", "{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlService.UnitTests", "UrlService.UnitTests\UrlService.UnitTests.csproj", "{691E71BC-DA50-49C2-983E-42D3052B62FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UrlService.IntegrationTests", "UrlService.IntegrationTests\UrlService.IntegrationTests.csproj", "{2BAC4FBF-C4A4-46EC-9C60-2C3C376C4DD8}"
@@ -23,10 +21,6 @@ Global
 		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{91D8C5B4-C353-4EFC-8DAA-ADFBEBEAEBEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1CE0BDE7-F01F-4404-AA0B-19AA83D4F03C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{691E71BC-DA50-49C2-983E-42D3052B62FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{691E71BC-DA50-49C2-983E-42D3052B62FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{691E71BC-DA50-49C2-983E-42D3052B62FE}.Release|Any CPU.ActiveCfg = Release|Any CPU

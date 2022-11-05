@@ -17,12 +17,12 @@ namespace UrlService.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.7")
+                .HasAnnotation("ProductVersion", "6.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("UrlService.Database.Entities.Tag", b =>
+            modelBuilder.Entity("UrlService.Database.Entities.TagEntity", b =>
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
@@ -43,29 +43,6 @@ namespace UrlService.Migrations
                     b.HasIndex("UrlDetailsId");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("UrlService.Database.Entities.Url", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<string>("FullUrl")
-                        .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
-
-                    b.Property<long?>("UrlDetailsId")
-                        .HasColumnType("bigint");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UrlDetailsId");
-
-                    b.ToTable("Urls");
                 });
 
             modelBuilder.Entity("UrlService.Database.Entities.UrlDetails", b =>
@@ -93,14 +70,37 @@ namespace UrlService.Migrations
                     b.ToTable("UrlsDetails");
                 });
 
-            modelBuilder.Entity("UrlService.Database.Entities.Tag", b =>
+            modelBuilder.Entity("UrlService.Database.Entities.UrlEntity", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
+
+                    b.Property<string>("FullUrl")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<long?>("UrlDetailsId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UrlDetailsId");
+
+                    b.ToTable("Urls");
+                });
+
+            modelBuilder.Entity("UrlService.Database.Entities.TagEntity", b =>
                 {
                     b.HasOne("UrlService.Database.Entities.UrlDetails", null)
                         .WithMany("Tags")
                         .HasForeignKey("UrlDetailsId");
                 });
 
-            modelBuilder.Entity("UrlService.Database.Entities.Url", b =>
+            modelBuilder.Entity("UrlService.Database.Entities.UrlEntity", b =>
                 {
                     b.HasOne("UrlService.Database.Entities.UrlDetails", "UrlDetails")
                         .WithMany()

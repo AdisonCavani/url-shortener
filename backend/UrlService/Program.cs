@@ -1,29 +1,21 @@
 ﻿using FluentValidation.AspNetCore;
-using Microsoft.EntityFrameworkCore;
 using UrlService.Database;
 using UrlService.Startup;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Program
-var settings = builder.GetAllOptions();
+var allOptions = builder.GetAllOptions();
 builder.WebHost.AddAwsParameterStore();
-builder.WebHost.AddSerilog(builder.Environment, settings.LoggingOptions);
-
-if (builder.Environment.IsProduction())
-    builder.WebHost.AddAppMetrics();
+builder.WebHost.AddSerilog(builder.Environment, allOptions.LoggingOptions);
 
 // Configure services
 builder.Services.ConfigureOptions(builder.Configuration, builder.Environment);
-
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(settings.ConnectionOptions.PostgresConnectionString));
-
-builder.Services.ConfigureDbContext(settings.ConnectionOptions);
-builder.Services.AddCache(settings.ConnectionOptions);
+builder.Services.ConfigureDbContext(allOptions.ConnectionOptions);
+builder.Services.AddCache(allOptions.ConnectionOptions);
 builder.Services.AddValidators();
-builder.Services.RegisterServices(settings.ConnectionOptions);
-builder.Services.AddAuthentication(settings.AuthOptions);
+builder.Services.RegisterServices(allOptions.ConnectionOptions);
+builder.Services.AddAuthentication(allOptions.AuthOptions);
 builder.Services.AddControllers();
 builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
@@ -32,12 +24,6 @@ builder.Services.AddCors(options =>
 {
     options.AddDefaultPolicy(policy => { policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader(); });
 });
-
-if (builder.Environment.IsProduction())
-{
-    builder.Services.AddMetrics();
-    builder.Services.AddAppMetricsHealthPublishing();
-}
 
 var app = builder.Build();
 
@@ -52,7 +38,6 @@ await app.SeedDataAsync();
 app.UseHealthChecksEndpoint();
 app.UseHsts();
 app.UseHttpsRedirection();
-app.UseRouting();
 app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
@@ -60,4 +45,7 @@ app.MapControllers();
 app.Run();
 
 // TODO: find a better way (testing error)
-public partial class Program {}
+namespace UrlService
+{
+    public partial class Program {}
+}

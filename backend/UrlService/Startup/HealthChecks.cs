@@ -1,7 +1,8 @@
 ﻿using System.Net.Mime;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using UrlShortener.Shared.Contracts;
-using UrlShortener.Shared.Contracts.Responses;
+using UrlService.Contracts;
+using UrlService.Contracts.Dtos;
+using UrlService.Contracts.Responses;
 
 namespace UrlService.Startup;
 
@@ -18,7 +19,7 @@ public static class HealthChecks
                 var response = new HealthCheckResponse
                 {
                     Status = report.Status.ToString(),
-                    Checks = report.Entries.Select(x => new HealthCheck
+                    Checks = report.Entries.Select(x => new HealthCheckDto
                     {
                         Component = x.Key,
                         Status = x.Value.Status.ToString(),

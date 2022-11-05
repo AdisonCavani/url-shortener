@@ -14,13 +14,19 @@ services:
       protocol: http
       connectionString: "${protocol}://${host}:${port}"
 
+# message-bus - rabbitmq
+- name: rabbitmq
+  image: rabbitmq:3-management
+  bindings:
+    - name: ui
+      protocol: http
+      port: 15672
+      containerPort: 15672
+    - name: amqp
+      protocol: amqp
+      port: 5672
 
-# url-service
-- name: url-service
-  project: backend/UrlService/UrlService.csproj
-  env:
-  - name: ASPNETCORE_ENVIRONMENT
-    value: Production
+# database - postgres
 - name: url-service-postgres
   image: postgres
   env:
@@ -31,15 +37,35 @@ services:
   bindings:
   - port: 5432
     connectionString: Server=${host};Port=${port};User Id=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};
+- name: management-service-postgres
+  image: postgres
+  env:
+  - name: POSTGRES_USER
+    value: admin
+  - name: POSTGRES_PASSWORD
+    value: "pass@word1"
+  bindings:
+  - port: 6000
+    containerPort: 5432
+    connectionString: Server=${host};Port=${port};User Id=${env:POSTGRES_USER};Password=${env:POSTGRES_PASSWORD};
+
+# caching - redis
 - name: url-service-redis
   image: redis
   bindings:
   - port: 6379
     connectionString: ${host}:${port}
 
-# details-service
-- name: details-service
-  project: backend/DetailsService/DetailsService.csproj
+# url-service
+- name: url-service
+  project: backend/UrlService/UrlService.csproj
+  env:
+  - name: ASPNETCORE_ENVIRONMENT
+    value: Production
+
+# management-service
+- name: management-service
+  project: backend/ManagementService/ManagementService.csproj
   env:
   - name: ASPNETCORE_ENVIRONMENT
     value: Production
